@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="RentServiceFront.view.Authentication.user_control.LogInUserControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:RentServiceFront.view"
+        xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:validations="clr-namespace:RentServiceFront"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        d:DataContext="{d:DesignInstance Type=viewmodels:LogInViewModel}"
+        mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/resources/RussianLocalization.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Width="250">
+            <TextBlock
+                Padding="0,8"
+                VerticalAlignment="Center"
+                Style="{StaticResource MaterialDesignTitleMediumTextBlock}"
+                Text="{StaticResource Authorization}" />
+            <TextBox
+                materialDesign:HintAssist.HelperText="{StaticResource UsernameFieldHelperText}"
+                materialDesign:HintAssist.Hint="{StaticResource UsernameFieldHint}"
+                materialDesign:TextFieldAssist.HasClearButton="True">
+                <TextBox.Text>
+                    <Binding
+                        Path="Username"
+                        UpdateSourceTrigger="PropertyChanged">
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <PasswordBox
+                Margin="0 25 0 0"
+                PasswordChanged="PasswordBox_OnPasswordChanged"
+                materialDesign:HintAssist.HelperText="{StaticResource PasswordFieldHelperText}"
+                materialDesign:HintAssist.Hint="{StaticResource PasswordFieldHint}"
+                materialDesign:TextFieldAssist.HasClearButton="True" />
+            <DockPanel Margin="0 40 0 0">
+                <StackPanel>
+                    <Label>
+                        <Hyperlink Command="{Binding ResetPasswordCommand}">Сброс пароля</Hyperlink>
+                    </Label>
+                    <Label>
+                        <Hyperlink Command="{Binding RegisterCommand}">Регистрация</Hyperlink>
+                    </Label>
+                </StackPanel>
+                <Button HorizontalAlignment="Right"
+                        Width="100"
+                        Content="{StaticResource LogInButtonText}"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="{StaticResource LogInButtonText}" 
+                        Command="{Binding LogInCommand}"/>
+            </DockPanel>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

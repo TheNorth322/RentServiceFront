@@ -1,0 +1,65 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:enums="clr-namespace:RentServiceFront.domain.enums">
+    
+    <!-- LogInView -->
+    <system:String x:Key="LogInViewTitle">Вход</system:String>
+    <system:String x:Key="Authorization">Авторизация</system:String>
+    <system:String x:Key="UsernameFieldHint">Имя пользователя</system:String>
+    <system:String x:Key="UsernameFieldHelperText">Введите имя пользователя</system:String>
+
+    <system:String x:Key="PasswordFieldHint">Пароль</system:String>
+    <system:String x:Key="PasswordFieldHelperText">Введите пароль</system:String>
+
+    <system:String x:Key="LogInButtonText">Войти</system:String>
+
+    <!-- RegistrationView -->
+    <system:String x:Key="Registration">Регистрация</system:String>
+    <system:String x:Key="EmailFieldHelperText">Введите электронную почту</system:String>
+    <system:String x:Key="EmailFieldHint">Электронная почта</system:String>
+    <system:String x:Key="RegisterButtonText">Зарегистрироваться</system:String>
+    <system:String x:Key="AccountTypeHint">Тип аккаунта</system:String>
+    
+    <!-- IndividualUserRegistrationView -->
+    <system:String x:Key="AddPassport">Добавление паспорта</system:String>
+    <system:String x:Key="FullnameFieldHelperText">Введите ФИО</system:String>
+    <system:String x:Key="FullnameFieldHint">ФИО</system:String>
+    <system:String x:Key="DateOfBirthHint">Дата рождения</system:String>
+    <system:String x:Key="DateOfIssueHint">Дата выдачи</system:String>
+    <system:String x:Key="NumberFieldHint">Серия и номер</system:String>
+    <system:String x:Key="NumberFieldHelperText">Введите серию и номер паспорта</system:String>
+    <system:String x:Key="GenderHint">Пол</system:String>
+    <system:String x:Key="PlaceOfBirthFieldHelperText">Введите место рождения</system:String>
+    <system:String x:Key="PlaceOfBirthFieldHint">Место рождения</system:String>
+    <system:String x:Key="AddPassportText">Добавить</system:String>
+    
+    <!-- EntityRegistrationView -->
+    <system:String x:Key="AddEntityInfoText">Информация о юр.лице</system:String>
+    <system:String x:Key="NameFieldHelperText">Введите название</system:String>
+    <system:String x:Key="NameFieldHint">Название</system:String>
+    <system:String x:Key="SupervisorFullnameFieldHelperText">Введите ФИО представителя</system:String>
+    <system:String x:Key="SupervisorFullnameFieldHint">ФИО представителя</system:String>
+    <system:String x:Key="AddressFieldHelperText">Введите адрес</system:String>
+    <system:String x:Key="AddressFieldHint">Адрес</system:String>
+    <system:String x:Key="BankNameFieldHelperText">Введите название банка</system:String>
+    <system:String x:Key="BankNameFieldHint">Название банка</system:String>
+    <system:String x:Key="CheckingAccountFieldHelperText">Введите счет</system:String>
+    <system:String x:Key="CheckingAccountFieldHint">Счет</system:String>
+    <system:String x:Key="ItnNumberFieldHelperText">Введите ИНН</system:String>
+    <system:String x:Key="ItnNumberFieldHint">ИНН</system:String>
+    <system:String x:Key="AddEntityText">Зарегистрироваться</system:String>
+    
+    <system:String x:Key="PasswordResetText">Сброс пароля</system:String>
+    <system:String x:Key="VerifyEmailText">Подтвердить</system:String>
+    
+    <system:String x:Key="NewPasswordVerifiedFieldHelperText">Подтвердите новый пароль</system:String>
+    <system:String x:Key="NewPasswordVerifiedFieldHint">Новый пароль</system:String>
+    
+    <system:String x:Key="NewPasswordFieldHelperText">Введите новый пароль</system:String>
+    <system:String x:Key="NewPasswordFieldHint">Новый пароль</system:String>
+    
+    <system:String x:Key="ResetText">Сбросить</system:String>
+    <system:String x:Key="EnterTokenText">Введите токен</system:String>
+    <system:String x:Key="TokenVerificationText">Подтверждение токена</system:String>
+</ResourceDictionary>

@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="RentServiceFront.view.Authentication.user_control.IndividualUserRegistrationUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RentServiceFront.view"
+             xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:enums="clr-namespace:RentServiceFront.domain.enums"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
+             xmlns:validators="clr-namespace:RentServiceFront.view.validator"
+             d:DataContext="{d:DesignInstance Type=viewmodels:IndividualUserRegistrationViewModel}"
+             mc:Ignorable="d" Height="450" Width="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/resources/RussianLocalization.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Button
+            Margin="10 10 0 0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+            ToolTip="MaterialDesignFloatingActionMiniButton"
+            Command="{Binding GoBackCommand}">
+            <materialDesign:PackIcon
+                Width="18"
+                Height="18"
+                Kind="ArrowLeftBold" />
+        </Button>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Width="250">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource MaterialDesignTitleMediumTextBlock}"
+                    Text="{StaticResource AddPassport}" />
+                <TextBox
+                    Margin="0 12 0 0"
+                    materialDesign:HintAssist.HelperText="{StaticResource FullnameFieldHelperText}"
+                    materialDesign:HintAssist.Hint="{StaticResource FullnameFieldHint}"
+                    materialDesign:TextFieldAssist.HasClearButton="True">
+                    <TextBox.Text>
+                        <Binding
+                            Path="Fullname"
+                            UpdateSourceTrigger="PropertyChanged">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <DatePicker
+                    Margin="0 25 0 0"
+                    materialDesign:HintAssist.Hint="{StaticResource DateOfBirthHint}"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    SelectedDate="{Binding
+                                Path=DateOfBirth,
+                                Mode=TwoWay,
+                                TargetNullValue={x:Static System:DateTime.Now}}"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+
+                <DatePicker
+                    Margin="0 25 0 0"
+                    materialDesign:HintAssist.Hint="{StaticResource DateOfIssueHint}"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    SelectedDate="{Binding
+                Path=DateOfIssue,
+                Mode=TwoWay,
+                TargetNullValue={x:Static System:DateTime.Now}}"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+
+                <TextBox
+                    Margin="0 25 0 0"
+                    materialDesign:HintAssist.HelperText="{StaticResource NumberFieldHelperText}"
+                    materialDesign:HintAssist.Hint="{StaticResource NumberFieldHint}"
+                    materialDesign:TextFieldAssist.HasClearButton="True">
+                    <TextBox.Text>
+                        <Binding
+                            Path="NumberSeries"
+                            UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validators:NumberSeriesValidationRule
+                                    ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <ComboBox Margin="0 25 0 0"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Gender, Mode=OneTime}"
+                          SelectedItem="{Binding Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          materialDesign:HintAssist.Hint="{StaticResource GenderHint}"
+                          materialDesign:TextFieldAssist.HasClearButton="True" />
+
+                <TextBox
+                    Height="75"
+                    Margin="0 25 0 0 "
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="{StaticResource PlaceOfBirthFieldHelperText}"
+                    AcceptsReturn="True"
+                    Text="{Binding PlaceOfBirth}"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto" />
+
+                <DockPanel Margin="0 40 0 0">
+                    <Button HorizontalAlignment="Right"
+                            Width="180"
+                            Content="{StaticResource AddPassportText}"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            ToolTip="{StaticResource AddPassportText}" 
+                            Command="{Binding RegisterCommand}"/>
+                </DockPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="RentServiceFront.view.Authentication.user_control.RegistrationUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RentServiceFront.view"
+             xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:enums="clr-namespace:RentServiceFront.domain.enums"
+             d:DataContext="{d:DesignInstance Type=viewmodels:RegistrationViewModel}"
+             mc:Ignorable="d" Height="450" Width="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/resources/RussianLocalization.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Button
+            Margin="10 10 0 0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+            ToolTip="MaterialDesignFloatingActionMiniButton"
+            Command="{Binding GoBackCommand}">
+            <materialDesign:PackIcon
+                Width="18"
+                Height="18"
+                Kind="ArrowLeftBold" />
+        </Button>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <StackPanel Width="250">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource MaterialDesignTitleMediumTextBlock}"
+                    Text="{StaticResource Registration}" />
+                <TextBox
+                    Margin="0 12 0 0"
+                    materialDesign:HintAssist.HelperText="{StaticResource UsernameFieldHelperText}"
+                    materialDesign:HintAssist.Hint="{StaticResource UsernameFieldHint}"
+                    materialDesign:TextFieldAssist.HasClearButton="True">
+                    <TextBox.Text>
+                        <Binding
+                            Path="Username"
+                            UpdateSourceTrigger="PropertyChanged">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <TextBox
+
+                    Margin="0 25 0 0"
+                    materialDesign:HintAssist.HelperText="{StaticResource EmailFieldHelperText}"
+                    materialDesign:HintAssist.Hint="{StaticResource EmailFieldHint}"
+                    materialDesign:TextFieldAssist.HasClearButton="True">
+                    <TextBox.Text>
+                        <Binding
+                            Path="Email"
+                            UpdateSourceTrigger="PropertyChanged">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <PasswordBox
+                    Margin="0 25 0 0"
+                    PasswordChanged="PasswordBox_OnPasswordChanged"
+                    materialDesign:HintAssist.HelperText="{StaticResource PasswordFieldHelperText}"
+                    materialDesign:HintAssist.Hint="{StaticResource PasswordFieldHint}"
+                    materialDesign:TextFieldAssist.HasClearButton="True" />
+
+                <ComboBox Margin="0 25 0 0"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Source={x:Static enums:Role.ADMIN}, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedItem="{Binding Role, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          materialDesign:HintAssist.Hint="{StaticResource AccountTypeHint}"
+                          materialDesign:TextFieldAssist.HasClearButton="True" />
+
+                <DockPanel Margin="0 40 0 0">
+                    <Button HorizontalAlignment="Right"
+                            Width="180"
+                            Content="{StaticResource RegisterButtonText}"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            ToolTip="{StaticResource LogInButtonText}" 
+                            Command="{Binding RegisterCommand}"/>
+                </DockPanel>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
