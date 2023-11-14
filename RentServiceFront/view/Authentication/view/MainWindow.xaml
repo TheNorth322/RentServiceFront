@@ -44,22 +44,10 @@
                         </DataTemplate>
                     </ListBox.Resources>
                 </ListBox>
-                <TextBox
-                    Height="50"
-                    Margin="0 0 20 0" 
-                    HorizontalAlignment="Right"
-                    Width="200"
-                    VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="Search"
-                    AcceptsReturn="True"
-                    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto" />                
+
             </Grid>
-            <DockPanel>
-                <ContentControl Content="{Binding SelectedItem._viewModel}"/>            
-            </DockPanel>
+
+            
         </StackPanel>
     </Grid>
 </Window>

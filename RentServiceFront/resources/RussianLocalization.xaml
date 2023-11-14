@@ -62,4 +62,8 @@
     <system:String x:Key="ResetText">Сбросить</system:String>
     <system:String x:Key="EnterTokenText">Введите токен</system:String>
     <system:String x:Key="TokenVerificationText">Подтверждение токена</system:String>
+    <system:String x:Key="RoomTypesText">Тип помещения</system:String>
+    
+    <system:String x:Key="SearchText">Поиск</system:String>
+    <system:String x:Key="ConfirmText">Подтвердить</system:String>
 </ResourceDictionary>
