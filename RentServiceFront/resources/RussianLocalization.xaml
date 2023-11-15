@@ -66,4 +66,5 @@
     
     <system:String x:Key="SearchText">Поиск</system:String>
     <system:String x:Key="ConfirmText">Подтвердить</system:String>
+    <system:String x:Key="AddToCartText">Добавить в корзину</system:String>
 </ResourceDictionary>

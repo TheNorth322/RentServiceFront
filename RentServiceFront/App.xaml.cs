@@ -11,19 +11,9 @@ namespace RentServiceFront
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow = new LogInView(new LogInWindowViewModel(new LogInViewModel()));
+            MainWindow = new LogInView(new LogInViewModel());
             MainWindow.Show();
             base.OnStartup(e);
-        }
-        
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSession();
-        }
-
-        public void Configure(IApplicationBuilder app, IWebHost env)
-        {
-            app.UseSession();
         }
     }
 }

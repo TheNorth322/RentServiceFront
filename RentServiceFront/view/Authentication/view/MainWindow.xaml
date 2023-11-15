@@ -6,9 +6,15 @@
         xmlns:local="clr-namespace:RentServiceFront.view.Authentication.view"
         xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:userControl="clr-namespace:RentServiceFront.view.Authentication.user_control"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         Title="Основное меню" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:RoomViewModel}">
+            <userControl:RoomUserControl />
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <StackPanel>
             <Grid
@@ -44,10 +50,8 @@
                         </DataTemplate>
                     </ListBox.Resources>
                 </ListBox>
-
             </Grid>
-
-            
+            <ContentControl Content="{Binding CurrentViewModel}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -7,14 +7,11 @@
              xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:enums="clr-namespace:RentServiceFront.domain.enums"
+             xmlns:enums1="clr-namespace:RentServiceFront.domain.model.enums"
              d:DataContext="{d:DesignInstance Type=viewmodels:RegistrationViewModel}"
              mc:Ignorable="d" Height="450" Width="800">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/resources/RussianLocalization.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <enums1:EnumConverter x:Key="EnumToCollectionConverter" />
     </UserControl.Resources>
     <Grid>
         <Button
@@ -72,10 +69,9 @@
                     materialDesign:TextFieldAssist.HasClearButton="True" />
 
                 <ComboBox Margin="0 25 0 0"
-                          SelectedValuePath="Value"
-                          DisplayMemberPath="Description"
-                          ItemsSource="{Binding Source={x:Static enums:Role.ADMIN}, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
-                          SelectedItem="{Binding Role, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValue="{Binding Role, Converter={StaticResource EnumToCollectionConverter}, ConverterParameter={x:Type enums:Role}}"
+                          ItemsSource="{Binding Source={enums1:EnumToItemsSource {x:Type enums:Role}}}"
+                          
                           materialDesign:HintAssist.Hint="{StaticResource AccountTypeHint}"
                           materialDesign:TextFieldAssist.HasClearButton="True" />
 
@@ -85,8 +81,8 @@
                             Content="{StaticResource RegisterButtonText}"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            ToolTip="{StaticResource LogInButtonText}" 
-                            Command="{Binding RegisterCommand}"/>
+                            ToolTip="{StaticResource LogInButtonText}"
+                            Command="{Binding RegisterCommand}" />
                 </DockPanel>
 
             </StackPanel>

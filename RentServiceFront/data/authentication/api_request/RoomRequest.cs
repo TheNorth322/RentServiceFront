@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Refit;
 using RentServiceFront.data.client;
 using RentServiceFront.data.service;
 using RentServiceFront.domain.authentication.repository;
@@ -13,9 +14,9 @@ public class RoomRequest : IRoomRepository
     private RoomClient _roomClient;  
     private IRoomService _api;
 
-    public RoomRequest()
+    public RoomRequest(string token)
     {
-        _roomClient = new RoomClient();
+        _roomClient = new RoomClient(token);
         _api = _roomClient.roomService;
     }
     public async Task<Room> CreateRoom(CreateRoomRequest request)

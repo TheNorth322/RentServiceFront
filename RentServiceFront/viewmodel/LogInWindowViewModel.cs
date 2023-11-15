@@ -6,6 +6,11 @@ public class LogInWindowViewModel : ViewModelBase
 {
     private ViewModelBase _currentViewModel;
 
+    public LogInWindowViewModel()
+    {
+        _currentViewModel = new LogInViewModel();
+        _currentViewModel.ViewModelRequested += OnViewModelChanged;
+    }
     public LogInWindowViewModel(ViewModelBase vm)
     {
         _currentViewModel = vm;

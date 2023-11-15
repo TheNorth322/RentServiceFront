@@ -9,18 +9,23 @@ namespace RentServiceFront.data.service;
 
 public interface IRoomService
 {
-   [Post("/room/create")]
-   Task<Room> createRoom([Body] CreateRoomRequest request);
+    [Post("/room/create")]
+    [Headers("Authorization: Bearer")]
+    Task<Room> createRoom([Body] CreateRoomRequest request);
 
-   [Get("/room/{id}")]
-   Task<Room> getRoomById(long id);
+    [Get("/room/{id}")]
+    [Headers("Authorization: Bearer")]
+    Task<Room> getRoomById(long id);
 
-   [Post("/room/type/create")]
-   Task<RoomType> createRoomType([Body] CreateRoomTypeRequest request);
+    [Post("/room/type/create")]
+    [Headers("Authorization: Bearer")]
+    Task<RoomType> createRoomType([Body] CreateRoomTypeRequest request);
 
-   [Post("/room/type/add")]
-   Task<string> addRoomTypes([Body] AddRoomTypeToRoomRequest request);
-   
-   [Get("/room/types")]
-   Task<List<RoomType>> getAllTypes();
+    [Post("/room/type/add")]
+    [Headers("Authorization: Bearer")]
+    Task<string> addRoomTypes([Body] AddRoomTypeToRoomRequest request);
+
+    [Get("/room/types")]
+    [Headers("Authorization: Bearer")]
+    Task<List<RoomType>> getAllTypes();
 }

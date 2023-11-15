@@ -22,32 +22,37 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="view\Authentication\user_control\EnterEmailUserControl.xaml">
+      <Page Update="view\Authentication\user_control\LogInView\EnterEmailUserControl.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="view\Authentication\user_control\EntityRegistrationUserControl.xaml">
+      <Page Update="view\Authentication\user_control\LogInView\EnterTokenUserControl.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="view\Authentication\user_control\IndividualUserRegistrationUserControl.xaml">
+      <Page Update="view\Authentication\user_control\LogInView\EntityRegistrationUserControl.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="view\Authentication\user_control\LogInUserControl.xaml">
+      <Page Update="view\Authentication\user_control\LogInView\IndividualUserRegistrationUserControl.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="view\Authentication\user_control\PasswordResetUserControl.xaml">
+      <Page Update="view\Authentication\user_control\LogInView\LogInUserControl.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="view\Authentication\user_control\RegistrationUserControl.xaml">
+      <Page Update="view\Authentication\user_control\LogInView\PasswordResetUserControl.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="view\Authentication\user_control\LogInView\RegistrationUserControl.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
