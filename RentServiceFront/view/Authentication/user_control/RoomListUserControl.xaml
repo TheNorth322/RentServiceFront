@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RentServiceFront.view.Authentication.user_control"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:b="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors" 
+             xmlns:b="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
              xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DataContext="{d:DesignInstance Type=viewmodels:RoomListViewModel}"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="600">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,20 +19,24 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <DockPanel Margin="10">
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="7*" />
+            </Grid.ColumnDefinitions>
             <StackPanel>
                 <TextBox
                     Height="50"
                     Margin="0 0 0 20"
+                    Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                            AncestorType={x:Type StackPanel}}, Path=ActualWidth}"
                     HorizontalAlignment="Center"
-                    Width="250"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="{StaticResource SearchText}"
                     AcceptsReturn="True"
                     IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto" />
+                    TextWrapping="Wrap" />
 
                 <Expander
                     HorizontalAlignment="Stretch"
@@ -84,63 +88,70 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-
                     </StackPanel>
                 </Expander>
                 <Button
-                    Width="200"
+                    Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                            AncestorType={x:Type StackPanel}}, Path=ActualWidth}"
                     Margin="0 20 0 0"
                     Content="{StaticResource ConfirmText}"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
                     ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
             </StackPanel>
-            <ItemsControl ItemsSource="{Binding RoomListItemViewModels}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <b:Interaction.Triggers>
-                                <b:EventTrigger EventName="MouseLeftButtonUp">
-                                    <b:InvokeCommandAction Command="{Binding OnItemClickedCommand, RelativeSource={RelativeSource AncestorType=viewmodels:RoomListViewModel}}" 
-                                                           CommandParameter="{Binding}"/>
-                                </b:EventTrigger>
-                            </b:Interaction.Triggers>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
 
-                            <!-- Ваша информация о помещении -->
-                            <StackPanel Grid.Column="0" Margin="10">
-                                <TextBlock Text="{Binding Address}" FontWeight="Bold" />
-                                <TextBlock Text="{Binding Description}" />
-                                <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
+            <ScrollViewer Grid.Column="1" CanContentScroll="True" VerticalScrollBarVisibility="Visible"
+                          Style="{DynamicResource MaterialDesignScrollViewer}"
+                          Height="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                      AncestorType={x:Type Window}}, Path=.ActualHeight}">
+                <ItemsControl ItemsSource="{Binding RoomListItemViewModels}" Margin=" 10 0 10 0">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                                <!-- RoomTypes в виде Chips -->
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Room Types:" />
-                                    <ItemsControl ItemsSource="{Binding Types}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <materialDesign:Chip Content="{Binding TypeName}" Margin="2" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
+
+                                <!-- Ваша информация о помещении -->
+                                <StackPanel Grid.Column="0" Margin="10">
+                                    <TextBlock Text="{Binding Address}" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Description}" />
+                                    <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
+
+                                    <!-- RoomTypes в виде Chips -->
+                                    <WrapPanel Orientation="Horizontal">
+                                        <TextBlock Text="Room Types:" />
+                                        <ItemsControl ItemsSource="{Binding RoomTypeViewModels}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <materialDesign:Chip Content="{Binding Text}" Margin="2" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </WrapPanel>
                                 </StackPanel>
-                            </StackPanel>
-
-                            <!-- Картинки помещения (если нужно) -->
-                            <ItemsControl Grid.Column="1" ItemsSource="{Binding Images}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Image Source="{Binding ImageUrl}" Width="100" Height="100" Margin="5" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </DockPanel>
+                                <Button Grid.Column="1"
+                                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                        ToolTip="MaterialDesignFloatingActionMiniDarkButton"
+                                        Command="{Binding OpenRoomViewCommand}">
+                                    <materialDesign:PackIcon
+                                        Width="12"
+                                        Height="12"
+                                        Kind="ArrowRight" />
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

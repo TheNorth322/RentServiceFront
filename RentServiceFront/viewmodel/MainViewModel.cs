@@ -7,12 +7,11 @@ public class MainViewModel : ViewModelBase
     private List<SampleItem> _sampleItems;
     private SampleItem _selectedItem;
     private ViewModelBase _currentViewModel;
-
+    
     public MainViewModel(ViewModelBase vm)
     {
         _currentViewModel = vm;
         _currentViewModel.ViewModelRequested += OnViewModelChanged;
-         
     }
     
     public ViewModelBase CurrentViewModel
@@ -43,7 +42,7 @@ public class MainViewModel : ViewModelBase
         set
         {
             _selectedItem = value;
-            _currentViewModel = _selectedItem._viewModel;
+            _currentViewModel = _selectedItem.ViewModel;
             OnPropertyChange(nameof(SelectedItem));
         }
     }

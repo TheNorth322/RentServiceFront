@@ -9,10 +9,13 @@
         xmlns:userControl="clr-namespace:RentServiceFront.view.Authentication.user_control"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
-        Title="Основное меню" Height="450" Width="800">
+        Title="Основное меню" MinHeight="300" MinWidth="600">
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodels:RoomViewModel}">
             <userControl:RoomUserControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:RoomListViewModel}">
+            <userControl:RoomListUserControl />
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -51,7 +54,7 @@
                     </ListBox.Resources>
                 </ListBox>
             </Grid>
-            <ContentControl Content="{Binding CurrentViewModel}"/>
+            <ContentControl Content="{Binding CurrentViewModel}" />
         </StackPanel>
     </Grid>
 </Window>

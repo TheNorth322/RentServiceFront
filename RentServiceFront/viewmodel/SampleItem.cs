@@ -11,14 +11,24 @@ public class SampleItem : ViewModelBase
     public PackIconKind UnselectedIcon { get; set; }
     private object? _notification = null;
 
-    public ViewModelBase _viewModel { get; set; }
-      
+    public ViewModelBase ViewModel { get; }
+
+    public SampleItem(string title, PackIconKind selectedIcon, PackIconKind unselectedIcon, ViewModelBase vm,
+        object notification = null)
+    {
+        Title = title;
+        SelectedIcon = selectedIcon;
+        UnselectedIcon = unselectedIcon;
+        ViewModel = vm;
+        Notification = notification;
+    }
+
     public object? Notification
     {
         get { return _notification; }
         set { SetProperty(ref _notification, value); }
     }
-    
+
     protected virtual bool SetProperty<T>(ref T member, T value, [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(member, value))
@@ -29,5 +39,5 @@ public class SampleItem : ViewModelBase
         member = value;
         OnPropertyChange(propertyName);
         return true;
-    } 
+    }
 }
