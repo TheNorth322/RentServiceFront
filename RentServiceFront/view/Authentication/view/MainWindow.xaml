@@ -27,7 +27,6 @@
                     HorizontalAlignment="Left"
                     Height="80"
                     ItemsSource="{Binding SampleItems}"
-                    SelectedIndex="0"
                     SelectedItem="{Binding SelectedItem}"
                     Style="{StaticResource MaterialDesign3.NavigationBarListBox}">
                     <ListBox.ItemContainerStyle>

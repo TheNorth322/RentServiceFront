@@ -16,15 +16,16 @@ public class RoomViewModel : ViewModelBase
     private int _floor;
     private int _area;
     private BuildingViewModel _building;
-    
+
     public ICommand AddToCartCommand { get; }
-    
+
     public RoomViewModel()
     {
         AddToCartCommand = new RelayCommand(AddToCartExecute);
     }
 
-    public RoomViewModel(long id, string address, string description, List<RoomImageViewModel> images, int price, List<RoomTypeViewModel> types, int number, int floor, int area, BuildingViewModel building)
+    public RoomViewModel(long id, string address, string description, List<RoomImageViewModel> images, int price,
+        List<RoomTypeViewModel> types, int number, int floor, int area, BuildingViewModel building)
     {
         _id = id;
         _address = address;
@@ -36,9 +37,20 @@ public class RoomViewModel : ViewModelBase
         _floor = floor;
         _area = area;
         _building = building;
+        _images = new List<RoomImageViewModel>();
+        _images.Add(new RoomImageViewModel(1,
+            "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"));
+        _images.Add(new RoomImageViewModel(1,
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/310px-Placeholder_view_vector.svg.pngr.com/docs/assets/img/elementor-placeholder-image.png"));
+        _images.Add(new RoomImageViewModel(1,
+            "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"));
+        _images.Add(new RoomImageViewModel(1,
+            "https://t4.ftcdn.net/jpg/00/97/58/97/360_F_97589769_t45CqXyzjz0KXwoBZT9PRaWGHRk5hQqQ.jpg"));
+        _images.Add(new RoomImageViewModel(1,
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/310px-Placeholder_view_vector.svg.pngr.com/docs/assets/img/elementor-placeholder-image.png"));
         AddToCartCommand = new RelayCommand(AddToCartExecute);
     }
-    
+
     public string Address
     {
         get { return _address; }
@@ -133,6 +145,5 @@ public class RoomViewModel : ViewModelBase
 
     private void AddToCartExecute(object param)
     {
-        
     }
 }

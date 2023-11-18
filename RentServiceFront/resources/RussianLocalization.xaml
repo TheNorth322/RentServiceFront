@@ -67,4 +67,10 @@
     <system:String x:Key="SearchText">Поиск</system:String>
     <system:String x:Key="ConfirmText">Подтвердить</system:String>
     <system:String x:Key="AddToCartText">Добавить в корзину</system:String>
+    
+    <system:String x:Key="AreaText">Площадь</system:String>
+    <system:String x:Key="PriceText">Цена</system:String>
+    
+    <system:String x:Key="OpenText">Открыть</system:String>
+    <system:String x:Key="DescriptionText">Описание</system:String>
 </ResourceDictionary>

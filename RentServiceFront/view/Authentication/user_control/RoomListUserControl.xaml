@@ -90,6 +90,19 @@
                         </ItemsControl>
                     </StackPanel>
                 </Expander>
+                
+                <TextBlock Text="{StaticResource AreaText}" />
+                <Slider
+                    Maximum="{Binding MaxArea}"
+                    Minimum="{Binding MinArea}"
+                    Value="{Binding Area}" />
+                
+                <TextBlock Text="{StaticResource PriceText}" />
+                <Slider
+                    Maximum="{Binding MaxPrice}"
+                    Minimum="{Binding MinPrice}"
+                    Value="{Binding Price}" />
+                
                 <Button
                     Width="{Binding RelativeSource={RelativeSource FindAncestor, 
                                             AncestorType={x:Type StackPanel}}, Path=ActualWidth}"
@@ -97,7 +110,7 @@
                     Content="{StaticResource ConfirmText}"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                    ToolTip="{StaticResource ConfirmText}" />
             </StackPanel>
 
             <ScrollViewer Grid.Column="1" CanContentScroll="True" VerticalScrollBarVisibility="Visible"
@@ -113,14 +126,11 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-
-                                <!-- Ваша информация о помещении -->
                                 <StackPanel Grid.Column="0" Margin="10">
                                     <TextBlock Text="{Binding Address}" FontWeight="Bold" />
                                     <TextBlock Text="{Binding Description}" />
                                     <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
 
-                                    <!-- RoomTypes в виде Chips -->
                                     <WrapPanel Orientation="Horizontal">
                                         <TextBlock Text="Room Types:" />
                                         <ItemsControl ItemsSource="{Binding RoomTypeViewModels}">
@@ -140,7 +150,7 @@
                                 <Button Grid.Column="1"
                                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                                        ToolTip="MaterialDesignFloatingActionMiniDarkButton"
+                                        ToolTip="{StaticResource OpenText}"
                                         Command="{Binding OpenRoomViewCommand}">
                                     <materialDesign:PackIcon
                                         Width="12"

@@ -16,32 +16,34 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-
+    <Grid Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-
-        <ListBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                 ItemsSource="{Binding Images}"
-                 Margin="10">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Image Source="{Binding Url}" Stretch="Uniform" Width="200" Height="150" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <ScrollViewer Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"
+                      Style="{StaticResource MaterialDesignScrollViewer}">
+            <ListBox
+                ItemsSource="{Binding Images}"
+                Margin="10">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding Url}" Stretch="Uniform" Width="200" Height="150" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="10">
             <TextBlock Text="{Binding Address}" FontWeight="Bold" />
@@ -49,20 +51,37 @@
             <TextBlock Text="{Binding Number, StringFormat='Room: {0}'}" />
             <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
             <TextBlock Text="{Binding Area, StringFormat='Area: {0} sq.m.'}" />
-            <TextBlock Text="{Binding Description}" />
-            <ItemsControl ItemsSource="{Binding Types}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <materialDesign:Chip Content="{Binding Text}" Margin="2" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <WrapPanel Orientation="Horizontal">
+                <ItemsControl ItemsSource="{Binding Types}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Chip Content="{Binding Text}" Margin="2" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </WrapPanel>
         </StackPanel>
 
+        <WrapPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+            <TextBlock Text="{StaticResource DescriptionText}" Margin="0 10 0 0" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Description}" Margin="0 10 0 0"/>
+        </WrapPanel>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-            <Button Content="{StaticResource AddToCartText}" Command="{Binding AddToCartCommand}" Margin="0,0,10,0" />
-        </StackPanel>
-
+        <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+              Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=.ActualHeight}">
+            <Button
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="{StaticResource AddToCartText}">
+                <materialDesign:PackIcon
+                    Width="20"
+                    Height="20"
+                    Kind="CartArrowDown" />
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>

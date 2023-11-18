@@ -8,9 +8,11 @@ public class MainViewModel : ViewModelBase
     private SampleItem _selectedItem;
     private ViewModelBase _currentViewModel;
     
-    public MainViewModel(ViewModelBase vm)
+    public MainViewModel(List<SampleItem> sampleItems)
     {
-        _currentViewModel = vm;
+        SampleItems = sampleItems;
+        _selectedItem = sampleItems[0];
+        _currentViewModel = _selectedItem.ViewModel;
         _currentViewModel.ViewModelRequested += OnViewModelChanged;
     }
     
@@ -42,7 +44,7 @@ public class MainViewModel : ViewModelBase
         set
         {
             _selectedItem = value;
-            _currentViewModel = _selectedItem.ViewModel;
+            CurrentViewModel = _selectedItem.ViewModel;
             OnPropertyChange(nameof(SelectedItem));
         }
     }
@@ -50,5 +52,7 @@ public class MainViewModel : ViewModelBase
     private void OnViewModelChanged(object? sender, ViewModelBase e)
     {
         CurrentViewModel = e;
+        _selectedItem = null;
+        OnPropertyChange(nameof(SelectedItem));
     }
 }

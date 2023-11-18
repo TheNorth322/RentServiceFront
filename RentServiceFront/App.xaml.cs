@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using RentServiceFront.data.authentication.api_request;
 using RentServiceFront.data.client;
+using RentServiceFront.data.secure;
 using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.view.Authentication.view;
 using RentServiceFront.viewmodel;
@@ -15,7 +16,7 @@ namespace RentServiceFront
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow = new MainWindow(new MainViewModel(new RoomListViewModel(new RoomUseCase(new RoomRequest("asd")))));
+            MainWindow = new MainWindow();
             MainWindow.Show();
             base.OnStartup(e);
         }
