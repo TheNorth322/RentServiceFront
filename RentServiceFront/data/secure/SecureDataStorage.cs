@@ -1,5 +1,6 @@
 ﻿using System.Security.Principal;
 using Refit;
+using RentServiceFront.domain.enums;
 
 namespace RentServiceFront.data.secure;
 
@@ -38,7 +39,7 @@ public class SecureDataStorage
         set => ProtectData(ref _confidentialData._username, value);
     }
 
-    public string Role
+    public Role Role
     {
         get => UnprotectData(_confidentialData._role);
         set => ProtectData(ref _confidentialData._role, value);
@@ -66,11 +67,23 @@ public class SecureDataStorage
     private void ProtectData(ref byte[] writeTo, string data)
     {
         writeTo = ProtectedData.Protect(Encoding.UTF8.GetBytes(data), entropy, DataProtectionScope.CurrentUser);
+        SaveToFile();
     }
 
     private string UnprotectData(byte[] encryptedData)
     {
         return Encoding.UTF8.GetString(ProtectedData.Unprotect(encryptedData, entropy,
             DataProtectionScope.CurrentUser));
+    }
+    
+    private void ProtectData(ref Role writeTo, Role data)
+    {
+        writeTo = data;
+        SaveToFile();
+    }
+
+    private Role UnprotectData(Role role)
+    {
+        return role;
     }
 }

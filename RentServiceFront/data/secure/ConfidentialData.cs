@@ -1,9 +1,11 @@
-﻿namespace RentServiceFront.data.secure;
+﻿using RentServiceFront.domain.enums;
+
+namespace RentServiceFront.data.secure;
 
 public class ConfidentialData
 {
     public byte[] _jwtToken;
     public byte[] _refreshToken;
     public byte[] _username;
-    public byte[] _role;
+    public Role _role;
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using RentServiceFront.data.secure;
 
 namespace RentServiceFront.viewmodel;
 
@@ -6,9 +7,9 @@ public class LogInWindowViewModel : ViewModelBase
 {
     private ViewModelBase _currentViewModel;
 
-    public LogInWindowViewModel()
+    public LogInWindowViewModel(SecureDataStorage secureDataStorage)
     {
-        _currentViewModel = new LogInViewModel();
+        _currentViewModel = new LogInViewModel(secureDataStorage);
         _currentViewModel.ViewModelRequested += OnViewModelChanged;
     }
     public LogInWindowViewModel(ViewModelBase vm)

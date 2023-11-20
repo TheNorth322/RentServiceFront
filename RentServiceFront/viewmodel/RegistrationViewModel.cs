@@ -13,11 +13,13 @@ public class RegistrationViewModel : ViewModelBase
     private string _phoneNumber;
     private Role _role;
     private AuthenticationUseCase _authenticationUseCase;
+    private ViewModelBase _previousVm;
     public ICommand GoBackCommand { get; }
     public ICommand RegisterCommand { get; }
 
-    public RegistrationViewModel(AuthenticationUseCase authenticationUseCase)
+    public RegistrationViewModel(ViewModelBase previousVm, AuthenticationUseCase authenticationUseCase)
     {
+        _previousVm = previousVm;
         GoBackCommand = new RelayCommand(GoBackExecute);
         RegisterCommand = new RelayCommand(RegisterExecute);
         _authenticationUseCase = authenticationUseCase;
@@ -79,8 +81,7 @@ public class RegistrationViewModel : ViewModelBase
     
     private void GoBackExecute(object parameter)
     {
-        LogInViewModel logInViewModel = new LogInViewModel();
-        RaiseViewModelRequested(logInViewModel);
+        RaiseViewModelRequested(_previousVm);
     }
 
     private void RegisterExecute(object parameter)

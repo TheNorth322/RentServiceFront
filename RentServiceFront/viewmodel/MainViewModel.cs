@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace RentServiceFront.viewmodel;
 
@@ -7,9 +9,10 @@ public class MainViewModel : ViewModelBase
     private List<SampleItem> _sampleItems;
     private SampleItem _selectedItem;
     private ViewModelBase _currentViewModel;
-    
+    public ICommand ExitCommand { get; }
     public MainViewModel(List<SampleItem> sampleItems)
     {
+        ExitCommand = new RelayCommand(ExitCommandExecute);
         SampleItems = sampleItems;
         _selectedItem = sampleItems[0];
         _currentViewModel = _selectedItem.ViewModel;
@@ -55,4 +58,11 @@ public class MainViewModel : ViewModelBase
         _selectedItem = null;
         OnPropertyChange(nameof(SelectedItem));
     }
+
+    private void ExitCommandExecute(object param)
+    {
+        OnExitCommand?.Invoke();
+    }
+    
+    public Action OnExitCommand { get; set; } 
 }

@@ -73,4 +73,6 @@
     
     <system:String x:Key="OpenText">Открыть</system:String>
     <system:String x:Key="DescriptionText">Описание</system:String>
+    
+    <system:String x:Key="ExitText">Выйти</system:String>
 </ResourceDictionary>

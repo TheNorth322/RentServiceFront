@@ -1,7 +1,11 @@
-﻿namespace RentServiceFront.domain.model.response.authentication;
+﻿using RentServiceFront.domain.enums;
+
+namespace RentServiceFront.domain.model.response.authentication;
 
 public class AuthenticationResponse
 {
-    public string accessToken { get; set; }
-    public string refreshToken { get; set; }
+    public string AccessToken { get; set; }
+    public string RefreshToken { get; set; }
+    public string Username { get; set; }
+    public Role Role { get; set; }
 }

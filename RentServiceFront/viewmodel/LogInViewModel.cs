@@ -4,6 +4,7 @@ using System.Windows.Input;
 using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.domain.model.request;
 using RentServiceFront.data.authentication.api_request;
+using RentServiceFront.data.secure;
 using AuthenticationRequest = RentServiceFront.domain.model.request.AuthenticationRequest;
 
 namespace RentServiceFront.viewmodel;
@@ -17,14 +18,14 @@ public class LogInViewModel : ViewModelBase
     public ICommand ResetPasswordCommand { get; }
     public ICommand RegisterCommand { get; }
     public ICommand LogInCommand { get; }
-        
-    public LogInViewModel()
+
+    public LogInViewModel(SecureDataStorage secureDataStorage)
     {
         RegisterCommand = new RelayCommand(RegisterExecute);
         ResetPasswordCommand = new RelayCommand(ResetPasswordExecute);
         LogInCommand = new RelayCommand(LogInExecute, LogInCanExecute);
         _authenticationUseCase =
-            new AuthenticationUseCase(new data.authentication.api_request.AuthenticationRequest());
+            new AuthenticationUseCase(new data.authentication.api_request.AuthenticationRequest(secureDataStorage));
     }
     public string Username
     {
@@ -48,13 +49,13 @@ public class LogInViewModel : ViewModelBase
 
     private void ResetPasswordExecute(object parameter)
     {
-        EnterEmailViewModel resetPasswordViewModel = new EnterEmailViewModel(_authenticationUseCase);
+        EnterEmailViewModel resetPasswordViewModel = new EnterEmailViewModel(this, _authenticationUseCase);
         RaiseViewModelRequested(resetPasswordViewModel);
     }
 
     private void RegisterExecute(object parameter)
     {
-        RegistrationViewModel registrationViewModel = new RegistrationViewModel(_authenticationUseCase);
+        RegistrationViewModel registrationViewModel = new RegistrationViewModel(this, _authenticationUseCase);
         RaiseViewModelRequested(registrationViewModel);
     }
 

@@ -7,11 +7,13 @@ public class EnterEmailViewModel : ViewModelBase
 {
    private string _email;
    private AuthenticationUseCase _authenticationUseCase;
+   private ViewModelBase _previousVm;
    public ICommand GoBackCommand { get; }
    public ICommand ResetPasswordCommand { get; }
    
-   public EnterEmailViewModel(AuthenticationUseCase _authenticationUseCase)
+   public EnterEmailViewModel(ViewModelBase previousVm, AuthenticationUseCase _authenticationUseCase)
    {
+      _previousVm = previousVm;
       GoBackCommand = new RelayCommand(GoBackExecute);
       ResetPasswordCommand = new RelayCommand(ResetPasswordExecute);
       this._authenticationUseCase = _authenticationUseCase;
@@ -29,8 +31,7 @@ public class EnterEmailViewModel : ViewModelBase
 
    private void GoBackExecute(object parameter)
    {
-      LogInViewModel logInViewModel = new LogInViewModel();
-      RaiseViewModelRequested(logInViewModel);
+      RaiseViewModelRequested(_previousVm);
    }
 
    private async void ResetPasswordExecute(object parameter)

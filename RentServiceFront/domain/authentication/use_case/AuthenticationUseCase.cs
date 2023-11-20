@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using RentServiceFront.data.secure;
 using RentServiceFront.domain.authentication.repository;
 using RentServiceFront.domain.model.request;
 using RentServiceFront.domain.model.response.authentication;
@@ -9,7 +10,6 @@ namespace RentServiceFront.domain.authentication.use_case;
 public class AuthenticationUseCase
 {
     private IAuthenticationRepository _authenticationRepository;
-
     public AuthenticationUseCase(IAuthenticationRepository authenticationRepository)
     {
         _authenticationRepository = authenticationRepository

@@ -16,9 +16,17 @@ namespace RentServiceFront
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow = new MainWindow();
+            MainWindow mainWindow = new MainWindow(new SecureDataStorage());
+            mainWindow.WindowRequested += OnWindowRequested;
+            MainWindow = mainWindow; 
             MainWindow.Show();
             base.OnStartup(e);
+        }
+
+        private void OnWindowRequested(object? sender, Window window)
+        {
+            MainWindow = window;
+            MainWindow.Show();
         }
     }
 }

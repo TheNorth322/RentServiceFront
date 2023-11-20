@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Refit;
 using RentServiceFront.data.client;
+using RentServiceFront.data.secure;
 using RentServiceFront.data.service;
 using RentServiceFront.domain.authentication.repository;
 using RentServiceFront.domain.model.entity;
@@ -13,10 +14,11 @@ public class RoomRequest : IRoomRepository
 {
     private RoomClient _roomClient;  
     private IRoomService _api;
-
-    public RoomRequest(string token)
+    private SecureDataStorage _secureDataStorage;
+    public RoomRequest(SecureDataStorage secureDataStorage)
     {
-        _roomClient = new RoomClient(token);
+        _secureDataStorage = secureDataStorage;
+        _roomClient = new RoomClient(_secureDataStorage.JwtToken);
         _api = _roomClient.roomService;
     }
     public async Task<Room> CreateRoom(CreateRoomRequest request)
