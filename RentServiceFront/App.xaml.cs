@@ -9,6 +9,7 @@ using RentServiceFront.data.secure;
 using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.view.Authentication.view;
 using RentServiceFront.viewmodel;
+using RentServiceFront.viewmodel.authentication;
 
 namespace RentServiceFront
 {
@@ -16,11 +17,15 @@ namespace RentServiceFront
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow(new SecureDataStorage());
+            LogInView logInView = new LogInView(new LogInViewModel(new SecureDataStorage()));
+            MainWindow = logInView;
+            MainWindow.Show();
+            base.OnStartup(e);
+            /*MainWindow mainWindow = new MainWindow(new SecureDataStorage());
             mainWindow.WindowRequested += OnWindowRequested;
             MainWindow = mainWindow; 
             MainWindow.Show();
-            base.OnStartup(e);
+            base.OnStartup(e);*/
         }
 
         private void OnWindowRequested(object? sender, Window window)

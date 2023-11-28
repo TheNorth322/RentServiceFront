@@ -1,10 +1,14 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace RentServiceFront.domain.model.request;
 
 public class AuthenticationRequest
 {
+    [JsonProperty("username")]
     public string Username { get; set; }
+    
+    [JsonProperty("password")]
     public string Password { get; set; }
 
     public AuthenticationRequest(string _username, string _password)

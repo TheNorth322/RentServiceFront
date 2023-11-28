@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DataContext="{d:DesignInstance Type=viewmodels:EnterEmailViewModel}"
+             xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
+             d:DataContext="{d:DesignInstance Type=authentication:EnterEmailViewModel}"
              mc:Ignorable="d" Height="450" Width="800">
     <UserControl.Resources>
         <ResourceDictionary>

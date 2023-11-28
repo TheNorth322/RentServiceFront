@@ -1,7 +1,16 @@
-﻿namespace RentServiceFront.domain.model.entity;
+﻿using Newtonsoft.Json;
+
+namespace RentServiceFront.domain.model.entity;
 
 public class Bank
 {
-    public long Id { get; set; }
-    public string Name { get; set; } 
+    public Bank(long id, string name)
+    {
+        Id = id;
+        Name = name;
+    }
+
+    [JsonProperty("id")] public long Id { get; set; }
+
+    [JsonProperty("name")] public string Name { get; set; }
 }

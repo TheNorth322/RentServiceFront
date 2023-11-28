@@ -1,11 +1,16 @@
 ﻿using System;
+using Newtonsoft.Json;
 using RentServiceFront.domain.model.request.passport;
 
 namespace RentServiceFront.domain.model.request;
 
 public class RegisterIndividualRequest
 {
+    
+    [JsonProperty("registerRequest")]
     public RegisterRequest RegisterRequest { get; }
+    
+    [JsonProperty("addPassportRequest")]
     public AddPassportRequest AddPassportRequest { get; }
 
     public RegisterIndividualRequest(RegisterRequest registerRequest, AddPassportRequest addPassportRequest)

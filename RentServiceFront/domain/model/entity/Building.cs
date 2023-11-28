@@ -1,12 +1,23 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace RentServiceFront.domain.model.entity;
 
 public class Building
 {
-    public long Id { get; set; }
-    public Address Address { get; set; }
-    public int FloorCount { get; set; }
-    public string Telephone { get; set; }
-    public List<Room> Rooms;
+    public Building(long id, Address address, int floorCount, string telephone)
+    {
+        Id = id;
+        Address = address;
+        FloorCount = floorCount;
+        Telephone = telephone;
+    }
+
+    [JsonProperty("id")] public long Id { get; set; }
+
+    [JsonProperty("address")] public Address Address { get; set; }
+
+    [JsonProperty("floorCount")] public int FloorCount { get; set; }
+
+    [JsonProperty("telephone")] public string Telephone { get; set; }
 }

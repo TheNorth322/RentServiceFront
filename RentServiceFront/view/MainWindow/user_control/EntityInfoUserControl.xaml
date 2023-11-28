@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="RentServiceFront.view.MainWindow.user_control.EntityInfoUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RentServiceFront.view.Authentication.user_control"
+             xmlns:viewmodel="clr-namespace:RentServiceFront.viewmodel"
+             xmlns:domain="clr-namespace:RentServiceFront.domain.enums"
+             xmlns:mainWindow="clr-namespace:RentServiceFront.viewmodel.mainWindow"
+             d:DataContext="{d:DesignInstance Type=mainWindow:EntityViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/resources/RussianLocalization.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Expander
+            HorizontalAlignment="Stretch"
+            Header="{StaticResource EntityInfoText}">
+            <StackPanel Margin="10">
+                <TextBlock FontWeight="Bold" Text="{StaticResource NameLabel}" />
+                <TextBlock Text="{Binding Name}" />
+
+                <TextBlock FontWeight="Bold" Text="{StaticResource SupervisorFullNameLabel}" />
+                <TextBlock Text="{Binding SupervisorFullName}" />
+
+                <TextBlock FontWeight="Bold" Text="{StaticResource AddressLabel}" />
+                <TextBlock Text="{Binding Address}" />
+
+                <TextBlock FontWeight="Bold" Text="{StaticResource BankNameLabel}" />
+                <TextBlock Text="{Binding BankName}" />
+
+                <TextBlock FontWeight="Bold" Text="{StaticResource CheckingAccountLabel}" />
+                <TextBlock Text="{Binding CheckingAccount}" />
+
+                <TextBlock FontWeight="Bold" Text="{StaticResource ItnNumberLabel}" />
+                <TextBlock Text="{Binding ItnNumber}" />
+
+            </StackPanel>
+        </Expander>
+    </Grid>
+</UserControl>

@@ -8,7 +8,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:enums="clr-namespace:RentServiceFront.domain.enums"
              xmlns:enums1="clr-namespace:RentServiceFront.domain.model.enums"
-             d:DataContext="{d:DesignInstance Type=viewmodels:RegistrationViewModel}"
+             xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
+             d:DataContext="{d:DesignInstance Type=authentication:RegistrationViewModel}"
              mc:Ignorable="d" Height="450" Width="800">
     <UserControl.Resources>
         <enums1:EnumConverter x:Key="EnumToCollectionConverter" />

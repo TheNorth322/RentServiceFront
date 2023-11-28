@@ -1,0 +1,74 @@
+﻿<Window x:Class="RentServiceFront.view.Authentication.view.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:RentServiceFront.view.Authentication.view"
+        xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:userControl="clr-namespace:RentServiceFront.view.Authentication.user_control"
+        xmlns:userControl1="clr-namespace:RentServiceFront.view.MainWindow.user_control"
+        xmlns:mainWindow="clr-namespace:RentServiceFront.viewmodel.mainWindow"
+        d:DataContext="{d:DesignInstance Type=mainWindow:MainViewModel}"
+        mc:Ignorable="d"
+        Title="Основное меню" MinHeight="300" MinWidth="600">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type mainWindow:RoomViewModel}">
+            <userControl1:RoomUserControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type mainWindow:AccountViewModel}">
+            <userControl1:AccountUserControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type mainWindow:RoomListViewModel}">
+            <userControl1:RoomListUserControl />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <Grid
+                Height="80"
+                Background="{DynamicResource MaterialDesignCardBackground}">
+                <ListBox
+                    HorizontalAlignment="Left"
+                    Height="80"
+                    ItemsSource="{Binding SampleItems}"
+                    SelectedItem="{Binding SelectedItem}"
+                    Style="{StaticResource MaterialDesign3.NavigationBarListBox}">
+                    <ListBox.ItemContainerStyle>
+                        <Style
+                            TargetType="ListBoxItem"
+                            BasedOn="{StaticResource MaterialDesign3.NavigationBarListBoxItem}">
+                            <Setter
+                                Property="materialDesign:NavigationBarAssist.IsTextVisible"
+                                Value="True" />
+                            <Setter
+                                Property="materialDesign:NavigationBarAssist.SelectedIcon"
+                                Value="{Binding SelectedIcon}" />
+                            <Setter
+                                Property="materialDesign:NavigationBarAssist.UnselectedIcon"
+                                Value="{Binding UnselectedIcon}" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.Resources>
+                        <DataTemplate
+                            DataType="{x:Type viewmodels:SampleItem}">
+                            <TextBlock
+                                Text="{Binding Title}" />
+                        </DataTemplate>
+                    </ListBox.Resources>
+                </ListBox>
+                <Button
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                    ToolTip="{StaticResource ExitText}" HorizontalAlignment="Right" Margin="0 0 40 0"
+                    Command="{Binding ExitCommand}">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Kind="ExitToApp" />
+                </Button>
+            </Grid>
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </StackPanel>
+    </Grid>
+</Window>

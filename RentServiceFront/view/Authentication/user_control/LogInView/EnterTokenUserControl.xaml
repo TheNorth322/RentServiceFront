@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:RentServiceFront.view.Authentication.user_control"
              xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DataContext="{d:DesignInstance Type=viewmodels:EnterTokenViewModel}"
+             xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
+             d:DataContext="{d:DesignInstance Type=authentication:EnterTokenViewModel}"
              mc:Ignorable="d" Height="450" Width="800">
     <UserControl.Resources>
         <ResourceDictionary>

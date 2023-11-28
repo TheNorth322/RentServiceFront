@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using RentServiceFront.viewmodel;
+using RentServiceFront.viewmodel.authentication;
 
 namespace RentServiceFront.view.Authentication.view;
 

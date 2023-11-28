@@ -9,7 +9,8 @@
              xmlns:enums="clr-namespace:RentServiceFront.domain.enums"
              xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:validators="clr-namespace:RentServiceFront.view.validator"
-             d:DataContext="{d:DesignInstance Type=viewmodels:EntityRegistrationViewModel}"
+             xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
+             d:DataContext="{d:DesignInstance Type=authentication:EntityRegistrationViewModel}"
              mc:Ignorable="d" Height="450" Width="800">
     <UserControl.Resources>
         <ResourceDictionary>

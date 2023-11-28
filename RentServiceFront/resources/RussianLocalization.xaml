@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:enums="clr-namespace:RentServiceFront.domain.enums">
-    
+
     <!-- LogInView -->
     <system:String x:Key="LogInViewTitle">Вход</system:String>
     <system:String x:Key="Authorization">Авторизация</system:String>
@@ -20,7 +20,7 @@
     <system:String x:Key="EmailFieldHint">Электронная почта</system:String>
     <system:String x:Key="RegisterButtonText">Зарегистрироваться</system:String>
     <system:String x:Key="AccountTypeHint">Тип аккаунта</system:String>
-    
+
     <!-- IndividualUserRegistrationView -->
     <system:String x:Key="AddPassport">Добавление паспорта</system:String>
     <system:String x:Key="FullnameFieldHelperText">Введите ФИО</system:String>
@@ -33,7 +33,7 @@
     <system:String x:Key="PlaceOfBirthFieldHelperText">Введите место рождения</system:String>
     <system:String x:Key="PlaceOfBirthFieldHint">Место рождения</system:String>
     <system:String x:Key="AddPassportText">Добавить</system:String>
-    
+
     <!-- EntityRegistrationView -->
     <system:String x:Key="AddEntityInfoText">Информация о юр.лице</system:String>
     <system:String x:Key="NameFieldHelperText">Введите название</system:String>
@@ -49,30 +49,58 @@
     <system:String x:Key="ItnNumberFieldHelperText">Введите ИНН</system:String>
     <system:String x:Key="ItnNumberFieldHint">ИНН</system:String>
     <system:String x:Key="AddEntityText">Зарегистрироваться</system:String>
-    
+
     <system:String x:Key="PasswordResetText">Сброс пароля</system:String>
     <system:String x:Key="VerifyEmailText">Подтвердить</system:String>
-    
+
     <system:String x:Key="NewPasswordVerifiedFieldHelperText">Подтвердите новый пароль</system:String>
     <system:String x:Key="NewPasswordVerifiedFieldHint">Новый пароль</system:String>
-    
+
     <system:String x:Key="NewPasswordFieldHelperText">Введите новый пароль</system:String>
     <system:String x:Key="NewPasswordFieldHint">Новый пароль</system:String>
-    
+
     <system:String x:Key="ResetText">Сбросить</system:String>
     <system:String x:Key="EnterTokenText">Введите токен</system:String>
     <system:String x:Key="TokenVerificationText">Подтверждение токена</system:String>
     <system:String x:Key="RoomTypesText">Тип помещения</system:String>
-    
+
     <system:String x:Key="SearchText">Поиск</system:String>
     <system:String x:Key="ConfirmText">Подтвердить</system:String>
     <system:String x:Key="AddToCartText">Добавить в корзину</system:String>
-    
+
     <system:String x:Key="AreaText">Площадь</system:String>
     <system:String x:Key="PriceText">Цена</system:String>
-    
+
     <system:String x:Key="OpenText">Открыть</system:String>
     <system:String x:Key="DescriptionText">Описание</system:String>
-    
+
     <system:String x:Key="ExitText">Выйти</system:String>
+    <!-- Другие строки ресурсов -->
+    <system:String x:Key="NameLabel">Название: </system:String>
+    <system:String x:Key="SupervisorFullNameLabel">ФИО представителя: </system:String>
+    <system:String x:Key="AddressLabel">Адрес: </system:String>
+    <system:String x:Key="BankNameLabel">Название банка: </system:String>
+    <system:String x:Key="CheckingAccountLabel">Счет: </system:String>
+    <system:String x:Key="ItnNumberLabel">ИНН: </system:String>
+
+    <system:String x:Key="EntityInfoText">Информация о юридическом лице </system:String>
+    <system:String x:Key="IndividualInfoText">Информация о физическом лице </system:String>
+    <system:String x:Key="PassportsHeader">Паспорты</system:String>
+
+    <system:String x:Key="AgreementsText">Договора</system:String>
+    <system:String x:Key="RegistrationNumberLabel">Номер регистрации: </system:String>
+    <system:String x:Key="PaymentFrequencyLabel">Частота платежей: </system:String>
+    <system:String x:Key="AdditionalConditionsLabel">Дополнительные условия: </system:String>
+    <system:String x:Key="FineLabel">Штраф: </system:String>
+    <system:String x:Key="StartsFromLabel">Начало: </system:String>
+    <system:String x:Key="LastsToLabel">Окончание: </system:String>
+    <system:String x:Key="UsernameLabel">Имя пользователя: </system:String>
+    <system:String x:Key="EmailLabel">Электронная почта: </system:String>
+    <system:String x:Key="PhoneNumberLabel">Номер телефона: </system:String>
+    <system:String x:Key="EmailVerifiedLabel">Подтвержденная почта: </system:String>
+    <system:String x:Key="RoleLabel">Роль: </system:String>
+    <system:String x:Key="PurposeOfRentLabel">Цель аренды: </system:String>
+    <system:String x:Key="StartOfRentLabel">Начало аренды: </system:String>
+    <system:String x:Key="EndOfRentLabel">Окончание аренды: </system:String>
+    <system:String x:Key="RentAmountLabel">Сумма аренды: </system:String> 
 </ResourceDictionary>

@@ -6,30 +6,31 @@
         xmlns:local="clr-namespace:RentServiceFront.view.Authentication.view"
         xmlns:userControls="clr-namespace:RentServiceFront.view.Authentication.user_control"
         xmlns:viewModels="clr-namespace:RentServiceFront.viewmodel"
-        d:DataContext="{d:DesignInstance Type=viewModels:LogInWindowViewModel}"
+        xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
+        d:DataContext="{d:DesignInstance Type=authentication:LogInWindowViewModel}"
         mc:Ignorable="d"
         Title="Авторизация" Height="450" Width="800">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type viewModels:LogInViewModel}">
+        <DataTemplate DataType="{x:Type authentication:LogInViewModel}">
             <userControls:LogInUserControl />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:EnterTokenViewModel}">
+        <DataTemplate DataType="{x:Type authentication:EnterTokenViewModel}">
             <userControls:EnterTokenUserControl />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:RegistrationViewModel}">
+        <DataTemplate DataType="{x:Type authentication:RegistrationViewModel}">
             <userControls:RegistrationUserControl />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:EnterEmailViewModel}">
+        <DataTemplate DataType="{x:Type authentication:EnterEmailViewModel}">
             <userControls:EnterEmailUserControl />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:EntityRegistrationViewModel}">
+        <DataTemplate DataType="{x:Type authentication:EntityRegistrationViewModel}">
             <userControls:EntityRegistrationUserControl />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModels:PasswordResetViewModel}">
+        <DataTemplate DataType="{x:Type authentication:PasswordResetViewModel}">
             <userControls:PasswordResetUserControl />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:IndividualUserRegistrationViewModel}">
+        <DataTemplate DataType="{x:Type authentication:IndividualUserRegistrationViewModel}">
             <userControls:IndividualUserRegistrationUserControl />
         </DataTemplate>
     </Window.Resources>
