@@ -1,4 +1,6 @@
 ﻿using System.Windows.Input;
+using RentServiceFront.data.authentication.api_request;
+using RentServiceFront.data.secure;
 using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.domain.enums;
 using RentServiceFront.domain.model.request;
@@ -89,7 +91,7 @@ public class RegistrationViewModel : ViewModelBase
         if (Role == Role.ENTITY)
             RaiseViewModelRequested(new EntityRegistrationViewModel(this, _authenticationUseCase));
         else if (Role == Role.INDIVIDUAL)
-            RaiseViewModelRequested(new IndividualUserRegistrationViewModel(this, _authenticationUseCase));
+            RaiseViewModelRequested(new IndividualUserRegistrationViewModel(this, _authenticationUseCase, new SearchUseCase(new SearchRequest(new SecureDataStorage()))));
         else if (Role == Role.ADMIN)
         {
             await _authenticationUseCase.RegisterUser(this.CreateRegisterRequest());

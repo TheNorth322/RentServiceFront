@@ -6,6 +6,7 @@ using RentServiceFront.domain.enums;
 using RentServiceFront.domain.model.entity;
 using RentServiceFront.domain.model.request;
 using RentServiceFront.domain.model.request.passport;
+using RentServiceFront.domain.model.request.search;
 
 namespace RentServiceFront.viewmodel.authentication;
 
@@ -22,13 +23,14 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
     private MigrationService _migrationService;
     private RegistrationViewModel _registrationViewModel;
     private AuthenticationUseCase _authenticationUseCase;
+    private SearchUseCase _searchUseCase;
     private List<AddressViewModel> _addresses;
-
+    private string _addressQuery;
     public ICommand GoBackCommand { get; }
     public ICommand RegisterCommand { get; }
     public ICommand AddressSearchCommand { get; }
 
-    public IndividualUserRegistrationViewModel(RegistrationViewModel vm, AuthenticationUseCase authenticationUseCase)
+    public IndividualUserRegistrationViewModel(RegistrationViewModel vm, AuthenticationUseCase authenticationUseCase, SearchUseCase searchUseCase)
     {
         DateOfBirth = System.DateTime.Now;
         DateOfIssue = System.DateTime.Now;
@@ -36,6 +38,7 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
         RegisterCommand = new RelayCommand(RegisterExecute);
         AddressSearchCommand = new RelayCommand(AddressSearchExecute);
         _authenticationUseCase = authenticationUseCase;
+        _searchUseCase = searchUseCase; 
         _registrationViewModel = vm;
     }
 
@@ -49,6 +52,15 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
         }
     }
 
+    public string AddressQuery
+    {
+        get => _addressQuery;
+        set
+        {
+            _addressQuery = value;
+            OnPropertyChange(nameof(AddressQuery)); 
+        }
+    }
     public string Fullname
     {
         get => _fullname;
@@ -168,6 +180,10 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
 
     private async void AddressSearchExecute(object parameter)
     {
+        List<Address> addresses = await _searchUseCase.searchAddresses(new SearchAddressesRequest(AddressQuery, 5));
+        _addresses.Clear();
         
+        foreach (Address address in addresses)
+            _addresses.Add(new AddressViewModel(address.Name, address.FiasId));
     }  
 }

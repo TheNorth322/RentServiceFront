@@ -110,7 +110,8 @@
                         IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
                         ItemsSource="{Binding Addresses}"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                        IsEditable="True" >
+                        IsEditable="True" 
+                        Text="{Binding AddressQuery}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}"/>

@@ -4,7 +4,7 @@ namespace RentServiceFront.domain.model.request.search;
 
 public class SearchAddressesRequest
 {
-    public SearchAddressesRequest(string query, string count)
+    public SearchAddressesRequest(string query, int count)
     {
         Query = query;
         Count = count;
@@ -14,5 +14,5 @@ public class SearchAddressesRequest
     public string Query { get; set; }
     
     [JsonProperty("count")]
-    public string Count { get; set; }
+    public int Count { get; set; }
 }
