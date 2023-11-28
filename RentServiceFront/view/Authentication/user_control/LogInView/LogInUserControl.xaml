@@ -11,8 +11,12 @@
         xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
         d:DataContext="{d:DesignInstance Type=authentication:LogInViewModel}"
         mc:Ignorable="d">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <StackPanel Width="250">
+    <Grid 
+        Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                                        AncestorType={x:Type Window}}, Path=.Width}"
+        Height="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                      AncestorType={x:Type Window}}, Path=.Height}">
+        <StackPanel Width="250" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock
                 Padding="0,8"
                 VerticalAlignment="Center"

@@ -8,7 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
              d:DataContext="{d:DesignInstance Type=authentication:EnterTokenViewModel}"
-             mc:Ignorable="d" Height="450" Width="800">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,7 +17,11 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <Grid>
+    <Grid
+        Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                                        AncestorType={x:Type Window}}, Path=.Width}"
+        Height="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                      AncestorType={x:Type Window}}, Path=.Height}">
         <Button
             Margin="10 10 0 0"
             HorizontalAlignment="Left"

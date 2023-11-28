@@ -10,11 +10,15 @@
              xmlns:enums1="clr-namespace:RentServiceFront.domain.model.enums"
              xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
              d:DataContext="{d:DesignInstance Type=authentication:RegistrationViewModel}"
-             mc:Ignorable="d" Height="450" Width="800">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <enums1:EnumConverter x:Key="EnumToCollectionConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid
+        Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                                        AncestorType={x:Type Window}}, Path=.Width}"
+        Height="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                      AncestorType={x:Type Window}}, Path=.Height}">
         <Button
             Margin="10 10 0 0"
             HorizontalAlignment="Left"

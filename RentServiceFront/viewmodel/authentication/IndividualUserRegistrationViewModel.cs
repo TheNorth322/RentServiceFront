@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.domain.enums;
@@ -18,11 +19,14 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
     private string _series;
     private Gender _gender;
     private string _placeOfBirth;
-    private MigrationService _migrationService;   
+    private MigrationService _migrationService;
     private RegistrationViewModel _registrationViewModel;
     private AuthenticationUseCase _authenticationUseCase;
+    private List<AddressViewModel> _addresses;
+
     public ICommand GoBackCommand { get; }
     public ICommand RegisterCommand { get; }
+    public ICommand AddressSearchCommand { get; }
 
     public IndividualUserRegistrationViewModel(RegistrationViewModel vm, AuthenticationUseCase authenticationUseCase)
     {
@@ -30,8 +34,19 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
         DateOfIssue = System.DateTime.Now;
         GoBackCommand = new RelayCommand(GoBackExecute);
         RegisterCommand = new RelayCommand(RegisterExecute);
+        AddressSearchCommand = new RelayCommand(AddressSearchExecute);
         _authenticationUseCase = authenticationUseCase;
         _registrationViewModel = vm;
+    }
+
+    public List<AddressViewModel> Addresses
+    {
+        get => _addresses;
+        set
+        {
+            _addresses = value;
+            OnPropertyChange(nameof(Addresses));
+        }
     }
 
     public string Fullname
@@ -124,7 +139,7 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
             OnPropertyChange(nameof(MigrationService));
         }
     }
-    
+
     private void ParseNumberSeries(string numberSeries)
     {
         string[] split = numberSeries.Split(" ");
@@ -150,4 +165,9 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
         
         await _authenticationUseCase.RegisterIndividualUser(new RegisterIndividualRequest(registerRequest, addPassportRequest));*/
     }
+
+    private async void AddressSearchExecute(object parameter)
+    {
+        
+    }  
 }

@@ -9,7 +9,7 @@
         xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
         d:DataContext="{d:DesignInstance Type=authentication:LogInWindowViewModel}"
         mc:Ignorable="d"
-        Title="Авторизация" Height="450" Width="800">
+        Title="Авторизация">
     <Window.Resources>
         <DataTemplate DataType="{x:Type authentication:LogInViewModel}">
             <userControls:LogInUserControl />
