@@ -14,9 +14,11 @@ namespace RentServiceFront.view.Authentication.view;
 public partial class MainWindow : Window
 {
     public event EventHandler<Window> WindowRequested;
+    private SecureDataStorage _secureDataStorage; 
 
     public MainWindow(SecureDataStorage secureDataStorage)
     {
+        _secureDataStorage = secureDataStorage;
         List<SampleItem> sampleItems = InitializeTopBarMenu(secureDataStorage);
         MainViewModel vm = new MainViewModel(sampleItems);
         vm.OnExitCommand += OnExitCommand;
@@ -51,7 +53,7 @@ public partial class MainWindow : Window
 
     private void OnExitCommand()
     {
-        WindowRequested?.Invoke(this, new LogInView(new LogInViewModel(new SecureDataStorage())));
+        WindowRequested?.Invoke(this, new LogInView(new LogInWindowViewModel(_secureDataStorage),  _secureDataStorage));
         Close();
     }
 }

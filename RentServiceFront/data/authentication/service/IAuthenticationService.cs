@@ -7,7 +7,7 @@ namespace RentServiceFront.data.service;
 
 public interface IAuthenticationService
 {
-    [Post("/auth/login/")]
+    [Post("/auth/login")]
     Task<AuthenticationResponse> login([Body] AuthenticationRequest request);
 
     [Post("/auth/register/user")]

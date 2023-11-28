@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using RentServiceFront.data.client;
 using RentServiceFront.data.secure;
 using RentServiceFront.data.service;

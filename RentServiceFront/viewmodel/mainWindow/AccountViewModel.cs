@@ -21,7 +21,7 @@ public class AccountViewModel : ViewModelBase
         _email = "lol_danchik@bk.ru";
         _phoneNumber = "+79930028973";
         _emailVerified = true;
-        _role = Role.INVIDIDUAL;
+        _role = Role.INDIVIDUAL;
         _agreements = new List<AgreementViewModel>();
         List<AgreementRoomViewModel> rooms = new List<AgreementRoomViewModel>();
         rooms.Add(new AgreementRoomViewModel(1, "asdasdd", "asdasdasd", DateTime.Now, DateTime.Now, 2222));

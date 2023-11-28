@@ -15,17 +15,16 @@ namespace RentServiceFront
 {
     public partial class App : Application
     {
+        private SecureDataStorage _secureDataStorage;
+          
         protected override void OnStartup(StartupEventArgs e)
         {
-            LogInView logInView = new LogInView(new LogInViewModel(new SecureDataStorage()));
+            _secureDataStorage = new SecureDataStorage();
+            LogInView logInView = new LogInView(new LogInWindowViewModel(_secureDataStorage), _secureDataStorage);
+            logInView.WindowRequested += OnWindowRequested;  
             MainWindow = logInView;
             MainWindow.Show();
             base.OnStartup(e);
-            /*MainWindow mainWindow = new MainWindow(new SecureDataStorage());
-            mainWindow.WindowRequested += OnWindowRequested;
-            MainWindow = mainWindow; 
-            MainWindow.Show();
-            base.OnStartup(e);*/
         }
 
         private void OnWindowRequested(object? sender, Window window)

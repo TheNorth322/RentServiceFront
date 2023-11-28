@@ -68,11 +68,24 @@
                     materialDesign:HintAssist.HelperText="{StaticResource PasswordFieldHelperText}"
                     materialDesign:HintAssist.Hint="{StaticResource PasswordFieldHint}"
                     materialDesign:TextFieldAssist.HasClearButton="True" />
-
+                
+                <TextBox
+                    Margin="0 25 0 0"
+                    materialDesign:HintAssist.HelperText="{StaticResource PhoneNumberLabel}"
+                    materialDesign:HintAssist.Hint="{StaticResource PhoneNumberLabel}"
+                    materialDesign:TextFieldAssist.HasClearButton="True">
+                    <TextBox.Text>
+                        <Binding
+                            Path="PhoneNumber"
+                            UpdateSourceTrigger="PropertyChanged">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                
                 <ComboBox Margin="0 25 0 0"
                           SelectedValue="{Binding Role, Converter={StaticResource EnumToCollectionConverter}, ConverterParameter={x:Type enums:Role}}"
                           ItemsSource="{Binding Source={enums1:EnumToItemsSource {x:Type enums:Role}}}"
-                          
+
                           materialDesign:HintAssist.Hint="{StaticResource AccountTypeHint}"
                           materialDesign:TextFieldAssist.HasClearButton="True" />
 

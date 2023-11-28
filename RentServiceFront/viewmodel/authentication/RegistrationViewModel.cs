@@ -84,11 +84,16 @@ public class RegistrationViewModel : ViewModelBase
         RaiseViewModelRequested(_previousVm);
     }
 
-    private void RegisterExecute(object parameter)
+    private async void RegisterExecute(object parameter)
     {
         if (Role == Role.ENTITY)
             RaiseViewModelRequested(new EntityRegistrationViewModel(this, _authenticationUseCase));
-        else if (Role == Role.INVIDIDUAL)
+        else if (Role == Role.INDIVIDUAL)
             RaiseViewModelRequested(new IndividualUserRegistrationViewModel(this, _authenticationUseCase));
+        else if (Role == Role.ADMIN)
+        {
+            await _authenticationUseCase.RegisterUser(this.CreateRegisterRequest());
+        }
+                            
     }
 }

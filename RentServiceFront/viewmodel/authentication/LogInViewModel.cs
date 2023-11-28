@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using RentServiceFront.data.secure;
 using RentServiceFront.domain.authentication.use_case;
 using AuthenticationRequest = RentServiceFront.domain.model.request.AuthenticationRequest;
@@ -57,12 +58,21 @@ public class LogInViewModel : ViewModelBase
 
     private async void LogInExecute(object parameter)
     {
-        AuthenticationRequest request = new AuthenticationRequest(Username, Password);
-        await _authenticationUseCase.LoginUser(request);
+        try
+        {
+            AuthenticationRequest request = new AuthenticationRequest(Username, Password);
+            var response = await _authenticationUseCase.LoginUser(request);
+            OnLoginSuccess?.Invoke();
+        }
+        catch (Exception e)
+        {
+        }
     }
 
     private bool LogInCanExecute(object parameter)
     {
-        return Username != null && Password != null;
+        return true;
     }
+    
+    public Action OnLoginSuccess { get; set; }  
 }

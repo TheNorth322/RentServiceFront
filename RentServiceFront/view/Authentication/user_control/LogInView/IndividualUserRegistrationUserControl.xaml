@@ -97,16 +97,7 @@
                           materialDesign:HintAssist.Hint="{StaticResource GenderHint}"
                           materialDesign:TextFieldAssist.HasClearButton="True" />
 
-                <TextBox
-                    Height="75"
-                    Margin="0 25 0 0 "
-                    VerticalAlignment="Top"
-                    materialDesign:HintAssist.Hint="{StaticResource PlaceOfBirthFieldHelperText}"
-                    AcceptsReturn="True"
-                    Text="{Binding PlaceOfBirth}"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto" />
+
 
                 <DockPanel Margin="0 40 0 0">
                     <Button HorizontalAlignment="Right"
