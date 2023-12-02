@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using RentServiceFront.data.authentication.api_request;
 using RentServiceFront.data.secure;
 using RentServiceFront.domain.authentication.use_case;
@@ -66,6 +67,7 @@ public class RegistrationViewModel : ViewModelBase
             OnPropertyChange(nameof(PhoneNumber));
         }
     }
+
     public Role Role
     {
         get => _role;
@@ -80,7 +82,7 @@ public class RegistrationViewModel : ViewModelBase
     {
         return new RegisterRequest(Username, Email, Password, PhoneNumber, Role);
     }
-    
+
     private void GoBackExecute(object parameter)
     {
         RaiseViewModelRequested(_previousVm);
@@ -91,11 +93,21 @@ public class RegistrationViewModel : ViewModelBase
         if (Role == Role.ENTITY)
             RaiseViewModelRequested(new EntityRegistrationViewModel(this, _authenticationUseCase));
         else if (Role == Role.INDIVIDUAL)
-            RaiseViewModelRequested(new IndividualUserRegistrationViewModel(this, _authenticationUseCase, new SearchUseCase(new SearchRequest(new SecureDataStorage()))));
+            RaiseViewModelRequested(new IndividualUserRegistrationViewModel(this, _authenticationUseCase,
+                new SearchUseCase(new SearchRequest(new SecureDataStorage()))));
         else if (Role == Role.ADMIN)
         {
-            await _authenticationUseCase.RegisterUser(this.CreateRegisterRequest());
+            try
+            {
+                await _authenticationUseCase.RegisterUser(this.CreateRegisterRequest());
+                DialogText = "Registration successfull";
+            }
+            catch (Exception e)
+            {
+                DialogText = "Something went wrong";
+            }
+
+            OnShowDialog(null);
         }
-                            
     }
 }

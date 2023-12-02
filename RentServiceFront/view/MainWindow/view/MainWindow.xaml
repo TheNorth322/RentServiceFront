@@ -16,6 +16,9 @@
         <DataTemplate DataType="{x:Type mainWindow:RoomViewModel}">
             <userControl1:RoomUserControl />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type mainWindow:DatabaseEditViewModel}">
+            <userControl1:DatabaseEditUserControl />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type mainWindow:AccountViewModel}">
             <userControl1:AccountUserControl />
         </DataTemplate>

@@ -19,7 +19,7 @@ public class AddPassportRequest
     public string LastName { get; set; }
     
     [JsonProperty("surname")]
-    public string Surname { get; set; }
+    public string? Surname { get; set; }
     
     [JsonProperty("dateOfBirth")]
     public DateTime DateOfBirth { get; set; }
@@ -42,7 +42,7 @@ public class AddPassportRequest
     [JsonProperty("gender")]
     public Gender Gender { get; }
 
-    public AddPassportRequest(string username, string firstName, string lastName, string surname, DateTime dateOfBirth,
+    public AddPassportRequest(string username, string firstName, string lastName, string? surname, DateTime dateOfBirth,
         DateTime dateOfIssue, long migrationServiceId, string number, string series, CreateAddressRequest placeOfBirth, Gender gender)
     {
         Username = username;

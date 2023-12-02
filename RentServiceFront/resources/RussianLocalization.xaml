@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="clr-namespace:System;assembly=mscorlib"
-                    xmlns:enums="clr-namespace:RentServiceFront.domain.enums">
-
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
     <!-- LogInView -->
     <system:String x:Key="LogInViewTitle">Вход</system:String>
     <system:String x:Key="Authorization">Авторизация</system:String>
@@ -102,5 +100,10 @@
     <system:String x:Key="PurposeOfRentLabel">Цель аренды: </system:String>
     <system:String x:Key="StartOfRentLabel">Начало аренды: </system:String>
     <system:String x:Key="EndOfRentLabel">Окончание аренды: </system:String>
-    <system:String x:Key="RentAmountLabel">Сумма аренды: </system:String> 
+    <system:String x:Key="RentAmountLabel">Сумма аренды: </system:String>
+    
+    <system:String x:Key="MigrationServiceLabel">Миграционные сервиcы</system:String> 
+    <system:String x:Key="GoBackToLogin">Авторизоваться</system:String> 
+    <system:String x:Key="AddText">Добавить</system:String> 
+    <system:String x:Key="DeleteText">Удалить</system:String> 
 </ResourceDictionary>

@@ -31,8 +31,14 @@ public class SearchUseCase
         return await _searchRepository.searchBanksByName(name);
     }
 
-    public async Task<List<Address>> searchAddresses(SearchAddressesRequest request)
+    public async Task<List<Address>> searchAddresses(string query, int count)
     {
-        return await _searchRepository.searchAddresses(request);
+        return await _searchRepository.searchAddresses(query, count);
+    }
+
+
+    public async Task<List<MigrationService>> searchForMigrationServices()
+    {
+        return await _searchRepository.searchMigrationServices();
     }
 }

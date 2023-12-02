@@ -1,30 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using RentServiceFront.data.secure;
 
 namespace RentServiceFront.viewmodel.mainWindow;
 
-public class MainViewModel : ViewModelBase
+public class DatabaseEditViewModel : ViewModelBase
 {
+    private SecureDataStorage _secureDataStorage;
     private List<SampleItem> _sampleItems;
     private SampleItem _selectedItem;
     private ViewModelBase _currentViewModel;
-    public ICommand ExitCommand { get; }
-    public MainViewModel(List<SampleItem> sampleItems)
+
+    public DatabaseEditViewModel(SecureDataStorage secureDataStorage, List<SampleItem> sampleItems)
     {
-        ExitCommand = new RelayCommand(ExitCommandExecute);
+        _secureDataStorage = secureDataStorage ?? throw new ArgumentException("Secure data storage can't be null");
         SampleItems = sampleItems;
-        _selectedItem = sampleItems[0];
+        _selectedItem = sampleItems[1];
         _currentViewModel = _selectedItem.ViewModel;
         _currentViewModel.ViewModelRequested += OnViewModelChanged;
     }
-    
+
     public ViewModelBase CurrentViewModel
     {
         get => _currentViewModel;
         set
         {
-            _currentViewModel.ViewModelRequested -= OnViewModelChanged; 
+            _currentViewModel.ViewModelRequested -= OnViewModelChanged;
             _currentViewModel = value;
             _currentViewModel.ViewModelRequested += OnViewModelChanged;
             OnPropertyChange(nameof(CurrentViewModel));
@@ -51,7 +53,7 @@ public class MainViewModel : ViewModelBase
             OnPropertyChange(nameof(SelectedItem));
         }
     }
-    
+
     private void OnViewModelChanged(object? sender, ViewModelBase e)
     {
         CurrentViewModel = e;
@@ -63,6 +65,6 @@ public class MainViewModel : ViewModelBase
     {
         OnExitCommand?.Invoke();
     }
-    
-    public Action OnExitCommand { get; set; } 
+
+    public Action OnExitCommand { get; set; }
 }

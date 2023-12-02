@@ -9,18 +9,17 @@ namespace RentServiceFront.data.service;
 public interface ISearchService
 {
     [Get("/search/buildings")]
-    [Headers("Authorization: Bearer")]
     Task<List<Building>> searchForBuildings([Query] string address);
 
     [Get("/search/migrationServices")]
-    [Headers("Authorization: Bearer")]
     Task<List<MigrationService>> searchForMigrationServicesByName([Query] string name);
 
     [Get("/search/banks")]
-    [Headers("Authorization: Bearer")]
     Task<List<Bank>> searchBanksByName([Query] string name);
 
     [Get("/search/addresses")]
-    [Headers("Authorization: Bearer")]
-    Task<List<Address>> searchAddresses([Body] SearchAddressesRequest request);
+    Task<List<Address>> searchAddresses([Query] string query, [Query] int count);
+    
+    [Get("/search/migrationServices/all")]
+    Task<List<MigrationService>> searchMigrationServices();
 }

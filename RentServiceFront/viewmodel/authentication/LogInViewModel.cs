@@ -66,6 +66,8 @@ public class LogInViewModel : ViewModelBase
         }
         catch (Exception e)
         {
+            DialogText = "Something went wrong"; 
+            OnShowDialog(this);   
         }
     }
 

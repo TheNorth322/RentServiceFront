@@ -1,14 +1,16 @@
-﻿namespace RentServiceFront.viewmodel.authentication;
+﻿using System.Collections.Generic;
+using RentServiceFront.domain.model.entity;
+
+namespace RentServiceFront.viewmodel.authentication;
 
 public class AddressViewModel : ViewModelBase
 {
     private string _name;
-    private string _fiasId;
-
-    public AddressViewModel(string name, string fiasId)
+    private List<AddressPart> _addressParts;
+    public AddressViewModel(string name, List<AddressPart> addressParts)
     {
-        _name = name;
-        _fiasId = fiasId;
+        Name = name;
+        AddressParts = addressParts;
     }
 
     public string Name
@@ -18,6 +20,16 @@ public class AddressViewModel : ViewModelBase
         {
             _name = value;
             OnPropertyChange(nameof(Name));
+        }
+    }
+
+    public List<AddressPart> AddressParts
+    {
+        get => _addressParts;
+        set
+        {
+            _addressParts = value;
+            OnPropertyChange(nameof(AddressParts));
         }
     }
 }

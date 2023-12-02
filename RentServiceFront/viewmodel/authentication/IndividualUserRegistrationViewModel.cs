@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.domain.enums;
 using RentServiceFront.domain.model.entity;
 using RentServiceFront.domain.model.request;
+using RentServiceFront.domain.model.request.Address;
 using RentServiceFront.domain.model.request.passport;
 using RentServiceFront.domain.model.request.search;
 
@@ -19,28 +21,61 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
     private string _number;
     private string _series;
     private Gender _gender;
-    private string _placeOfBirth;
-    private MigrationService _migrationService;
-    private RegistrationViewModel _registrationViewModel;
+    private readonly RegistrationViewModel _registrationViewModel;
     private AuthenticationUseCase _authenticationUseCase;
-    private SearchUseCase _searchUseCase;
+    private readonly SearchUseCase _searchUseCase;
     private List<AddressViewModel> _addresses;
+    private List<MigrationServiceViewModel> _migrationServices;
+    private MigrationServiceViewModel _selectedMigrationService;   
     private string _addressQuery;
+    private AddressViewModel _selectedAddress;
+    
     public ICommand GoBackCommand { get; }
     public ICommand RegisterCommand { get; }
     public ICommand AddressSearchCommand { get; }
 
-    public IndividualUserRegistrationViewModel(RegistrationViewModel vm, AuthenticationUseCase authenticationUseCase, SearchUseCase searchUseCase)
+    public IndividualUserRegistrationViewModel(RegistrationViewModel vm, AuthenticationUseCase authenticationUseCase,
+        SearchUseCase searchUseCase)
     {
         DateOfBirth = System.DateTime.Now;
         DateOfIssue = System.DateTime.Now;
+        _addresses = new List<AddressViewModel>();
+        _selectedAddress = new AddressViewModel("", new List<AddressPart>());
         GoBackCommand = new RelayCommand(GoBackExecute);
         RegisterCommand = new RelayCommand(RegisterExecute);
         AddressSearchCommand = new RelayCommand(AddressSearchExecute);
+        _migrationServices = new List<MigrationServiceViewModel>();
         _authenticationUseCase = authenticationUseCase;
-        _searchUseCase = searchUseCase; 
+        _searchUseCase = searchUseCase;
         _registrationViewModel = vm;
+        InitMigrationServices();
     }
+
+    private async Task InitMigrationServices()
+    {
+        List<MigrationService> migrationServices = await _searchUseCase.searchForMigrationServices();
+        foreach (MigrationService service in migrationServices)
+            _migrationServices.Add(new MigrationServiceViewModel(service.Id, service.Name));
+    }
+    public MigrationServiceViewModel SelectedMigrationService
+    {
+        get => _selectedMigrationService;
+        set
+        {
+            _selectedMigrationService = value;
+            OnPropertyChange(nameof(SelectedMigrationService));
+        }
+    } 
+    public List<MigrationServiceViewModel> MigrationServices
+    {
+        get => _migrationServices;
+        set
+        {
+            _migrationServices = value;
+            OnPropertyChange(nameof(MigrationService));
+        }
+    }
+    
 
     public List<AddressViewModel> Addresses
     {
@@ -52,15 +87,27 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
         }
     }
 
+    public AddressViewModel SelectedAddress
+    {
+        get => _selectedAddress;
+        set
+        {
+            _selectedAddress = value;
+            AddressQuery = value.Name;
+            OnPropertyChange(nameof(SelectedAddress));
+        }
+    }
+
     public string AddressQuery
     {
         get => _addressQuery;
         set
         {
             _addressQuery = value;
-            OnPropertyChange(nameof(AddressQuery)); 
+            OnPropertyChange(nameof(AddressQuery));
         }
     }
+
     public string Fullname
     {
         get => _fullname;
@@ -132,25 +179,8 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
         }
     }
 
-    public string PlaceOfBirth
-    {
-        get => _placeOfBirth;
-        set
-        {
-            _placeOfBirth = value;
-            OnPropertyChange(nameof(PlaceOfBirth));
-        }
-    }
+    
 
-    private MigrationService MigrationService
-    {
-        get => _migrationService;
-        set
-        {
-            _migrationService = value;
-            OnPropertyChange(nameof(MigrationService));
-        }
-    }
 
     private void ParseNumberSeries(string numberSeries)
     {
@@ -166,24 +196,46 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
 
     private async void RegisterExecute(object parameter)
     {
-        /*RegisterRequest registerRequest = _registrationViewModel.CreateRegisterRequest();
-        
-        string[] fullname = Fullname.Split(" ");
-        string firstName = fullname[0];
-        string lastName = fullname[1];
-        string surname = (fullname.Length == 2) ? null : fullname[2];
-        
-        AddPassportRequest addPassportRequest = new AddPassportRequest(registerRequest.Username, firstName, lastName, surname, DateOfBirth, DateOfIssue, MigrationService.Id, Number, Series, PlaceOfBirth, Gender.MALE);
-        
-        await _authenticationUseCase.RegisterIndividualUser(new RegisterIndividualRequest(registerRequest, addPassportRequest));*/
+        try
+        {
+            RegisterRequest registerRequest = _registrationViewModel.CreateRegisterRequest();
+
+            string[] fullname = Fullname.Split(" ");
+            string firstName = fullname[0];
+            string lastName = fullname[1];
+            string? surname = (fullname.Length == 2) ? null : fullname[2];
+
+            AddPassportRequest addPassportRequest = new AddPassportRequest(registerRequest.Username, firstName,
+                lastName,
+                surname, DateOfBirth, DateOfIssue, SelectedMigrationService.Id, Number, Series,
+                new CreateAddressRequest(SelectedAddress.Name, SelectedAddress.AddressParts), Gender);
+            
+            await _authenticationUseCase.RegisterIndividualUser(
+                new RegisterIndividualRequest(registerRequest, addPassportRequest));
+
+            DialogText = "Registration completed";
+        }
+        catch (Exception e)
+        {
+            DialogText = e.Message;
+        }
+
+        ShowDialogCommand.Execute(this);
     }
 
     private async void AddressSearchExecute(object parameter)
     {
-        List<Address> addresses = await _searchUseCase.searchAddresses(new SearchAddressesRequest(AddressQuery, 5));
-        _addresses.Clear();
-        
+        List<Address> addresses = await _searchUseCase.searchAddresses(AddressQuery, 5);
+        Addresses.Clear();
+
         foreach (Address address in addresses)
-            _addresses.Add(new AddressViewModel(address.Name, address.FiasId));
-    }  
+            Addresses.Add(new AddressViewModel(address.Value, address.AddressParts));
+    }
+
+    private bool AddressSearchCanExecute(object parameter)
+    {
+        return !String.IsNullOrEmpty(AddressQuery);
+    }
+
+    
 }

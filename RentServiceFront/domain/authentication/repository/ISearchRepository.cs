@@ -13,5 +13,7 @@ public interface ISearchRepository
 
     Task<List<Bank>> searchBanksByName(string name);
 
-    Task<List<Address>> searchAddresses(SearchAddressesRequest request);
+    Task<List<Address>> searchAddresses(string query, int count);
+    
+    Task<List<MigrationService>> searchMigrationServices();
 }

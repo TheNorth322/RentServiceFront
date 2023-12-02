@@ -1,16 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace RentServiceFront.domain.model.entity;
 
 public class Address
 {
-    public Address(string name, string fiasId)
+    public Address(string value, List<AddressPart> addressParts)
     {
-        Name = name;
-        FiasId = fiasId;
+        Value = value;
+        AddressParts = addressParts;
     }
 
-    [JsonProperty("name")] public string Name { get; set; }
+    [JsonProperty("value")] public string Value { get; set; }
+    [JsonProperty("addressParts")] public List<AddressPart> AddressParts { get; set; }
 
-    [JsonProperty("fias_id")] public string FiasId { get; set; }
 }

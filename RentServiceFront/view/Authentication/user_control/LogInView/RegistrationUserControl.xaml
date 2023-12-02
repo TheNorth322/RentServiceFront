@@ -72,7 +72,7 @@
                     materialDesign:HintAssist.HelperText="{StaticResource PasswordFieldHelperText}"
                     materialDesign:HintAssist.Hint="{StaticResource PasswordFieldHint}"
                     materialDesign:TextFieldAssist.HasClearButton="True" />
-                
+
                 <TextBox
                     Margin="0 25 0 0"
                     materialDesign:HintAssist.HelperText="{StaticResource PhoneNumberLabel}"
@@ -85,7 +85,7 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                
+
                 <ComboBox Margin="0 25 0 0"
                           SelectedValue="{Binding Role, Converter={StaticResource EnumToCollectionConverter}, ConverterParameter={x:Type enums:Role}}"
                           ItemsSource="{Binding Source={enums1:EnumToItemsSource {x:Type enums:Role}}}"
@@ -105,5 +105,17 @@
 
             </StackPanel>
         </Grid>
+        <materialDesign:DialogHost IsOpen="{Binding IsDialogOpen}" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="40">
+                    <TextBlock Text="{Binding DialogText}" Margin="20" />
+                    <Button HorizontalAlignment="Right"
+                            Content="{StaticResource GoBackToLogin}"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            ToolTip="{StaticResource GoBackToLogin}"
+                            Command="{Binding GoBackCommand}" />
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </UserControl>

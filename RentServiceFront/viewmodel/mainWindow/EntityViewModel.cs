@@ -1,4 +1,6 @@
-﻿using RentServiceFront.domain.model.entity;
+﻿using System;
+using System.Windows.Input;
+using RentServiceFront.domain.model.entity;
 
 namespace RentServiceFront.viewmodel.mainWindow;
 
@@ -10,18 +12,18 @@ public class EntityViewModel : ViewModelBase
     private string _bankName;
     private string _checkingAccount;
     private string _itnNumber;
-
-    public EntityViewModel(string name, string supervisorFullName, string address, string bankName, string itnNumber,
+    
+    public EntityViewModel(string name, string supervisorFirstName, string supervisorLastName, string supervisorSurname, string address, string bankName, string itnNumber,
         string checkingAccount)
     {
         _name = name;
-        _supervisorFullname = supervisorFullName;
+        _supervisorFullname = $"{supervisorFirstName} {supervisorLastName} {((!String.IsNullOrEmpty(supervisorSurname)) ? supervisorSurname : "")}";
         _address = address;
         _bankName = bankName;
         _itnNumber = itnNumber;
         _checkingAccount = checkingAccount;
     }
-
+    
     public string Name
     {
         get => _name;

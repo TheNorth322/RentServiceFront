@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="RentServiceFront.view.MainWindow.user_control.editUserControls.MigrationServicesMenuUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RentServiceFront.view.MainWindow.user_control.editUserControls"
+             mc:Ignorable="d"
+             xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel.mainWindow.EditViewModels"
+             xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
+             xmlns:userControls="clr-namespace:RentServiceFront.view.MainWindow.user_control.editUserControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DataContext="{d:DesignInstance Type=viewmodels:MigrationServicesMenuViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:MigrationServiceEditViewModel}">
+            <userControls:MigrationServiceEditUserControl />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="7*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Button
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="{StaticResource AddText}"
+                HorizontalAlignment="Left"
+                Command="{Binding AddMigrationServiceCommand}">
+                <materialDesign:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="Plus" />
+            </Button>
+            <ListBox
+                Margin="10,10,10,0"
+                Grid.IsSharedSizeScope="True"
+                ItemsSource="{Binding MigrationServices}"
+                SelectedItem="{Binding SelectedMigrationService}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate
+                        DataType="{x:Type authentication:MigrationServiceViewModel}">
+                        <Border
+                            x:Name="Border"
+                            Padding="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+                                        SharedSizeGroup="Checkerz" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="8,0,0,0">
+                                    <TextBlock
+                                        FontWeight="Bold"
+                                        Text="{Binding Name}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <ContentControl Grid.Column="1" Content="{Binding SelectedMigrationService}" />
+    </Grid>
+</UserControl>

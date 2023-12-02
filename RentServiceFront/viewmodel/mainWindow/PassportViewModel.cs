@@ -13,14 +13,14 @@ public class PassportViewModel : ViewModelBase
     private Gender _gender;
     private string _placeOfBirth;
     
-    public PassportViewModel(string fullName, DateTime dateOfBirth, DateTime dateOfIssue, string issuedBy,
-        string numberSeries, Gender gender, string placeOfBirth)
+    public PassportViewModel(string firstName, string lastName, string surname, DateTime dateOfBirth, DateTime dateOfIssue, string issuedBy,
+        string number, string series, Gender gender, string placeOfBirth)
     {
-        _fullName = fullName;
+        _fullName = $"{firstName} {lastName} {((!String.IsNullOrEmpty(surname)) ? surname : "")}";
         _dateOfBirth = dateOfBirth;
         _dateOfIssue = dateOfIssue;
         _issuedBy = issuedBy;
-        _numberSeries = numberSeries;
+        _numberSeries = $"{number} {series}";
         _gender = gender;
         _placeOfBirth = placeOfBirth;
     }

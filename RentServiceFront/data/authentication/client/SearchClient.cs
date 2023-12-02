@@ -8,12 +8,13 @@ public class SearchClient
 {
     public ISearchService searchService;
 
-    public SearchClient(string token)
+    public SearchClient()
     {
-        searchService = RestService.For<ISearchService>("http://localhost:8080", new RefitSettings()
+        /*searchService = RestService.For<ISearchService>("http://localhost:8080", new RefitSettings()
         {
             AuthorizationHeaderValueGetter = (message, cancelationToken) =>
                 Task.FromResult($"Bearer {token}")
-        });
+        });*/
+        searchService = RestService.For<ISearchService>("http://localhost:8080");
     }
 }

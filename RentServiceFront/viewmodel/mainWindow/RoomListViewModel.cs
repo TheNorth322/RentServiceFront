@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using RentServiceFront.domain.authentication.use_case;
 
 namespace RentServiceFront.viewmodel.mainWindow;
 
-public class RoomListViewModel : ViewModelBase
+public class RoomListViewModel : ViewModelBase 
 {
     private List<RoomListItemViewModel> _roomListItemViewModels;
     private List<RoomTypeViewModel> _roomTypes;
@@ -25,7 +26,7 @@ public class RoomListViewModel : ViewModelBase
             _roomTypes.Add(new RoomTypeViewModel(type.Id, type.Text));*/
         _roomListItemViewModels = new List<RoomListItemViewModel>();
         _roomTypes = new List<RoomTypeViewModel>();
-        
+
         _roomTypes.Add(new RoomTypeViewModel(2, "Лоджия"));
         _roomTypes.Add(new RoomTypeViewModel(2, "Склад"));
         _roomTypes.Add(new RoomTypeViewModel(2, "Склад"));
@@ -33,8 +34,8 @@ public class RoomListViewModel : ViewModelBase
         _roomTypes.Add(new RoomTypeViewModel(2, "Бар"));
         _roomTypes.Add(new RoomTypeViewModel(2, "Пиво"));
         _roomTypes.Add(new RoomTypeViewModel(2, "Водка"));
-        
-        for(int i = 0; i < 7; i++)
+
+        for (int i = 0; i < 7; i++)
         {
             RoomListItemViewModel roomListItemViewModel =
                 new RoomListItemViewModel(2, "asdasd", "asdasdads", 2, 2, 2, 2, _roomTypes);

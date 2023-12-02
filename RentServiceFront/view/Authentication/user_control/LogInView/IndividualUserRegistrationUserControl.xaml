@@ -10,14 +10,11 @@
              xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:validators="clr-namespace:RentServiceFront.view.validator"
              xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
+             xmlns:enums1="clr-namespace:RentServiceFront.domain.model.enums"
              d:DataContext="{d:DesignInstance Type=authentication:IndividualUserRegistrationViewModel}"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/resources/RussianLocalization.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <enums1:EnumConverter x:Key="EnumToCollectionConverter" />
     </UserControl.Resources>
     <Grid
         Width="{Binding RelativeSource={RelativeSource FindAncestor, 
@@ -94,30 +91,19 @@
                 </TextBox>
 
                 <ComboBox Margin="0 25 0 0"
-                          SelectedValuePath="Value"
-                          DisplayMemberPath="Description"
-                          ItemsSource="{Binding Gender, Mode=OneTime}"
-                          SelectedItem="{Binding Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValue="{Binding Gender, Converter={StaticResource EnumToCollectionConverter}, ConverterParameter={x:Type enums:Gender}}"
+                          ItemsSource="{Binding Source={enums1:EnumToItemsSource {x:Type enums:Gender}}}"
+
                           materialDesign:HintAssist.Hint="{StaticResource GenderHint}"
                           materialDesign:TextFieldAssist.HasClearButton="True" />
 
 
                 <StackPanel Margin="0 10 0 0">
-                    <ComboBox
-                        Width="{Binding RelativeSource={RelativeSource FindAncestor, 
-                                                                      AncestorType={x:Type StackPanel}}, Path=.ActualWidth}"
+                    <TextBox
                         materialDesign:HintAssist.Hint="{StaticResource AddressLabel}"
-                        IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                        ItemsSource="{Binding Addresses}"
-                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                        IsEditable="True" 
-                        Text="{Binding AddressQuery}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>>
-                    </ComboBox>
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        TextWrapping="Wrap"
+                        Text="{Binding AddressQuery}" />
                     <Button
                         HorizontalAlignment="Right"
                         Command="{Binding AddressSearchCommand}"
@@ -125,6 +111,30 @@
                         Style="{StaticResource MaterialDesignFlatButton}" />
                 </StackPanel>
 
+                <ComboBox
+                    materialDesign:HintAssist.Hint="{StaticResource AddressLabel}"
+                    ItemsSource="{Binding Addresses}"
+                    SelectedItem="{Binding SelectedAddress}"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <ComboBox
+                    Margin="0 10 0 0"
+                    materialDesign:HintAssist.Hint="{StaticResource MigrationServiceLabel}"
+                    ItemsSource="{Binding MigrationServices}"
+                    SelectedItem="{Binding SelectedMigrationService}"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
                 <DockPanel Margin="0 40 0 0">
                     <Button HorizontalAlignment="Right"
@@ -137,5 +147,10 @@
                 </DockPanel>
             </StackPanel>
         </Grid>
+        <materialDesign:DialogHost IsOpen="{Binding IsDialogOpen}" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <TextBlock Text="{Binding DialogText}" Margin="20" />
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </UserControl>

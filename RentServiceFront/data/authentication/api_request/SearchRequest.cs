@@ -18,7 +18,7 @@ public class SearchRequest : ISearchRepository
     public SearchRequest(SecureDataStorage secureDataStorage)
     {
         _secureDataStorage = secureDataStorage;
-        _searchClient = new SearchClient(_secureDataStorage.JwtToken);
+        _searchClient = new SearchClient();
         _api = _searchClient.searchService;
     }
 
@@ -37,8 +37,13 @@ public class SearchRequest : ISearchRepository
         return await _api.searchBanksByName(name);
     }
 
-    public async Task<List<Address>> searchAddresses(SearchAddressesRequest request)
+    public async Task<List<Address>> searchAddresses(string query, int count)
     {
-        return await _api.searchAddresses(request);
+        return await _api.searchAddresses(query, count);
+    }
+
+    public async Task<List<MigrationService>> searchMigrationServices()
+    {
+        return await _api.searchMigrationServices();
     }
 }
