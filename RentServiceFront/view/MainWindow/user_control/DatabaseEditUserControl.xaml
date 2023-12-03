@@ -13,8 +13,14 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type editViewModels:RoomTypesMenuViewModel}">
+            <editUserControls:RoomTypesMenuUserControl />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type editViewModels:MigrationServicesMenuViewModel}">
             <editUserControls:MigrationServicesMenuUserControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type editViewModels:BanksMenuViewModel}">
+            <editUserControls:BanksMenuUserControl />
         </DataTemplate>
     </UserControl.Resources>
     <Grid>

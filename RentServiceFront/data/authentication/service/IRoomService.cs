@@ -21,6 +21,14 @@ public interface IRoomService
     [Headers("Authorization: Bearer")]
     Task<RoomType> createRoomType([Body] CreateRoomTypeRequest request);
 
+    [Put("/room/type/update")]
+    [Headers("Authorization: Bearer")]
+    Task<string> updateRoomType([Body] UpdateRoomTypeRequest request);
+
+    [Delete("/room/type/delete")]
+    [Headers("Authorization: Bearer")]
+    Task<string> deleteRoomType([Query] long id);
+
     [Post("/room/type/add")]
     [Headers("Authorization: Bearer")]
     Task<string> addRoomTypes([Body] AddRoomTypeToRoomRequest request);

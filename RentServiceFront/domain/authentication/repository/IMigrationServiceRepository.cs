@@ -8,7 +8,7 @@ namespace RentServiceFront.domain.authentication.repository;
 public interface IMigrationServiceRepository
 {
     Task<List<MigrationService>> getMigrationServices();
-    Task<string> createMigrationService(CreateMigrationServiceRequest request);
+    Task<MigrationService> createMigrationService(CreateMigrationServiceRequest request);
 
     Task<string> updateMigrationService(UpdateMigrationServiceRequest request);
     

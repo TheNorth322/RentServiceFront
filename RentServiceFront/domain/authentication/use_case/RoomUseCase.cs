@@ -31,6 +31,15 @@ public class RoomUseCase
         return await _roomRepository.CreateRoomType(request);
     }
 
+    public async Task<string> UpdateRoomType(UpdateRoomTypeRequest request)
+    {
+        return await _roomRepository.UpdateRoomType(request);
+    }
+
+    public async Task<string> DeleteRoomType(long id)
+    {
+        return await _roomRepository.DeleteRoomType(id);
+    }
     public async Task<string> AddRoomTypeToRoom(AddRoomTypeToRoomRequest request)
     {
         return await _roomRepository.AddRoomTypeToRoom(request);

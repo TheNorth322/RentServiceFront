@@ -22,7 +22,7 @@ public class MigrationServiceUseCase
         return await _migrationServiceRepository.getMigrationServices();
     }
     
-    public async Task<string> createMigrationService(CreateMigrationServiceRequest request)
+    public async Task<MigrationService> createMigrationService(CreateMigrationServiceRequest request)
     {
         return await _migrationServiceRepository.createMigrationService(request);
     }

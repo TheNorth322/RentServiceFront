@@ -18,27 +18,40 @@ public class MigrationServiceEditViewModel : ViewModelBase
 
     private string _addressQuery;
     private List<AddressViewModel> _addresses;
-    private SearchUseCase _searchUseCase;
+    private readonly SearchUseCase _searchUseCase;
     private AddressViewModel _selectedAddress;
-    private MigrationServiceUseCase _migrationServiceUseCase;
+    private readonly MigrationServiceUseCase _migrationServiceUseCase;
 
-    public MigrationServiceEditViewModel()
+    public ICommand DeleteCommand { get; }
+    public EventHandler<MigrationServiceEditViewModel> DeleteEvent;
+
+    public MigrationServiceEditViewModel(MigrationServiceUseCase migrationServiceUseCase, SearchUseCase searchUseCase)
     {
         _addressParts = new List<AddressPart>();
+        _addresses = new List<AddressViewModel>();
+        DeleteCommand = new RelayCommand(DeleteExecute);
         AddressSearchCommand = new RelayCommand(AddressSearchExecute);
         AddCommand = new RelayCommand(AddExecute);
+
         _id = 0;
         _name = "Unknown";
+        _migrationServiceUseCase = migrationServiceUseCase;
+        _searchUseCase = searchUseCase;
     }
 
-    public MigrationServiceEditViewModel(long id, string name, string address, List<AddressPart> addressParts) : this()
+    public MigrationServiceEditViewModel(long id, string name, string address, List<AddressPart> addressParts,
+        MigrationServiceUseCase migrationServiceUseCase, SearchUseCase searchUseCase) : this(migrationServiceUseCase,
+        searchUseCase)
     {
         _addressParts = addressParts;
         _id = id;
         _name = name;
         _address = address;
+        AddressQuery = _address;
+        _migrationServiceUseCase = migrationServiceUseCase;
+        _searchUseCase = searchUseCase;
     }
-    
+
     public ICommand AddCommand { get; }
 
     public List<AddressViewModel> Addresses
@@ -109,13 +122,15 @@ public class MigrationServiceEditViewModel : ViewModelBase
         {
             if (_id == 0)
             {
-                DialogText = await _migrationServiceUseCase.createMigrationService(
+                MigrationService migrationService = await _migrationServiceUseCase.createMigrationService(
                     new CreateMigrationServiceRequest(Name, SelectedAddress.Name, SelectedAddress.AddressParts));
+                _id = migrationService.Id;
             }
             else
             {
                 DialogText = await _migrationServiceUseCase.updateMigrationService(
-                    new UpdateMigrationServiceRequest(_id, Name, (SelectedAddress != null) ? SelectedAddress.Name : _address,
+                    new UpdateMigrationServiceRequest(_id, Name,
+                        (SelectedAddress != null) ? SelectedAddress.Name : _address,
                         (SelectedAddress != null) ? SelectedAddress.AddressParts : _addressParts));
             }
 
@@ -130,7 +145,10 @@ public class MigrationServiceEditViewModel : ViewModelBase
 
     private async void DeleteExecute(object parameter)
     {
-        DialogText = await _migrationServiceUseCase.deleteMigrationService(_id);
-        //TODO      
+        if (_id != 0)
+        {
+            await _migrationServiceUseCase.deleteMigrationService(_id);
+        }
+        DeleteEvent?.Invoke(this, this);
     }
 }

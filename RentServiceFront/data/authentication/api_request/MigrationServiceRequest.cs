@@ -27,7 +27,7 @@ public class MigrationServiceRequest : IMigrationServiceRepository
         return await _api.getMigrationServices();
     }
 
-    public async Task<string> createMigrationService(CreateMigrationServiceRequest request)
+    public async Task<MigrationService> createMigrationService(CreateMigrationServiceRequest request)
     {
         return await _api.createMigrationService(request);
     }

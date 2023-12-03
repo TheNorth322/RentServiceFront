@@ -36,6 +36,16 @@ public class RoomRequest : IRoomRepository
         return await _api.createRoomType(request);
     }
 
+    public async Task<string> UpdateRoomType(UpdateRoomTypeRequest request)
+    {
+        return await _api.updateRoomType(request);
+    }
+
+    public async Task<string> DeleteRoomType(long id)
+    {
+        return await _api.deleteRoomType(id);
+    }
+
     public async Task<string> AddRoomTypeToRoom(AddRoomTypeToRoomRequest request)
     {
         return await _api.addRoomTypes(request);

@@ -10,7 +10,8 @@ public interface IRoomRepository
     Task<Room> CreateRoom(CreateRoomRequest request);
     Task<Room> GetRoomById(long id);
     Task<RoomType> CreateRoomType(CreateRoomTypeRequest request);
+    Task<string> UpdateRoomType(UpdateRoomTypeRequest request);
+    Task<string> DeleteRoomType(long id);
     Task<string> AddRoomTypeToRoom(AddRoomTypeToRoomRequest request);
-
     Task<List<RoomType>> GetAllTypes();
 }

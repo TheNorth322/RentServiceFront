@@ -57,9 +57,9 @@ public partial class MainWindow : Window
     private List<SampleItem> InitializeEditSampleItems()
     {
         List<SampleItem> editSampelItems = new List<SampleItem>();
-        editSampelItems.Add(new SampleItem("Banks", PackIconKind.Bank, PackIconKind.Bank, new BanksEditViewModel()));
+        editSampelItems.Add(new SampleItem("Banks", PackIconKind.Bank, PackIconKind.Bank, new BanksMenuViewModel(_secureDataStorage)));
         editSampelItems.Add(new SampleItem("Migration Services", PackIconKind.Passport, PackIconKind.Passport, new MigrationServicesMenuViewModel(_secureDataStorage)));
-        editSampelItems.Add(new SampleItem("Room types", PackIconKind.StoreCog, PackIconKind.StoreCog, new RoomTypesEditViewModel()));
+        editSampelItems.Add(new SampleItem("Room types", PackIconKind.StoreCog, PackIconKind.StoreCog, new RoomTypesMenuViewModel(_secureDataStorage)));
         editSampelItems.Add(new SampleItem("Buildings", PackIconKind.OfficeBuilding, PackIconKind.OfficeBuilding, new BuildingEditViewModel()));
         return editSampelItems;
     }
