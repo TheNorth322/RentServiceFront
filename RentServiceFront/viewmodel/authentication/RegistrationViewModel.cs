@@ -19,13 +19,15 @@ public class RegistrationViewModel : ViewModelBase
     private ViewModelBase _previousVm;
     public ICommand GoBackCommand { get; }
     public ICommand RegisterCommand { get; }
-
-    public RegistrationViewModel(ViewModelBase previousVm, AuthenticationUseCase authenticationUseCase)
+    private SecureDataStorage _secureDataStorage;
+    
+    public RegistrationViewModel(ViewModelBase previousVm, AuthenticationUseCase authenticationUseCase, SecureDataStorage secureDataStorage)
     {
         _previousVm = previousVm;
-        GoBackCommand = new RelayCommand(GoBackExecute);
-        RegisterCommand = new RelayCommand(RegisterExecute);
+        GoBackCommand = new RelayCommand<object>(GoBackExecute);
+        RegisterCommand = new RelayCommand<object>(RegisterExecute);
         _authenticationUseCase = authenticationUseCase;
+        _secureDataStorage = secureDataStorage;
     }
 
     public string Username
@@ -91,7 +93,7 @@ public class RegistrationViewModel : ViewModelBase
     private async void RegisterExecute(object parameter)
     {
         if (Role == Role.ENTITY)
-            RaiseViewModelRequested(new EntityRegistrationViewModel(this, _authenticationUseCase));
+            RaiseViewModelRequested(new EntityRegistrationViewModel(this, _authenticationUseCase, _secureDataStorage));
         else if (Role == Role.INDIVIDUAL)
             RaiseViewModelRequested(new IndividualUserRegistrationViewModel(this, _authenticationUseCase,
                 new SearchUseCase(new SearchRequest(new SecureDataStorage()))));

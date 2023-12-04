@@ -15,7 +15,7 @@ public class ViewModelBase : INotifyPropertyChanged
 
     public ViewModelBase()
     {
-        ShowDialogCommand = new RelayCommand(OnShowDialog);
+        ShowDialogCommand = new RelayCommand<object>(OnShowDialog);
     }
     
     public string DialogText
@@ -54,7 +54,7 @@ public class ViewModelBase : INotifyPropertyChanged
     {
     }
 
-    protected void OnShowDialog(object parameter)
+    protected void OnShowDialog(object param)
     {
         IsDialogOpen = true;
     }

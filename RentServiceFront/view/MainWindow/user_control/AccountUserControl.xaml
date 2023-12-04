@@ -12,7 +12,7 @@
              xmlns:mainWindow="clr-namespace:RentServiceFront.viewmodel.mainWindow"
              d:DataContext="{d:DesignInstance Type=mainWindow:AccountViewModel}"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="AccountUserControl_OnLoaded">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type mainWindow:EntityViewModel}">
             <userControl:EntityInfoUserControl />

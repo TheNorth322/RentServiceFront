@@ -24,10 +24,9 @@ public class MigrationServicesMenuViewModel : ViewModelBase
     {
         _secureDataStorage = secureDataStorage;
         _migrationServices = new ObservableCollection<MigrationServiceEditViewModel>();
-        AddMigrationServiceCommand = new RelayCommand(AddMigrationServiceExecute);
+        AddMigrationServiceCommand = new RelayCommand<object>(AddMigrationServiceExecute);
         _migrationServiceUseCase = new MigrationServiceUseCase(new MigrationServiceRequest(_secureDataStorage));
         _searchUseCase = new SearchUseCase(new SearchRequest(_secureDataStorage));
-        InitializeMigrationServices();
     }
 
     public ICommand AddMigrationServiceCommand { get; }
@@ -52,7 +51,7 @@ public class MigrationServicesMenuViewModel : ViewModelBase
         }
     }
 
-    private void AddMigrationServiceExecute(object parameter)
+    private void AddMigrationServiceExecute(object param)
     {
         MigrationServiceEditViewModel vm = new MigrationServiceEditViewModel(_migrationServiceUseCase, _searchUseCase);
         vm.DeleteEvent += OnDeleteEvent;
@@ -60,8 +59,9 @@ public class MigrationServicesMenuViewModel : ViewModelBase
         OnPropertyChange(nameof(MigrationServices));
     }
 
-    private async Task InitializeMigrationServices()
+    public async Task InitializeMigrationServices()
     {
+        _migrationServices.Clear();
         List<MigrationService> migrationServices = await _migrationServiceUseCase.getMigrationServices();
         
         foreach (MigrationService migrationService in migrationServices)

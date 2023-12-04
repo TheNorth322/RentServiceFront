@@ -23,7 +23,7 @@ public class AccountViewModel : ViewModelBase
     private ViewModelBase _currentViewModel;
     private UserUseCase _userUseCase;
 
-    private async Task InitializeInfo()
+    public async Task InitializeInfo()
     {
         User user = await _userUseCase.getUserByUsername(_secureDataStorage.Username);
         Username = user.Username;
@@ -31,6 +31,7 @@ public class AccountViewModel : ViewModelBase
         PhoneNumber = user.PhoneNumber;
         EmailVerified = user.EmailVerified;
         Role = user.Role;
+        
         switch (Role)
         {
             case Role.ENTITY:
@@ -54,7 +55,7 @@ public class AccountViewModel : ViewModelBase
                 passport.Series, passport.Gender, passport.PlaceOfBirth));
         }
 
-        IndividualViewModel individualViewModel = new IndividualViewModel(passports);
+        CurrentViewModel = new IndividualViewModel(passports);
     }
 
     private async Task InitializeEntityInfo()
@@ -70,7 +71,6 @@ public class AccountViewModel : ViewModelBase
     {
         _secureDataStorage = secureDataStorage;
         _userUseCase = new UserUseCase(new UserRequest(_secureDataStorage));
-        InitializeInfo();
     }
 
     public string Username

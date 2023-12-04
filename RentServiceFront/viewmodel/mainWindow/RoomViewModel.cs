@@ -20,7 +20,7 @@ public class RoomViewModel : ViewModelBase
 
     public RoomViewModel()
     {
-        AddToCartCommand = new RelayCommand(AddToCartExecute);
+        AddToCartCommand = new RelayCommand<object>(AddToCartExecute);
     }
 
     public RoomViewModel(long id, string address, string description, List<RoomImageViewModel> images, int price,
@@ -47,7 +47,7 @@ public class RoomViewModel : ViewModelBase
             "https://t4.ftcdn.net/jpg/00/97/58/97/360_F_97589769_t45CqXyzjz0KXwoBZT9PRaWGHRk5hQqQ.jpg"));
         _images.Add(new RoomImageViewModel(1,
             "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/310px-Placeholder_view_vector.svg.pngr.com/docs/assets/img/elementor-placeholder-image.png"));
-        AddToCartCommand = new RelayCommand(AddToCartExecute);
+        AddToCartCommand = new RelayCommand<object>(AddToCartExecute);
     }
 
     public string Address

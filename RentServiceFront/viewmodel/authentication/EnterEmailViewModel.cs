@@ -14,8 +14,8 @@ public class EnterEmailViewModel : ViewModelBase
    public EnterEmailViewModel(ViewModelBase previousVm, AuthenticationUseCase _authenticationUseCase)
    {
       _previousVm = previousVm;
-      GoBackCommand = new RelayCommand(GoBackExecute);
-      ResetPasswordCommand = new RelayCommand(ResetPasswordExecute);
+      GoBackCommand = new RelayCommand<object>(GoBackExecute);
+      ResetPasswordCommand = new RelayCommand<object>(ResetPasswordExecute);
       this._authenticationUseCase = _authenticationUseCase;
    } 
    

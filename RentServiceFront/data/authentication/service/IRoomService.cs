@@ -7,33 +7,28 @@ using RentServiceFront.domain.model.request.Room;
 
 namespace RentServiceFront.data.service;
 
+[Headers("Authorization: Bearer")]
 public interface IRoomService
 {
+    
     [Post("/room/create")]
-    [Headers("Authorization: Bearer")]
     Task<Room> createRoom([Body] CreateRoomRequest request);
 
     [Get("/room/{id}")]
-    [Headers("Authorization: Bearer")]
     Task<Room> getRoomById(long id);
 
     [Post("/room/type/create")]
-    [Headers("Authorization: Bearer")]
     Task<RoomType> createRoomType([Body] CreateRoomTypeRequest request);
 
     [Put("/room/type/update")]
-    [Headers("Authorization: Bearer")]
     Task<string> updateRoomType([Body] UpdateRoomTypeRequest request);
 
     [Delete("/room/type/delete")]
-    [Headers("Authorization: Bearer")]
     Task<string> deleteRoomType([Query] long id);
 
     [Post("/room/type/add")]
-    [Headers("Authorization: Bearer")]
     Task<string> addRoomTypes([Body] AddRoomTypeToRoomRequest request);
 
     [Get("/room/types")]
-    [Headers("Authorization: Bearer")]
     Task<List<RoomType>> getAllTypes();
 }

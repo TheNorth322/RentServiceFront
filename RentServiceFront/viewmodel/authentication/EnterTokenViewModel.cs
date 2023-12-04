@@ -15,7 +15,7 @@ public class EnterTokenViewModel : ViewModelBase
     {
         _enterEmailViewModel = vm;
         _authenticationUseCase = authenticationUseCase; 
-        VerifyPasswordResetTokenCommand = new RelayCommand(VerifyPasswordResetTokenExecute);
+        VerifyPasswordResetTokenCommand = new RelayCommand<object>(VerifyPasswordResetTokenExecute);
     }
     public string PasswordResetToken
     {

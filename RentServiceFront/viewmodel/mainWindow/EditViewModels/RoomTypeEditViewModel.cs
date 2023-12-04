@@ -19,8 +19,8 @@ public class RoomTypeEditViewModel : ViewModelBase
 
     public RoomTypeEditViewModel(RoomUseCase roomUseCase, SearchUseCase searchUseCase)
     {
-        DeleteCommand = new RelayCommand(DeleteExecute);
-        AddCommand = new RelayCommand(AddExecute);
+        DeleteCommand = new RelayCommand<object>(DeleteExecute);
+        AddCommand = new RelayCommand<object>(AddExecute);
 
         _id = 0;
         _name = "Unknown";
@@ -50,7 +50,7 @@ public class RoomTypeEditViewModel : ViewModelBase
         }
     }
 
-    private async void AddExecute(object parameter)
+    private async void AddExecute(object param)
     {
         try
         {
@@ -73,7 +73,7 @@ public class RoomTypeEditViewModel : ViewModelBase
         }
     }
 
-    private async void DeleteExecute(object parameter)
+    private async void DeleteExecute(object param)
     {
         if (_id != 0)
         {

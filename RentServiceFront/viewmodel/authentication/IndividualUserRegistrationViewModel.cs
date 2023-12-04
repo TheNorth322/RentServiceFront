@@ -29,7 +29,9 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
     private MigrationServiceViewModel _selectedMigrationService;   
     private string _addressQuery;
     private AddressViewModel _selectedAddress;
-    
+    private KeyEventArgs _lastKeyEventArgs;
+    private bool _isComboBoxOpen;
+
     public ICommand GoBackCommand { get; }
     public ICommand RegisterCommand { get; }
     public ICommand AddressSearchCommand { get; }
@@ -41,18 +43,20 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
         DateOfIssue = System.DateTime.Now;
         _addresses = new List<AddressViewModel>();
         _selectedAddress = new AddressViewModel("", new List<AddressPart>());
-        GoBackCommand = new RelayCommand(GoBackExecute);
-        RegisterCommand = new RelayCommand(RegisterExecute);
-        AddressSearchCommand = new RelayCommand(AddressSearchExecute);
+        
+        GoBackCommand = new RelayCommand<object>(GoBackExecute);
+        RegisterCommand = new RelayCommand<object>(RegisterExecute);
+        AddressSearchCommand = new RelayCommand<object>(AddressSearchExecute);
+        
         _migrationServices = new List<MigrationServiceViewModel>();
         _authenticationUseCase = authenticationUseCase;
         _searchUseCase = searchUseCase;
         _registrationViewModel = vm;
-        InitMigrationServices();
     }
 
-    private async Task InitMigrationServices()
+    public async Task InitMigrationServices()
     {
+        _migrationServices.Clear();
         List<MigrationService> migrationServices = await _searchUseCase.searchForMigrationServices();
         foreach (MigrationService service in migrationServices)
             _migrationServices.Add(new MigrationServiceViewModel(service.Id, service.Name));
@@ -179,7 +183,42 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
         }
     }
 
-    
+    public KeyEventArgs LastKeyEventArgs
+    {
+        get { return _lastKeyEventArgs; }
+        set
+        {
+            if (_lastKeyEventArgs != value)
+            {
+                _lastKeyEventArgs = value;
+                OnPropertyChange(nameof(LastKeyEventArgs));
+            }
+        }
+    }
+
+
+    private async void AddressSearchExecute(object parameter)
+    {
+        if (LastKeyEventArgs != null && LastKeyEventArgs.Key == Key.Enter)
+        {
+            List<Address> addresses = await _searchUseCase.searchAddresses(AddressQuery, 5);
+            Addresses.Clear();
+
+            foreach (Address address in addresses)
+                Addresses.Add(new AddressViewModel(address.Value, address.AddressParts));
+            IsComboBoxOpen = !IsComboBoxOpen;
+        }
+    }
+
+    public bool IsComboBoxOpen
+    {
+        get => _isComboBoxOpen;
+        set
+        {
+            _isComboBoxOpen = value;
+            OnPropertyChange(nameof(IsComboBoxOpen));
+        } 
+    }
 
 
     private void ParseNumberSeries(string numberSeries)
@@ -221,15 +260,6 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
         }
 
         ShowDialogCommand.Execute(this);
-    }
-
-    private async void AddressSearchExecute(object parameter)
-    {
-        List<Address> addresses = await _searchUseCase.searchAddresses(AddressQuery, 5);
-        Addresses.Clear();
-
-        foreach (Address address in addresses)
-            Addresses.Add(new AddressViewModel(address.Value, address.AddressParts));
     }
 
     private bool AddressSearchCanExecute(object parameter)

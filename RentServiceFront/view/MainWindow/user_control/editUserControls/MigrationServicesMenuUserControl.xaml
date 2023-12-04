@@ -10,7 +10,7 @@
              xmlns:userControls="clr-namespace:RentServiceFront.view.MainWindow.user_control.editUserControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DataContext="{d:DesignInstance Type=viewmodels:MigrationServicesMenuViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="MigrationServicesMenuUserControl_OnLoaded">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type viewmodels:MigrationServiceEditViewModel}">
             <userControls:MigrationServiceEditUserControl />

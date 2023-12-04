@@ -18,7 +18,7 @@ public class RoomListItemViewModel : ViewModelBase
     public RoomListItemViewModel(long id, string address, string description, int floor, int number, int price,
         int area, List<RoomTypeViewModel> roomTypeViewModels = null)
     {
-        OpenRoomViewCommand = new RelayCommand(OpenRoomViewExecute);
+        OpenRoomViewCommand = new RelayCommand<object>(OpenRoomViewExecute);
         Id = id;
         Address = address;
         Description = description;

@@ -21,10 +21,9 @@ public class BanksMenuViewModel : ViewModelBase
     {
         _secureDataStorage = secureDataStorage;
         _banks = new ObservableCollection<BankEditViewModel>();
-        AddBankCommand = new RelayCommand(AddBankExecute);
+        AddBankCommand = new RelayCommand<object>(AddBankExecute);
         _bankUseCase = new BankUseCase(new BankRequest(_secureDataStorage));
         _searchUseCase = new SearchUseCase(new SearchRequest(_secureDataStorage));
-        InitializeBanks();
     }
 
     public ICommand AddBankCommand { get; }
@@ -51,19 +50,20 @@ public class BanksMenuViewModel : ViewModelBase
 
     private void AddBankExecute(object parameter)
     {
-        BankEditViewModel vm = new BankEditViewModel(_bankUseCase, _searchUseCase);
+        BankEditViewModel vm = new BankEditViewModel(_bankUseCase);
         vm.DeleteEvent += OnDeleteEvent;
         _banks.Add(vm);
         OnPropertyChange(nameof(Banks));
     }
 
-    private async Task InitializeBanks()
+    public async Task InitializeBanks()
     {
+        _banks.Clear();
         List<Bank> banks = await _bankUseCase.getBanks();
-
+        
         foreach (Bank bank in banks)
         {
-            BankEditViewModel vm = new BankEditViewModel(bank.Id, bank.Name, _bankUseCase, _searchUseCase);
+            BankEditViewModel vm = new BankEditViewModel(bank.Id, bank.Name, _bankUseCase);
             vm.DeleteEvent += OnDeleteEvent;
             _banks.Add(vm);
         }

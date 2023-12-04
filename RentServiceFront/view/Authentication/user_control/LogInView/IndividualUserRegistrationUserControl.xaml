@@ -11,8 +11,9 @@
              xmlns:validators="clr-namespace:RentServiceFront.view.validator"
              xmlns:authentication="clr-namespace:RentServiceFront.viewmodel.authentication"
              xmlns:enums1="clr-namespace:RentServiceFront.domain.model.enums"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              d:DataContext="{d:DesignInstance Type=authentication:IndividualUserRegistrationViewModel}"
-             mc:Ignorable="d">
+             mc:Ignorable="d" Loaded="IndividualUserRegistrationUserControl_OnLoaded">
     <UserControl.Resources>
         <enums1:EnumConverter x:Key="EnumToCollectionConverter" />
     </UserControl.Resources>
@@ -97,30 +98,24 @@
                           materialDesign:HintAssist.Hint="{StaticResource GenderHint}"
                           materialDesign:TextFieldAssist.HasClearButton="True" />
 
-
-                <StackPanel Margin="0 10 0 0">
-                    <TextBox
-                        materialDesign:HintAssist.Hint="{StaticResource AddressLabel}"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                        TextWrapping="Wrap"
-                        Text="{Binding AddressQuery}" />
-                    <Button
-                        HorizontalAlignment="Right"
-                        Command="{Binding AddressSearchCommand}"
-                        Content="{StaticResource SearchText}"
-                        Style="{StaticResource MaterialDesignFlatButton}" />
-                </StackPanel>
-
                 <ComboBox
-                    materialDesign:HintAssist.Hint="{StaticResource AddressLabel}"
+                    Margin="0 10 0 0"
+                    materialDesign:HintAssist.Hint="{StaticResource AddressFieldHint}"
+                    materialDesign:HintAssist.HintOpacity=".26"
                     ItemsSource="{Binding Addresses}"
                     SelectedItem="{Binding SelectedAddress}"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
+                    Style="{StaticResource MaterialDesignComboBox}"
+                    IsEditable="True"
+                    DisplayMemberPath="Name"
+                    Text="{Binding AddressQuery}"
+                    IsDropDownOpen="{Binding IsComboBoxOpen}"
+                    PreviewKeyDown="ComboBox_PreviewKeyDown">
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="PreviewKeyDown">
+                            <b:InvokeCommandAction Command="{Binding AddressSearchCommand}"
+                                                   CommandParameter="{Binding LastKeyEventArgs, Mode=OneWayToSource}" />
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
                 </ComboBox>
 
                 <ComboBox
@@ -128,7 +123,7 @@
                     materialDesign:HintAssist.Hint="{StaticResource MigrationServiceLabel}"
                     ItemsSource="{Binding MigrationServices}"
                     SelectedItem="{Binding SelectedMigrationService}"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                    Style="{StaticResource MaterialDesignComboBox}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}" />

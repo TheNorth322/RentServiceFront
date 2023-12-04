@@ -21,10 +21,9 @@ public class RoomTypesMenuViewModel : ViewModelBase
     {
         _secureDataStorage = secureDataStorage;
         _roomTypes = new ObservableCollection<RoomTypeEditViewModel>();
-        AddRoomTypeCommand = new RelayCommand(AddRoomTypeExecute);
+        AddRoomTypeCommand = new RelayCommand<object>(AddRoomTypeExecute);
         _roomUseCase = new RoomUseCase(new RoomRequest(_secureDataStorage));
         _searchUseCase = new SearchUseCase(new SearchRequest(_secureDataStorage));
-        InitializeRoomTypes();
     }
 
     public ICommand AddRoomTypeCommand { get; }
@@ -49,7 +48,7 @@ public class RoomTypesMenuViewModel : ViewModelBase
         }
     }
 
-    private void AddRoomTypeExecute(object parameter)
+    private void AddRoomTypeExecute(object param)
     {
         RoomTypeEditViewModel vm = new RoomTypeEditViewModel(_roomUseCase, _searchUseCase);
         vm.DeleteEvent += OnDeleteEvent;
@@ -57,8 +56,9 @@ public class RoomTypesMenuViewModel : ViewModelBase
         OnPropertyChange(nameof(RoomTypes));
     }
 
-    private async Task InitializeRoomTypes()
+    public async Task InitializeRoomTypes()
     {
+        RoomTypes.Clear();
         List<RoomType> roomTypes = await _roomUseCase.GetAllTypes();
 
         foreach (RoomType type in roomTypes)

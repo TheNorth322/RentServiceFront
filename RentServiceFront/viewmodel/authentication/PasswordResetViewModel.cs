@@ -14,7 +14,7 @@ public class PasswordResetViewModel : ViewModelBase
     
     public PasswordResetViewModel(EnterTokenViewModel vm, AuthenticationUseCase authenticationUseCase)
     {
-        GoBackCommand = new RelayCommand(GoBackExecute);
+        GoBackCommand = new RelayCommand<object>(GoBackExecute);
         _enterTokenViewModel = vm;
         _authenticationUseCase = authenticationUseCase;
     }

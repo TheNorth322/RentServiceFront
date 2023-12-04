@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using RentServiceFront.domain.authentication.use_case;
@@ -15,23 +16,23 @@ public class MigrationServiceEditViewModel : ViewModelBase
     private string _name;
     private string _address;
     private List<AddressPart> _addressParts;
-
+    private bool _isComboBoxOpen;
     private string _addressQuery;
-    private List<AddressViewModel> _addresses;
+    private ObservableCollection<AddressViewModel> _addresses;
     private readonly SearchUseCase _searchUseCase;
     private AddressViewModel _selectedAddress;
     private readonly MigrationServiceUseCase _migrationServiceUseCase;
-
+    private KeyEventArgs _lastKeyEventArgs;
     public ICommand DeleteCommand { get; }
     public EventHandler<MigrationServiceEditViewModel> DeleteEvent;
 
     public MigrationServiceEditViewModel(MigrationServiceUseCase migrationServiceUseCase, SearchUseCase searchUseCase)
     {
         _addressParts = new List<AddressPart>();
-        _addresses = new List<AddressViewModel>();
-        DeleteCommand = new RelayCommand(DeleteExecute);
-        AddressSearchCommand = new RelayCommand(AddressSearchExecute);
-        AddCommand = new RelayCommand(AddExecute);
+        _addresses = new ObservableCollection<AddressViewModel>();
+        DeleteCommand = new RelayCommand<object>(DeleteExecute);
+        AddressSearchCommand = new RelayCommand<KeyEventArgs>(AddressSearchExecute);
+        AddCommand = new RelayCommand<object>(AddExecute);
 
         _id = 0;
         _name = "Unknown";
@@ -54,7 +55,17 @@ public class MigrationServiceEditViewModel : ViewModelBase
 
     public ICommand AddCommand { get; }
 
-    public List<AddressViewModel> Addresses
+    public bool IsComboBoxOpen
+    {
+        get => _isComboBoxOpen;
+        set
+        {
+            _isComboBoxOpen = value;
+            OnPropertyChange(nameof(IsComboBoxOpen));
+        }
+    }
+
+    public ObservableCollection<AddressViewModel> Addresses
     {
         get => _addresses;
         set
@@ -102,21 +113,41 @@ public class MigrationServiceEditViewModel : ViewModelBase
         set
         {
             _selectedAddress = value;
-            AddressQuery = value.Name;
             OnPropertyChange(nameof(SelectedAddress));
+            Address = _selectedAddress.Name;
+            AddressQuery = _selectedAddress.Name;
         }
     }
 
-    private async void AddressSearchExecute(object parameter)
-    {
-        List<Address> addresses = await _searchUseCase.searchAddresses(AddressQuery, 5);
-        Addresses.Clear();
 
-        foreach (Address address in addresses)
-            Addresses.Add(new AddressViewModel(address.Value, address.AddressParts));
+    public KeyEventArgs LastKeyEventArgs
+    {
+        get { return _lastKeyEventArgs; }
+        set
+        {
+            if (_lastKeyEventArgs != value)
+            {
+                _lastKeyEventArgs = value;
+                OnPropertyChange(nameof(LastKeyEventArgs));
+            }
+        }
     }
 
-    private async void AddExecute(object parameter)
+
+    private async void AddressSearchExecute(object parameter)
+    {
+        if (LastKeyEventArgs != null && LastKeyEventArgs.Key == Key.Enter)
+        {
+            List<Address> addresses = await _searchUseCase.searchAddresses(AddressQuery, 5);
+            Addresses.Clear();
+
+            foreach (Address address in addresses)
+                Addresses.Add(new AddressViewModel(address.Value, address.AddressParts));
+            IsComboBoxOpen = !IsComboBoxOpen;
+        }
+    }
+
+    private async void AddExecute(object param)
     {
         try
         {
@@ -143,7 +174,7 @@ public class MigrationServiceEditViewModel : ViewModelBase
         }
     }
 
-    private async void DeleteExecute(object parameter)
+    private async void DeleteExecute(object param)
     {
         if (_id != 0)
         {

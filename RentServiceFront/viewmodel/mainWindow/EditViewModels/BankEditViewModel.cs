@@ -14,31 +14,27 @@ public class BankEditViewModel : ViewModelBase
     private long _id;
     private string _name;
 
-    private readonly SearchUseCase _searchUseCase;
     private readonly BankUseCase _bankUseCase;
 
     public ICommand DeleteCommand { get; }
     public EventHandler<BankEditViewModel> DeleteEvent;
 
-    public BankEditViewModel(BankUseCase bankUseCase, SearchUseCase searchUseCase)
+    public BankEditViewModel(BankUseCase bankUseCase)
     {
-        DeleteCommand = new RelayCommand(DeleteExecute);
-        AddCommand = new RelayCommand(AddExecute);
+        DeleteCommand = new RelayCommand<object>(DeleteExecute);
+        AddCommand = new RelayCommand<object>(AddExecute);
 
         _id = 0;
         _name = "Unknown";
         _bankUseCase = bankUseCase;
-        _searchUseCase = searchUseCase;
     }
 
-    public BankEditViewModel(long id, string name, BankUseCase bankUseCase, SearchUseCase searchUseCase) :
-        this(bankUseCase,
-            searchUseCase)
+    public BankEditViewModel(long id, string name, BankUseCase bankUseCase) :
+        this(bankUseCase)
     {
         _id = id;
         _name = name;
         _bankUseCase = bankUseCase;
-        _searchUseCase = searchUseCase;
     }
 
     public ICommand AddCommand { get; }

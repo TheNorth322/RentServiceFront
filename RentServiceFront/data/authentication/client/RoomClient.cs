@@ -13,7 +13,7 @@ public class RoomClient
         roomService = RestService.For<IRoomService>("http://localhost:8080", new RefitSettings()
         {
             AuthorizationHeaderValueGetter = (message, cancelationToken) =>
-                Task.FromResult($"Bearer {token}")
+                Task.FromResult(token)
         });
     }
 }

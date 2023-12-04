@@ -1,7 +1,13 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using RentServiceFront.data.authentication.api_request;
+using RentServiceFront.data.secure;
 using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.domain.model.entity;
 using RentServiceFront.domain.model.request;
+using RentServiceFront.viewmodel.mainWindow.EditViewModels;
 
 namespace RentServiceFront.viewmodel.authentication;
 
@@ -9,21 +15,77 @@ public class EntityRegistrationViewModel : ViewModelBase
 {
     private string _name;
     private string _supervisorFullname;
-    private string _address;
-    private Bank _bank;
+    private BankViewModel _selectedBank;
+    private ObservableCollection<BankViewModel> _banks;
     private string _checkingAccount;
     private string _itnNumber;
     private RegistrationViewModel _registrationViewModel;
     private AuthenticationUseCase _authenticationUseCase;
-    
+    private KeyEventArgs _lastKeyEventArgs;
+    private bool _isComboBoxOpen;
+    private string _addressQuery;
+    private ObservableCollection<AddressViewModel> _addresses;
+    private AddressViewModel _selectedAddress;
+    private string _address;
+    private SearchUseCase _searchUseCase;
+    private readonly SecureDataStorage _secureDataStorage;
+    private readonly BankUseCase _bankUseCase;
+    public ObservableCollection<AddressViewModel> Addresses
+    {
+        get => _addresses;
+        set
+        {
+            _addresses = value;
+            OnPropertyChange(nameof(Addresses));
+        }
+    }
+
+    public BankViewModel SelectedBank
+    {
+        get => _selectedBank;
+        set
+        {
+            _selectedBank = value;
+            OnPropertyChange(nameof(SelectedBank));
+        }
+    }
+
+    public ObservableCollection<BankViewModel> Banks
+    {
+        get => _banks;
+        set
+        {
+            _banks = value;
+            OnPropertyChange(nameof(Banks));
+        }
+    } 
+    public AddressViewModel SelectedAddress
+    {
+        get => _selectedAddress;
+        set
+        {
+            _selectedAddress = value;
+            OnPropertyChange(nameof(SelectedAddress));
+        }
+    }
     public ICommand GoBackCommand { get; }
 
-    public EntityRegistrationViewModel(RegistrationViewModel vm, AuthenticationUseCase authenticationUseCase)
+    public EntityRegistrationViewModel(RegistrationViewModel vm, AuthenticationUseCase authenticationUseCase, SecureDataStorage secureDataStorage)
     {
-        GoBackCommand = new RelayCommand(GoBackExecute);
+        GoBackCommand = new RelayCommand<object>(GoBackExecute);
+        AddressSearchCommand = new RelayCommand<KeyEventArgs>(AddressSearchExecute);
+        RegisterCommand = new RelayCommand<object>(RegisterExecute);
+        
+        _banks = new ObservableCollection<BankViewModel>();
+        _addresses = new ObservableCollection<AddressViewModel>();
+        
         _authenticationUseCase = authenticationUseCase;
+        _secureDataStorage = secureDataStorage;
+        _searchUseCase = new SearchUseCase(new SearchRequest(_secureDataStorage));
+        _bankUseCase = new BankUseCase(new BankRequest(_secureDataStorage));
         _registrationViewModel = vm;
     }
+    
     public string Name
     {
         get => _name;
@@ -54,16 +116,6 @@ public class EntityRegistrationViewModel : ViewModelBase
         }
     }
 
-    public Bank Bank
-    {
-        get => _bank;
-        set
-        {
-            _bank = value;
-            OnPropertyChange(nameof(Bank));
-        }
-    }
-
     public string CheckingAccount
     {
         get => _checkingAccount;
@@ -89,6 +141,56 @@ public class EntityRegistrationViewModel : ViewModelBase
         RaiseViewModelRequested(_registrationViewModel);
     }
 
+    public KeyEventArgs LastKeyEventArgs
+    {
+        get { return _lastKeyEventArgs; }
+        set
+        {
+            if (_lastKeyEventArgs != value)
+            {
+                _lastKeyEventArgs = value;
+                OnPropertyChange(nameof(LastKeyEventArgs));
+            }
+        }
+    }
+
+
+    private async void AddressSearchExecute(object parameter)
+    {
+        if (LastKeyEventArgs != null && LastKeyEventArgs.Key == Key.Enter)
+        {
+            List<Address> addresses = await _searchUseCase.searchAddresses(AddressQuery, 5);
+            Addresses.Clear();
+
+            foreach (Address address in addresses)
+                Addresses.Add(new AddressViewModel(address.Value, address.AddressParts));
+            IsComboBoxOpen = !IsComboBoxOpen;
+        }
+    }
+
+    public string AddressQuery
+    {
+        get => _addressQuery;
+        set
+        {
+            _addressQuery = value;
+            OnPropertyChange(nameof(AddressQuery));
+        }
+    }
+
+    public bool IsComboBoxOpen
+    {
+        get => _isComboBoxOpen;
+        set
+        {
+            _isComboBoxOpen = value;
+            OnPropertyChange(nameof(IsComboBoxOpen));
+        }
+    }
+
+    public ICommand AddressSearchCommand { get; }
+    public ICommand RegisterCommand { get; }
+
     private async void RegisterExecute(object parameter)
     {
         RegisterRequest registerRequest = _registrationViewModel.CreateRegisterRequest();
@@ -96,7 +198,17 @@ public class EntityRegistrationViewModel : ViewModelBase
         string firstName = fullname[0];
         string lastName = fullname[1];
         string surname = (fullname.Length == 2) ? null : fullname[2];
-        
-        await _authenticationUseCase.RegisterEntityUser(new RegisterEntityRequest(registerRequest, Name, firstName, lastName, surname,Address, Bank.Id, CheckingAccount, ItnNumber));
+
+        await _authenticationUseCase.RegisterEntityUser(new RegisterEntityRequest(registerRequest, Name, firstName,
+            lastName, surname, Address, SelectedBank.Id, CheckingAccount, ItnNumber));
+    }
+    
+    public async Task InitializeBanks()
+    {
+        Banks.Clear();
+        List<Bank> banks = await _bankUseCase.getBanks();
+
+        foreach (Bank bank in banks)
+            _banks.Add(new BankViewModel(bank.Id, bank.Name));
     }
 }

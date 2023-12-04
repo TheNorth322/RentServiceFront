@@ -10,6 +10,7 @@ public class LogInViewModel : ViewModelBase
 {
     private string _username;
     private string _password;
+    private SecureDataStorage _secureDataStorage;
     private AuthenticationUseCase _authenticationUseCase;  
     
     public ICommand ResetPasswordCommand { get; }
@@ -18,11 +19,12 @@ public class LogInViewModel : ViewModelBase
 
     public LogInViewModel(SecureDataStorage secureDataStorage)
     {
-        RegisterCommand = new RelayCommand(RegisterExecute);
-        ResetPasswordCommand = new RelayCommand(ResetPasswordExecute);
-        LogInCommand = new RelayCommand(LogInExecute, LogInCanExecute);
+        RegisterCommand = new RelayCommand<object>(RegisterExecute);
+        ResetPasswordCommand = new RelayCommand<object>(ResetPasswordExecute);
+        LogInCommand = new RelayCommand<object>(LogInExecute, LogInCanExecute);
+        _secureDataStorage = secureDataStorage;
         _authenticationUseCase =
-            new AuthenticationUseCase(new data.authentication.api_request.AuthenticationRequest(secureDataStorage));
+            new AuthenticationUseCase(new data.authentication.api_request.AuthenticationRequest(_secureDataStorage));
     }
     public string Username
     {
@@ -52,7 +54,7 @@ public class LogInViewModel : ViewModelBase
 
     private void RegisterExecute(object parameter)
     {
-        RegistrationViewModel registrationViewModel = new RegistrationViewModel(this, _authenticationUseCase);
+        RegistrationViewModel registrationViewModel = new RegistrationViewModel(this, _authenticationUseCase, _secureDataStorage);
         RaiseViewModelRequested(registrationViewModel);
     }
 

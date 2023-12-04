@@ -12,7 +12,7 @@ public class MainViewModel : ViewModelBase
     public ICommand ExitCommand { get; }
     public MainViewModel(List<SampleItem> sampleItems)
     {
-        ExitCommand = new RelayCommand(ExitCommandExecute);
+        ExitCommand = new RelayCommand<object>(ExitCommandExecute);
         SampleItems = sampleItems;
         _selectedItem = sampleItems[0];
         _currentViewModel = _selectedItem.ViewModel;
