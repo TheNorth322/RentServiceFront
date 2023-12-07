@@ -71,7 +71,7 @@ public class MigrationServiceEditViewModel : ViewModelBase
         set
         {
             _addresses = value;
-            OnPropertyChange(nameof(Address));
+            OnPropertyChange(nameof(Addresses));
         }
     }
 
@@ -91,7 +91,7 @@ public class MigrationServiceEditViewModel : ViewModelBase
         set
         {
             _address = value;
-            OnPropertyChange(nameof(_address));
+            OnPropertyChange(nameof(Address));
         }
     }
 

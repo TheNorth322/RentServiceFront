@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="RentServiceFront.view.MainWindow.user_control.editUserControls.BuildingEditUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RentServiceFront.view.MainWindow.user_control.editUserControls"
+             xmlns:editViewModels="clr-namespace:RentServiceFront.viewmodel.mainWindow.EditViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             d:DataContext="{d:DesignInstance Type=editViewModels:BuildingEditViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel>
+            <TextBox
+                materialDesign:HintAssist.Hint="{StaticResource NameFieldHint}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                TextWrapping="Wrap"
+                Text="{Binding Name}" />
+
+            <TextBox
+                Margin="0 10 0 0"
+                materialDesign:HintAssist.Hint="{StaticResource FloorCountFieldHint}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                TextWrapping="Wrap"
+                Text="{Binding FloorCount}" />
+
+            <TextBox
+                Margin="0 10 0 0"
+                materialDesign:HintAssist.Hint="{StaticResource TelephoneFieldHint}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                TextWrapping="Wrap"
+                Text="{Binding Telephone}" />
+
+            <!-- COOL SEARCH -->
+            <ComboBox
+                Margin="0 10 0 0"
+                materialDesign:HintAssist.Hint="{StaticResource AddressFieldHint}"
+                materialDesign:HintAssist.HintOpacity=".26"
+                ItemsSource="{Binding Addresses}"
+                SelectedItem="{Binding SelectedAddress}"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                IsEditable="True"
+                DisplayMemberPath="Name"
+                Text="{Binding AddressQuery}"
+                IsDropDownOpen="{Binding IsComboBoxOpen}"
+                PreviewKeyDown="ComboBox_PreviewKeyDown">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="PreviewKeyDown">
+                        <b:InvokeCommandAction Command="{Binding AddressSearchCommand}"
+                                               CommandParameter="{Binding LastKeyEventArgs, Mode=OneWayToSource}" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </ComboBox>
+
+            <StackPanel Margin="0 10 0 0" HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button
+                    Width="100"
+                    Content="{StaticResource AddText}"
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    ToolTip="{StaticResource AddText}"
+                    Command="{Binding AddCommand}" />
+                <Button Margin="10 0 0 0"
+                        Width="100"
+                        Content="{StaticResource DeleteText}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="{StaticResource DeleteText}"
+                        Command="{Binding DeleteCommand}" />
+            </StackPanel>
+
+            <DataGrid
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                Margin="0 10 0 0" 
+                HeadersVisibility="All"
+                ItemsSource="{Binding Rooms}">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn
+                        Binding="{Binding IsTelephone, UpdateSourceTrigger=PropertyChanged}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
+                        ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                        Header="{StaticResource TelephoneFieldHint}">
+                        <DataGridCheckBoxColumn.HeaderStyle>
+                            <Style
+                                TargetType="{x:Type DataGridColumnHeader}"
+                                BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                                <Setter
+                                    Property="HorizontalContentAlignment"
+                                    Value="Center" />
+                            </Style>
+                        </DataGridCheckBoxColumn.HeaderStyle>
+                    </DataGridCheckBoxColumn>
+                    
+                    <DataGridTextColumn
+                        Binding="{Binding Area}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                        Header="{StaticResource AreaText}" />
+
+                    <DataGridTextColumn
+                        Binding="{Binding Number}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                        Header="{StaticResource NumberFieldHint}" />
+
+                    <DataGridTextColumn
+                        Binding="{Binding Floor}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                        Header="{StaticResource NumberFieldHint}" />
+                    
+                    <DataGridTextColumn
+                        Binding="{Binding Price}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                        Header="{StaticResource PriceText}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</UserControl>

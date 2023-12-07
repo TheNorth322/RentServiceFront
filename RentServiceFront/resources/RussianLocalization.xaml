@@ -106,4 +106,6 @@
     <system:String x:Key="GoBackToLogin">Авторизоваться</system:String> 
     <system:String x:Key="AddText">Добавить</system:String> 
     <system:String x:Key="DeleteText">Удалить</system:String> 
+    <system:String x:Key="FloorCountFieldHint">Количество этажей</system:String> 
+    <system:String x:Key="TelephoneFieldHint">Телефон</system:String>
 </ResourceDictionary>

@@ -27,12 +27,12 @@ public class BuildingRequest : IBuildingRepository
         return await _api.getBuildingById(id);
     }
 
-    public async Task<string> createBuilding(CreateBuildingRequest request)
+    public async Task<Building> createBuilding(CreateBuildingRequest request)
     {
         return await _api.createBuilding(request);
     }
 
-    public async Task<Building> updateBuilding(UpdateBuildingRequest request)
+    public async Task<string> updateBuilding(UpdateBuildingRequest request)
     {
         return await _api.updateBuilding(request);
     }

@@ -10,9 +10,9 @@ public interface IBuildingRepository
 {
     Task<Building> getBuildingById(long id);
 
-    Task<string> createBuilding(CreateBuildingRequest request);
+    Task<Building> createBuilding(CreateBuildingRequest request);
 
-    Task<Building> updateBuilding(UpdateBuildingRequest request);
+    Task<string> updateBuilding(UpdateBuildingRequest request);
 
     Task<string> deleteBuilding(long id);
 

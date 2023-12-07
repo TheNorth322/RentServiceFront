@@ -13,10 +13,10 @@ public interface IBuildingService
     Task<Building> getBuildingById([Query] long id);
 
     [Post("/building/create")]
-    Task<string> createBuilding([Body] CreateBuildingRequest request);
+    Task<Building> createBuilding([Body] CreateBuildingRequest request);
 
     [Put("/building/update")]
-    Task<Building> updateBuilding([Body] UpdateBuildingRequest request);
+    Task<string> updateBuilding([Body] UpdateBuildingRequest request);
 
     [Delete("/building/delete")]
     Task<string> deleteBuilding([Query] long id);

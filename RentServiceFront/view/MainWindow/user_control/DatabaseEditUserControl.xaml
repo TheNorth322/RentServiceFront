@@ -22,6 +22,9 @@
         <DataTemplate DataType="{x:Type editViewModels:BanksMenuViewModel}">
             <editUserControls:BanksMenuUserControl />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type editViewModels:BuildingsMenuViewModel}">
+            <editUserControls:BuildingsMenuUserControl />
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <StackPanel>

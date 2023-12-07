@@ -21,12 +21,12 @@ public class BuildingUseCase
         return await _buildingRepository.getBuildingById(id);
     }
 
-    public async Task<string> createBuilding(CreateBuildingRequest request)
+    public async Task<Building> createBuilding(CreateBuildingRequest request)
     {
         return await _buildingRepository.createBuilding(request);
     }
 
-    public async Task<Building> updateBuilding(UpdateBuildingRequest request)
+    public async Task<string> updateBuilding(UpdateBuildingRequest request)
     {
         return await _buildingRepository.updateBuilding(request);
     }
