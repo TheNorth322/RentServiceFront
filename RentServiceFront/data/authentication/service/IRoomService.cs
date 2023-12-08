@@ -10,9 +10,17 @@ namespace RentServiceFront.data.service;
 [Headers("Authorization: Bearer")]
 public interface IRoomService
 {
+    [Get("/room/all")] 
+    Task<List<Room>> GetRooms();
     
     [Post("/room/create")]
     Task<Room> createRoom([Body] CreateRoomRequest request);
+    
+    [Put("/room/update")]
+    Task<string> updateRoom([Body] UpdateRoomRequest request);
+    
+    [Delete("/room/delete")]
+    Task<string> deleteRoom([Query] long id);
 
     [Get("/room/{id}")]
     Task<Room> getRoomById(long id);

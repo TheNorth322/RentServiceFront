@@ -61,6 +61,7 @@ public partial class MainWindow : Window
         editSampelItems.Add(new SampleItem("Migration Services", PackIconKind.Passport, PackIconKind.Passport, new MigrationServicesMenuViewModel(_secureDataStorage)));
         editSampelItems.Add(new SampleItem("Room types", PackIconKind.StoreCog, PackIconKind.StoreCog, new RoomTypesMenuViewModel(_secureDataStorage)));
         editSampelItems.Add(new SampleItem("Buildings", PackIconKind.OfficeBuilding, PackIconKind.OfficeBuilding, new BuildingsMenuViewModel(_secureDataStorage)));
+        editSampelItems.Add(new SampleItem("Rooms", PackIconKind.Warehouse, PackIconKind.Warehouse, new RoomsMenuViewModel(_secureDataStorage)));
         return editSampelItems;
     }
     private List<SampleItem> InitializeTopBarMenuForAdmin()

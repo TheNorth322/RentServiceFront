@@ -21,9 +21,25 @@ public class RoomRequest : IRoomRepository
         _roomClient = new RoomClient(_secureDataStorage.JwtToken);
         _api = _roomClient.roomService;
     }
+
+    public async Task<List<Room>> GetRooms()
+    {
+        return await _api.GetRooms();
+    }
+
     public async Task<Room> CreateRoom(CreateRoomRequest request)
     {
         return await _api.createRoom(request);
+    }
+
+    public async Task<string> UpdateRoom(UpdateRoomRequest request)
+    {
+        return await _api.updateRoom(request);
+    }
+
+    public async Task<string> DeleteRoom(long id)
+    {
+        return await _api.deleteRoom(id);
     }
 
     public async Task<Room> GetRoomById(long id)

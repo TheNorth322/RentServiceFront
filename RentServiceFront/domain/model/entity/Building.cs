@@ -15,11 +15,8 @@ public class Building
     }
 
     [JsonProperty("id")] public long Id { get; set; }
-    
     [JsonProperty("name")] public string Name { get; set; }
     [JsonProperty("address")] public Address Address { get; set; }
-
     [JsonProperty("floorCount")] public int FloorCount { get; set; }
-
     [JsonProperty("telephone")] public string Telephone { get; set; }
 }

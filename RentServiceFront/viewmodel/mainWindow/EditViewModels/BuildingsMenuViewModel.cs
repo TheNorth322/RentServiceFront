@@ -16,7 +16,7 @@ public class BuildingsMenuViewModel : ViewModelBase
     private BuildingUseCase _buildingUseCase;
     private SearchUseCase _searchUseCase;
     private SecureDataStorage _secureDataStorage;
-    
+
     public BuildingsMenuViewModel(SecureDataStorage secureDataStorage)
     {
         _secureDataStorage = secureDataStorage;
@@ -59,11 +59,13 @@ public class BuildingsMenuViewModel : ViewModelBase
     public async Task InitializeBuildings()
     {
         _buildings.Clear();
-        List<Building> buildings = await _buildingUseCase.getBuildings(); 
-        
+        List<Building> buildings = await _buildingUseCase.getBuildings();
+
         foreach (Building building in buildings)
         {
-            BuildingEditViewModel vm = new BuildingEditViewModel(building.Id, building.Name, building.FloorCount, building.Telephone, building.Address.Value, building.Address.AddressParts, _buildingUseCase, _searchUseCase);
+            BuildingEditViewModel vm = new BuildingEditViewModel(building.Id, building.Name, building.FloorCount,
+                building.Telephone, building.Address.Value, building.Address.AddressParts, _buildingUseCase,
+                _searchUseCase);
             await vm.InitializeRooms();
             vm.DeleteEvent += OnDeleteEvent;
             _buildings.Add(vm);
@@ -78,4 +80,5 @@ public class BuildingsMenuViewModel : ViewModelBase
             DialogText = "Migration service deleted successfully";
             ShowDialogCommand.Execute(null);
         }
-    }}
+    }
+}

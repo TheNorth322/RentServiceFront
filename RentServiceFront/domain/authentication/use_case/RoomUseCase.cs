@@ -16,9 +16,23 @@ public class RoomUseCase
         _roomRepository = roomRepository ?? throw new ArgumentException("Room repository can't be null");
     }
 
+    public async Task<List<Room>> GetRooms()
+    {
+        return await _roomRepository.GetRooms();
+    }
     public async Task<Room> CreateRoom(CreateRoomRequest request)
     {
         return await _roomRepository.CreateRoom(request);
+    }
+
+    public async Task<string> UpdateRoom(UpdateRoomRequest request)
+    {
+        return await _roomRepository.UpdateRoom(request);
+    }
+
+    public async Task<string> DeleteRoom(long id)
+    {
+        return await _roomRepository.DeleteRoom(id);
     }
 
     public async Task<Room> GetRoomById(long id)
@@ -40,6 +54,7 @@ public class RoomUseCase
     {
         return await _roomRepository.DeleteRoomType(id);
     }
+
     public async Task<string> AddRoomTypeToRoom(AddRoomTypeToRoomRequest request)
     {
         return await _roomRepository.AddRoomTypeToRoom(request);

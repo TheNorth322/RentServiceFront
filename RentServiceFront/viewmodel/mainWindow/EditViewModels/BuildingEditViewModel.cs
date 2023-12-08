@@ -141,6 +141,7 @@ public class BuildingEditViewModel : ViewModelBase
             OnPropertyChange(nameof(SelectedAddress));
             Address = _selectedAddress.Name;
             AddressQuery = _selectedAddress.Name;
+            _addressParts = _selectedAddress.AddressParts;
         }
     }
 
@@ -212,7 +213,7 @@ public class BuildingEditViewModel : ViewModelBase
         {
             if (_id == 0)
             {
-                Building building = await _buildingUseCase.createBuilding(new CreateBuildingRequest(Name, Address, _addressParts, FloorCount, Telephone));
+                Building building = await _buildingUseCase.createBuilding(new CreateBuildingRequest(Name, SelectedAddress.Name, SelectedAddress.AddressParts, FloorCount, Telephone));
                 _id = building.Id;
                 DialogText = "Building was successfully created";
             }
