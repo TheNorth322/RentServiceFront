@@ -378,7 +378,7 @@ public class RoomEditViewModel : ViewModelBase
             Building building =
                 await _searchUseCase.getBuildingByAddress(new Address(SelectedAddress.Name,
                     SelectedAddress.AddressParts));
-            _building = new BuildingViewModel(building.Id, building.Name);
+            _building = new BuildingViewModel(building.Id, building.Address.Value, building.Name);
             DialogText = "Building was added successfully";
         }
         catch (Exception e)

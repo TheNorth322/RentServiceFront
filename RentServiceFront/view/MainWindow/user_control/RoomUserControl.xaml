@@ -9,7 +9,7 @@
              xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
              xmlns:mainWindow="clr-namespace:RentServiceFront.viewmodel.mainWindow"
              d:DataContext="{d:DesignInstance Type=mainWindow:RoomViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="RoomUserControl_OnLoaded">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -47,7 +47,7 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="10">
-            <TextBlock Text="{Binding Address}" FontWeight="Bold" />
+            <TextBlock Text="{Binding Building.Address}" FontWeight="Bold" />
             <TextBlock Text="{Binding Floor, StringFormat='Floor: {0}'}" />
             <TextBlock Text="{Binding Number, StringFormat='Room: {0}'}" />
             <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />

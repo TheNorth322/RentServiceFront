@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using RentServiceFront.domain.authentication.use_case;
 
 namespace RentServiceFront.viewmodel.mainWindow;
 
@@ -10,16 +11,17 @@ public class RoomListItemViewModel : ViewModelBase
     private int _floor;
     private int _number;
     private int _price;
-    private int _area;
+    private double _area;
     private List<RoomTypeViewModel> _roomTypeViewModels;
-
+    private long _id;
+    private RoomUseCase _roomUseCase;
     public ICommand OpenRoomViewCommand { get; }
 
     public RoomListItemViewModel(long id, string address, string description, int floor, int number, int price,
-        int area, List<RoomTypeViewModel> roomTypeViewModels = null)
+        double area, RoomUseCase roomUseCase, List<RoomTypeViewModel> roomTypeViewModels = null)
     {
         OpenRoomViewCommand = new RelayCommand<object>(OpenRoomViewExecute);
-        Id = id;
+        _id = id;
         Address = address;
         Description = description;
         Floor = floor;
@@ -27,10 +29,10 @@ public class RoomListItemViewModel : ViewModelBase
         Price = price;
         Area = area;
         _roomTypeViewModels = roomTypeViewModels;
+        _roomUseCase = roomUseCase;
     }
 
 
-    public long Id { get; set; }
 
     public List<RoomTypeViewModel> RoomTypeViewModels
     {
@@ -92,7 +94,7 @@ public class RoomListItemViewModel : ViewModelBase
         }
     }
 
-    public int Area
+    public double Area
     {
         get => _area;
         set
@@ -104,9 +106,7 @@ public class RoomListItemViewModel : ViewModelBase
 
     private void OpenRoomViewExecute(object param)
     {
-        //TODO
-        /*RoomViewModel roomViewModel = new RoomViewModel(Id, Address, Description, new List<RoomImageViewModel>(), Price,
-            RoomTypeViewModels, Number, Floor, Area, new BuildingViewModel());
-        RaiseViewModelRequested(roomViewModel);*/
+        RoomViewModel roomViewModel = new RoomViewModel(_id, _roomUseCase);
+        RaiseViewModelRequested(roomViewModel);
     }
 }

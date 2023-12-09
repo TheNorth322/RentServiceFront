@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using RentServiceFront.domain.authentication.use_case;
+using RentServiceFront.domain.model.entity;
 
 namespace RentServiceFront.viewmodel.mainWindow;
 
-public class RoomListViewModel : ViewModelBase 
+public class RoomListViewModel : ViewModelBase
 {
-    private List<RoomListItemViewModel> _roomListItemViewModels;
-    private List<RoomTypeViewModel> _roomTypes;
+    private ObservableCollection<RoomListItemViewModel> _roomListItemViewModels;
+    private ObservableCollection<RoomTypeViewModel> _roomTypes;
     private RoomUseCase _roomUseCase;
     private int _price;
     private double _area;
@@ -20,33 +22,8 @@ public class RoomListViewModel : ViewModelBase
     public RoomListViewModel(RoomUseCase roomUseCase)
     {
         _roomUseCase = roomUseCase ?? throw new ArgumentException("Room use case can't be null");
-        /*List<RoomType> roomTypes = _roomUseCase.GetAllTypes().Result;
-        
-        foreach (var type in roomTypes)
-            _roomTypes.Add(new RoomTypeViewModel(type.Id, type.Text));*/
-        _roomListItemViewModels = new List<RoomListItemViewModel>();
-        _roomTypes = new List<RoomTypeViewModel>();
-
-        _roomTypes.Add(new RoomTypeViewModel(2, "Лоджия"));
-        _roomTypes.Add(new RoomTypeViewModel(2, "Склад"));
-        _roomTypes.Add(new RoomTypeViewModel(2, "Склад"));
-        _roomTypes.Add(new RoomTypeViewModel(2, "Склад"));
-        _roomTypes.Add(new RoomTypeViewModel(2, "Бар"));
-        _roomTypes.Add(new RoomTypeViewModel(2, "Пиво"));
-        _roomTypes.Add(new RoomTypeViewModel(2, "Водка"));
-
-        for (int i = 0; i < 7; i++)
-        {
-            RoomListItemViewModel roomListItemViewModel =
-                new RoomListItemViewModel(2, "asdasd", "asdasdads", 2, 2, 2, 2, _roomTypes);
-            roomListItemViewModel.ViewModelRequested += OnViewModelChanged;
-            _roomListItemViewModels.Add(roomListItemViewModel);
-        }
-
-        foreach (var vm in _roomListItemViewModels)
-        {
-            vm.ViewModelRequested += OnViewModelChanged;
-        }
+        _roomListItemViewModels = new ObservableCollection<RoomListItemViewModel>();
+        _roomTypes = new ObservableCollection<RoomTypeViewModel>();
     }
 
     public int Price
@@ -89,7 +66,7 @@ public class RoomListViewModel : ViewModelBase
         get => _minPrice;
     }
 
-    public List<RoomTypeViewModel> RoomTypes
+    public ObservableCollection<RoomTypeViewModel> RoomTypes
     {
         get => _roomTypes;
         set
@@ -99,7 +76,7 @@ public class RoomListViewModel : ViewModelBase
         }
     }
 
-    public List<RoomListItemViewModel> RoomListItemViewModels
+    public ObservableCollection<RoomListItemViewModel> RoomListItemViewModels
     {
         get => _roomListItemViewModels;
         set
@@ -112,5 +89,33 @@ public class RoomListViewModel : ViewModelBase
     private void OnViewModelChanged(object? sender, ViewModelBase vm)
     {
         RaiseViewModelRequested(vm);
+    }
+
+    public async Task InitializeRoomTypes()
+    {
+        _roomTypes.Clear();
+        List<RoomType> roomTypes = await _roomUseCase.GetAllTypes();
+        foreach (RoomType roomType in roomTypes)
+            _roomTypes.Add(new RoomTypeViewModel(roomType.Id, roomType.Text));
+    }
+
+    public async Task InitializeRooms()
+    {
+        _roomListItemViewModels.Clear();
+        List<Room> rooms = await _roomUseCase.GetRooms();
+        foreach (Room room in rooms)
+        {
+            RoomListItemViewModel roomListItemViewModel = new RoomListItemViewModel(room.Id, room.Building.Address.Value, room.Description, room.Floor, room.Number, room.Price, room.Area, _roomUseCase, GetRoomTypesByRoom(room));
+            roomListItemViewModel.ViewModelRequested += OnViewModelChanged; 
+            _roomListItemViewModels.Add(roomListItemViewModel);
+        }
+    }
+
+    private List<RoomTypeViewModel> GetRoomTypesByRoom(Room room)
+    {
+        List<RoomTypeViewModel> roomTypes = new List<RoomTypeViewModel>();
+        foreach (RoomType roomType in room.Types)
+            roomTypes.Add(new RoomTypeViewModel(roomType.Id, roomType.Text));
+        return roomTypes;
     }
 }
