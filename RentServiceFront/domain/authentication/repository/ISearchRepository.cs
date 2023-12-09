@@ -7,8 +7,8 @@ namespace RentServiceFront.domain.authentication.repository;
 
 public interface ISearchRepository
 {
-    Task<List<Building>> searchForBuildings(string address);
-
+    Task<Building> getBuildingByAddress(Address address); 
+    
     Task<List<MigrationService>> searchForMigrationServicesByName(string name);
 
     Task<List<Bank>> searchBanksByName(string name);

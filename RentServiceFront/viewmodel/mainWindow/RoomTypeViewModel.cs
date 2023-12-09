@@ -1,16 +1,22 @@
-﻿namespace RentServiceFront.viewmodel.mainWindow;
+﻿using System;
+using System.Windows.Input;
+
+namespace RentServiceFront.viewmodel.mainWindow;
 
 public class RoomTypeViewModel : ViewModelBase
 {
     private long _id;
     private bool _isSelected;
     private string _text;
+    public ICommand DeleteTypeCommand { get; }
+    public EventHandler<RoomTypeViewModel> DeleteTypeRequest { get; set; }
 
     public RoomTypeViewModel(long id, string text)
     {
         Id = id;
         Text = text;
         IsSelected = false;
+        DeleteTypeCommand = new RelayCommand<object>(DeleteTypeExecute);
     }
     public bool IsSelected
     {
@@ -33,4 +39,9 @@ public class RoomTypeViewModel : ViewModelBase
     }
     
     public long Id { get; set; }
+
+    private void DeleteTypeExecute(object param)
+    {
+        DeleteTypeRequest?.Invoke(this, this);   
+    }
 }

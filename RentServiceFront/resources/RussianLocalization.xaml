@@ -108,4 +108,12 @@
     <system:String x:Key="DeleteText">Удалить</system:String> 
     <system:String x:Key="FloorCountFieldHint">Количество этажей</system:String> 
     <system:String x:Key="TelephoneFieldHint">Телефон</system:String>
+   
+    <system:String x:Key="RoomNumberHintText">Номер помещения</system:String>
+    <system:String x:Key="FloorFieldHint">Этаж</system:String>
+    
+    <system:String x:Key="ImageUrlText">URL картинки</system:String>
+    <system:String x:Key="IsTelephoneFieldHint">Есть телефон?</system:String>
+    <system:String x:Key="RoomImagesText">Изображения</system:String>
+    <system:String x:Key="RoomFloorHintText">Этаж</system:String>
 </ResourceDictionary>

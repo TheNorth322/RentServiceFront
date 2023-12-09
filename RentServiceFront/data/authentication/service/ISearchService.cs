@@ -8,8 +8,8 @@ namespace RentServiceFront.data.service;
 
 public interface ISearchService
 {
-    [Get("/search/buildings")]
-    Task<List<Building>> searchForBuildings([Query] string address);
+    [Get("/search/building")]
+    Task<Building> getBuildingByAddress([Body] Address address);
 
     [Get("/search/migrationServices")]
     Task<List<MigrationService>> searchForMigrationServicesByName([Query] string name);

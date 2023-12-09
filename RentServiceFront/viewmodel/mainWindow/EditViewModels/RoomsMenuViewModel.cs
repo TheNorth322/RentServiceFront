@@ -64,7 +64,7 @@ public class RoomsMenuViewModel : ViewModelBase
         foreach (Room room in rooms)
         {
              
-            RoomEditViewModel vm = new RoomEditViewModel(room.Id, room.Building.Id, room.IsTelephone, room.Area,
+            RoomEditViewModel vm = new RoomEditViewModel(room.Id, new BuildingViewModel(room.Building.Id, room.Building.Address.Value), room.IsTelephone, room.Area,
                 room.Number, room.Floor, room.Price, room.Description, getRoomTypes(room), getRoomImageViewModels(room), _roomUseCase, _searchUseCase);
             vm.DeleteEvent += OnDeleteEvent;
             _rooms.Add(vm);

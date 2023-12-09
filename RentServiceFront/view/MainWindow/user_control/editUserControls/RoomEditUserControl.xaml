@@ -1,0 +1,212 @@
+﻿<UserControl x:Class="RentServiceFront.view.MainWindow.user_control.editUserControls.RoomEditUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RentServiceFront.view.MainWindow.user_control.editUserControls"
+             xmlns:editViewModels="clr-namespace:RentServiceFront.viewmodel.mainWindow.EditViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             d:DataContext="{d:DesignInstance Type=editViewModels:RoomEditViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="300" Loaded="RoomEditUserControl_OnLoaded">
+    <Grid>
+        <ScrollViewer Height="500">
+            <StackPanel>
+                <TextBox
+                    materialDesign:HintAssist.Hint="{StaticResource RoomNumberHintText}"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    TextWrapping="Wrap"
+                    Text="{Binding Number}" />
+
+                <TextBox
+                    Margin="0 10 0 0"
+                    materialDesign:HintAssist.Hint="{StaticResource FloorFieldHint}"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    TextWrapping="Wrap"
+                    Text="{Binding Floor}" />
+
+                <TextBox
+                    Margin="0 10 0 0"
+                    materialDesign:HintAssist.Hint="{StaticResource AreaText}"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    TextWrapping="Wrap"
+                    Text="{Binding Area}" />
+
+                <TextBox
+                    Margin="0 10 0 0"
+                    materialDesign:HintAssist.Hint="{StaticResource PriceText}"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    TextWrapping="Wrap"
+                    Text="{Binding Price}" />
+
+                <StackPanel Margin="0 10 0 0">
+                    <TextBlock FontWeight="Bold" Text="{StaticResource DescriptionText}" />
+                    <TextBox
+                        Margin="0 10 0 0"
+                        Height="100"
+                        VerticalAlignment="Stretch"
+                        materialDesign:HintAssist.Hint="{StaticResource DescriptionText}"
+                        AcceptsReturn="True"
+                        SpellCheck.IsEnabled="True"
+                        Text="{Binding Description}"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                    <TextBlock FontWeight="Bold" VerticalAlignment="Center"
+                               Text="{StaticResource IsTelephoneFieldHint}" />
+                    <ToggleButton
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                        ToolTip="{StaticResource IsTelephoneFieldHint}"
+                        IsChecked="{Binding Telephone}" />
+                </StackPanel>
+
+                <!-- COOL SEARCH -->
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox
+                        Margin="0 10 0 0"
+                        MinWidth="200"
+                        materialDesign:HintAssist.Hint="{StaticResource AddressFieldHint}"
+                        materialDesign:HintAssist.HintOpacity=".26"
+                        ItemsSource="{Binding Addresses}"
+                        SelectedItem="{Binding SelectedAddress}"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                        IsEditable="True"
+                        DisplayMemberPath="Name"
+                        Text="{Binding AddressQuery}"
+                        IsDropDownOpen="{Binding IsComboBoxOpen}"
+                        PreviewKeyDown="ComboBox_PreviewKeyDown">
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="PreviewKeyDown">
+                                <b:InvokeCommandAction Command="{Binding AddressSearchCommand}"
+                                                       CommandParameter="{Binding LastKeyEventArgs, Mode=OneWayToSource}" />
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+                    </ComboBox>
+                    <Button
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        ToolTip="{StaticResource AddText}"
+                        Command="{Binding AddBuildingCommand}">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Kind="Plus" />
+                    </Button>
+                </StackPanel>
+
+                <WrapPanel Orientation="Horizontal" Margin="0 30 0 0">
+                    <TextBlock FontWeight="Bold" Text="{StaticResource RoomTypesText}" />
+                    <ItemsControl ItemsSource="{Binding ThisRoomTypes}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <materialDesign:Chip IsDeletable="True" DeleteCommand="{Binding DeleteTypeCommand}"
+                                                     Content="{Binding Text}" Margin="2" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </WrapPanel>
+
+                <StackPanel Margin="0 10 0 0" VerticalAlignment="Center" Orientation="Horizontal">
+                    <ComboBox
+                        MinWidth="200"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="{StaticResource RoomTypesText}"
+                        materialDesign:HintAssist.HintOpacity=".26"
+                        ItemsSource="{Binding RoomTypes}"
+                        SelectedItem="{Binding SelectedRoomType}"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                        IsEditable="True"
+                        DisplayMemberPath="Text"
+                        Text="{Binding SelectedRoomType.Text}" />
+
+                    <Button
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        ToolTip="{StaticResource AddText}"
+                        Command="{Binding AddTypeCommand}">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Kind="Plus" />
+                    </Button>
+                </StackPanel>
+
+                <WrapPanel Orientation="Horizontal" Margin="0 10 0 0">
+                    <TextBlock FontWeight="Bold" Text="{StaticResource RoomImagesText}" />
+                    <ItemsControl ItemsSource="{Binding RoomImages}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <materialDesign:Chip
+                                    IsDeletable="True"
+                                    DeleteCommand="{Binding DeleteImageCommand}"
+                                    Content="{Binding Url}"
+                                    Margin="2" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </WrapPanel>
+
+                <StackPanel Margin="0 10 0 0" VerticalAlignment="Center" Orientation="Horizontal">
+                    <TextBox
+                        VerticalAlignment="Center"
+                        MinWidth="200"
+                        materialDesign:HintAssist.Hint="{StaticResource ImageUrlText}"
+                        materialDesign:HintAssist.HintOpacity=".26"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding ImageUrl}" />
+
+                    <Button
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        ToolTip="{StaticResource AddText}"
+                        Command="{Binding AddImageCommand}">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Kind="Plus" />
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Margin="0 10 0 0" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button
+                        Width="100"
+                        Content="{StaticResource AddText}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="{StaticResource AddText}"
+                        Command="{Binding AddCommand}" />
+                    <Button Margin="10 0 0 0"
+                            Width="100"
+                            Content="{StaticResource DeleteText}"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            ToolTip="{StaticResource DeleteText}"
+                            Command="{Binding DeleteCommand}" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        <materialDesign:DialogHost IsOpen="{Binding IsDialogOpen}" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="40">
+                    <TextBlock Text="{Binding DialogText}" Margin="20" />
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+    </Grid>
+</UserControl>

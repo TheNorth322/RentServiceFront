@@ -22,9 +22,9 @@ public class SearchRequest : ISearchRepository
         _api = _searchClient.searchService;
     }
 
-    public async Task<List<Building>> searchForBuildings(string address)
+    public async Task<Building> getBuildingByAddress(Address address)
     {
-        return await _api.searchForBuildings(address);
+        return await _api.getBuildingByAddress(address);
     }
 
     public async Task<List<MigrationService>> searchForMigrationServicesByName(string name)

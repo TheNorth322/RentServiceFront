@@ -104,8 +104,9 @@ public class RoomListItemViewModel : ViewModelBase
 
     private void OpenRoomViewExecute(object param)
     {
-        RoomViewModel roomViewModel = new RoomViewModel(Id, Address, Description, new List<RoomImageViewModel>(), Price,
+        //TODO
+        /*RoomViewModel roomViewModel = new RoomViewModel(Id, Address, Description, new List<RoomImageViewModel>(), Price,
             RoomTypeViewModels, Number, Floor, Area, new BuildingViewModel());
-        RaiseViewModelRequested(roomViewModel);
+        RaiseViewModelRequested(roomViewModel);*/
     }
 }

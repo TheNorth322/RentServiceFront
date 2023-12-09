@@ -2,5 +2,33 @@
 
 public class BuildingViewModel : ViewModelBase
 {
+    private long _id;
+    private string _address;
+
+
+    public BuildingViewModel(long id, string address)
+    {
+        _id = id;
+        _address = address;
+    }
     
+    public long Id
+    {
+        get => _id;
+        set
+        {
+            _id = value;
+            OnPropertyChange(nameof(Id));
+        }
+    }
+
+    public string Address
+    {
+        get => _address;
+        set
+        {
+            _address = value;
+            OnPropertyChange(nameof(Address));
+        }
+    } 
 }

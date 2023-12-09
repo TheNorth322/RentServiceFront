@@ -101,13 +101,13 @@
                         Binding="{Binding Number}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                        Header="{StaticResource NumberFieldHint}" />
+                        Header="{StaticResource RoomNumberHintText}" />
 
                     <DataGridTextColumn
                         Binding="{Binding Floor}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                        Header="{StaticResource NumberFieldHint}" />
+                        Header="{StaticResource RoomFloorHintText}" />
                     
                     <DataGridTextColumn
                         Binding="{Binding Price}"

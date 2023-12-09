@@ -20,7 +20,7 @@ public class BuildingUseCase
     {
         return await _buildingRepository.getBuildingById(id);
     }
-
+    
     public async Task<Building> createBuilding(CreateBuildingRequest request)
     {
         return await _buildingRepository.createBuilding(request);

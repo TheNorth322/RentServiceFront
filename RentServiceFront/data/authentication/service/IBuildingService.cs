@@ -11,7 +11,7 @@ public interface IBuildingService
 {
     [Get("/building/get")]
     Task<Building> getBuildingById([Query] long id);
-
+    
     [Post("/building/create")]
     Task<Building> createBuilding([Body] CreateBuildingRequest request);
 
