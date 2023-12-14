@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using RentServiceFront.data.secure;
 using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.domain.model.entity;
+using RentServiceFront.domain.model.request.Room;
 
 namespace RentServiceFront.viewmodel.mainWindow;
 
@@ -16,6 +19,12 @@ public class RoomViewModel : ViewModelBase
     private int _number;
     private int _floor;
     private double _area;
+    
+    private string _purposeOfRent;
+    private DateTime _startOfRent;
+    private DateTime _endOfRent;
+
+    private SecureDataStorage _secureDataStorage;
     private ObservableCollection<RoomTypeViewModel> _types;
     private ObservableCollection<RoomImageViewModel> _images;
     private BuildingViewModel _building;
@@ -23,10 +32,13 @@ public class RoomViewModel : ViewModelBase
 
     public ICommand AddToCartCommand { get; }
 
-    public RoomViewModel(long id, RoomUseCase roomUseCase)
+    public RoomViewModel(long id, RoomUseCase roomUseCase, SecureDataStorage secureDataStorage)
     {
         _id = id;
+        _secureDataStorage = secureDataStorage;
         _roomUseCase = roomUseCase;
+        _startOfRent = System.DateTime.Now;
+        _endOfRent = System.DateTime.Now;
         _types = new ObservableCollection<RoomTypeViewModel>();
         _images = new ObservableCollection<RoomImageViewModel>();
         AddToCartCommand = new RelayCommand<object>(AddToCartExecute);
@@ -62,6 +74,26 @@ public class RoomViewModel : ViewModelBase
         }
     }
 
+    public DateTime StartOfRent
+    {
+        get => _startOfRent;
+        set
+        {
+            _startOfRent = value;
+            OnPropertyChange(nameof(StartOfRent));
+        }
+    }
+
+    public DateTime EndOfRent
+    {
+        get => _endOfRent;
+        set
+        {
+            _endOfRent = value;
+            OnPropertyChange(nameof(EndOfRent));
+        }
+    }
+    
     public ObservableCollection<RoomTypeViewModel> Types
     {
         get { return _types; }
@@ -124,8 +156,28 @@ public class RoomViewModel : ViewModelBase
         }
     }
 
-    private void AddToCartExecute(object param)
+    public string PurposeOfRent
     {
+        get => _purposeOfRent;
+        set
+        {
+            _purposeOfRent = value;
+            OnPropertyChange(nameof(PurposeOfRent));
+        }
+    }
+
+    private async void AddToCartExecute(object param)
+    {
+        try
+        {
+           DialogText = await _roomUseCase.AddRoomToCart(new AddRoomToCartRequest(_secureDataStorage.Username, _id, _startOfRent,
+                _endOfRent, _purposeOfRent));
+        }
+        catch (Exception e)
+        {
+            DialogText = "Something went wrong";
+        }
+        ShowDialogCommand.Execute(null);
     }
 
     public async Task InitializeRoom()
@@ -164,5 +216,6 @@ public class RoomViewModel : ViewModelBase
     private void InitializeBuildingByRoom(Room room)
     {
         _building = new BuildingViewModel(room.Building.Id, room.Building.Address.Value, room.Building.Name);
+        Address = _building.Address;
     }
 }

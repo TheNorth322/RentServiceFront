@@ -27,6 +27,11 @@ public class RoomRequest : IRoomRepository
         return await _api.GetRooms();
     }
 
+    public async Task<string> AddRoomToCart(AddRoomToCartRequest request)
+    {
+        return await _api.addRoomToCart(request);
+    }
+
     public async Task<Room> CreateRoom(CreateRoomRequest request)
     {
         return await _api.createRoom(request);

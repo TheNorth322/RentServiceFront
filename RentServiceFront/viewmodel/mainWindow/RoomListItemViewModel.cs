@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using RentServiceFront.data.secure;
 using RentServiceFront.domain.authentication.use_case;
 
 namespace RentServiceFront.viewmodel.mainWindow;
@@ -15,12 +16,14 @@ public class RoomListItemViewModel : ViewModelBase
     private List<RoomTypeViewModel> _roomTypeViewModels;
     private long _id;
     private RoomUseCase _roomUseCase;
+    private SecureDataStorage _secureDataStorage;
     public ICommand OpenRoomViewCommand { get; }
 
     public RoomListItemViewModel(long id, string address, string description, int floor, int number, int price,
-        double area, RoomUseCase roomUseCase, List<RoomTypeViewModel> roomTypeViewModels = null)
+        double area, RoomUseCase roomUseCase, SecureDataStorage secureDataStorage, List<RoomTypeViewModel> roomTypeViewModels = null)
     {
         OpenRoomViewCommand = new RelayCommand<object>(OpenRoomViewExecute);
+        _secureDataStorage = secureDataStorage;
         _id = id;
         Address = address;
         Description = description;
@@ -106,7 +109,7 @@ public class RoomListItemViewModel : ViewModelBase
 
     private void OpenRoomViewExecute(object param)
     {
-        RoomViewModel roomViewModel = new RoomViewModel(_id, _roomUseCase);
+        RoomViewModel roomViewModel = new RoomViewModel(_id, _roomUseCase, _secureDataStorage);
         RaiseViewModelRequested(roomViewModel);
     }
 }

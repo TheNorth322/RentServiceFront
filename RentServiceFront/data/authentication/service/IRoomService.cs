@@ -13,6 +13,9 @@ public interface IRoomService
     [Get("/room/all")] 
     Task<List<Room>> GetRooms();
     
+    [Post("/room/addToCart")]
+    Task<string> addRoomToCart([Body] AddRoomToCartRequest request); 
+    
     [Post("/room/create")]
     Task<Room> createRoom([Body] CreateRoomRequest request);
     

@@ -43,13 +43,13 @@ public partial class MainWindow : Window
         List<SampleItem> sampleItems = new List<SampleItem>();
 
         sampleItems.Add(new SampleItem("Home", PackIconKind.Home, PackIconKind.Home,
-            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)))));
+            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
         sampleItems.Add(new SampleItem("Account", PackIconKind.Account, PackIconKind.Account,
             new AccountViewModel(_secureDataStorage)));
         sampleItems.Add(new SampleItem("Cart", PackIconKind.Cart, PackIconKind.Cart,
-            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)))));
+            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
         sampleItems.Add(new SampleItem("Settings", PackIconKind.Cog, PackIconKind.Cog,
-            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)))));
+            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
 
         return sampleItems;
     }
@@ -70,13 +70,13 @@ public partial class MainWindow : Window
         List<SampleItem> editSampleItems = InitializeEditSampleItems();
         
         sampleItems.Add(new SampleItem("Home", PackIconKind.Home, PackIconKind.Home,
-            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)))));
+            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
         sampleItems.Add(new SampleItem("Account", PackIconKind.Account, PackIconKind.Account,
             new AccountViewModel(_secureDataStorage)));
         sampleItems.Add(new SampleItem("Edit", PackIconKind.DatabaseEdit, PackIconKind.DatabaseEdit,
                     new DatabaseEditViewModel(_secureDataStorage, editSampleItems)));
         sampleItems.Add(new SampleItem("Settings", PackIconKind.Cog, PackIconKind.Cog,
-            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)))));
+            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
 
         return sampleItems;
     }

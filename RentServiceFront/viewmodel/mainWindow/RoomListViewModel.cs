@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using RentServiceFront.data.secure;
 using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.domain.model.entity;
 
@@ -12,6 +13,7 @@ public class RoomListViewModel : ViewModelBase
     private ObservableCollection<RoomListItemViewModel> _roomListItemViewModels;
     private ObservableCollection<RoomTypeViewModel> _roomTypes;
     private RoomUseCase _roomUseCase;
+    private SecureDataStorage _secureDataStorage;
     private int _price;
     private double _area;
     private const int _maxPrice = 100000;
@@ -19,9 +21,10 @@ public class RoomListViewModel : ViewModelBase
     private const double _maxArea = 1000.0f;
     private double _minArea = 30.0f;
 
-    public RoomListViewModel(RoomUseCase roomUseCase)
+    public RoomListViewModel(RoomUseCase roomUseCase, SecureDataStorage secureDataStorage)
     {
         _roomUseCase = roomUseCase ?? throw new ArgumentException("Room use case can't be null");
+        _secureDataStorage = secureDataStorage; 
         _roomListItemViewModels = new ObservableCollection<RoomListItemViewModel>();
         _roomTypes = new ObservableCollection<RoomTypeViewModel>();
     }
@@ -105,7 +108,7 @@ public class RoomListViewModel : ViewModelBase
         List<Room> rooms = await _roomUseCase.GetRooms();
         foreach (Room room in rooms)
         {
-            RoomListItemViewModel roomListItemViewModel = new RoomListItemViewModel(room.Id, room.Building.Address.Value, room.Description, room.Floor, room.Number, room.Price, room.Area, _roomUseCase, GetRoomTypesByRoom(room));
+            RoomListItemViewModel roomListItemViewModel = new RoomListItemViewModel(room.Id, room.Building.Address.Value, room.Description, room.Floor, room.Number, room.Price, room.Area, _roomUseCase, _secureDataStorage, GetRoomTypesByRoom(room));
             roomListItemViewModel.ViewModelRequested += OnViewModelChanged; 
             _roomListItemViewModels.Add(roomListItemViewModel);
         }

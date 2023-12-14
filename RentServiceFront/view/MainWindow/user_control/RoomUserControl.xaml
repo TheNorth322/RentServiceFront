@@ -9,7 +9,7 @@
              xmlns:viewmodels="clr-namespace:RentServiceFront.viewmodel"
              xmlns:mainWindow="clr-namespace:RentServiceFront.viewmodel.mainWindow"
              d:DataContext="{d:DesignInstance Type=mainWindow:RoomViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300" Loaded="RoomUserControl_OnLoaded">
+             d:DesignHeight="600" d:DesignWidth="600" Loaded="RoomUserControl_OnLoaded">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,8 +24,8 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
         <ScrollViewer Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"
@@ -47,11 +47,13 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="10">
-            <TextBlock Text="{Binding Building.Address}" FontWeight="Bold" />
+            <TextBlock Text="{Binding Address}" FontWeight="Bold" />
             <TextBlock Text="{Binding Floor, StringFormat='Floor: {0}'}" />
             <TextBlock Text="{Binding Number, StringFormat='Room: {0}'}" />
             <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
             <TextBlock Text="{Binding Area, StringFormat='Area: {0} sq.m.'}" />
+            <TextBlock Text="{StaticResource RoomTypesText}" FontWeight="Bold" />
+            
             <WrapPanel Orientation="Horizontal">
                 <ItemsControl ItemsSource="{Binding Types}">
                     <ItemsControl.ItemsPanel>
@@ -66,23 +68,70 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </WrapPanel>
+            
         </StackPanel>
 
         <WrapPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
-            <TextBlock Text="{StaticResource DescriptionText}" Margin="0 10 0 0" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Description}" Margin="0 10 0 0"/>
+            <TextBlock Text="{StaticResource DescriptionText}" Margin="0 10 0 0" FontWeight="Bold" />
+            <TextBlock Text="{Binding Description}" Margin="0 10 0 0" />
         </WrapPanel>
 
-        <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-              Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=.ActualHeight}">
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+            <DatePicker
+                HorizontalAlignment="Stretch"
+                materialDesign:CalendarAssist.IsHeaderVisible="False"
+                materialDesign:HintAssist.Hint="{StaticResource StartOfRentLabel}">
+                <DatePicker.SelectedDate>
+                    <Binding
+                        Path="StartOfRent"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <mainWindow:FutureDateValidationRule
+                                ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </DatePicker.SelectedDate>
+            </DatePicker>
+            
+            <DatePicker
+                Margin="0 20 0 0"
+                HorizontalAlignment="Stretch"
+                materialDesign:CalendarAssist.IsHeaderVisible="False"
+                materialDesign:HintAssist.Hint="{StaticResource EndOfRentLabel}">
+                <DatePicker.SelectedDate>
+                    <Binding
+                        Path="EndOfRent"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <mainWindow:FutureDateValidationRule
+                                ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </DatePicker.SelectedDate>
+            </DatePicker>
+            
+            <TextBlock FontWeight="Bold" Text="{StaticResource PurposeOfRentLabel}" />
+
+            <TextBox
+                Margin="0 20 0 0"
+                HorizontalAlignment="Stretch"
+                Height="100"
+                VerticalAlignment="Stretch"
+                materialDesign:HintAssist.Hint="{StaticResource PurposeOfRentLabel}"
+                AcceptsReturn="True"
+                SpellCheck.IsEnabled="True"
+                Text="{Binding PurposeOfRent}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" />
+            
             <Button
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                ToolTip="{StaticResource AddToCartText}">
-                <materialDesign:PackIcon
-                    Width="20"
-                    Height="20"
-                    Kind="CartArrowDown" />
-            </Button>
-        </Grid>
+                Margin="0 20 0 0"
+                HorizontalAlignment="Stretch"
+                Content="{StaticResource AddToCartText}"
+                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                ToolTip="{StaticResource AddToCartText}" 
+                Command="{Binding AddToCartCommand}"/>
+            
+        </StackPanel>
     </Grid>
 </UserControl>

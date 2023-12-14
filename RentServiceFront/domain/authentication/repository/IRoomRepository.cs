@@ -7,7 +7,8 @@ namespace RentServiceFront.domain.authentication.repository;
 
 public interface IRoomRepository
 {
-    Task<List<Room>> GetRooms(); 
+    Task<List<Room>> GetRooms();
+    Task<string> AddRoomToCart(AddRoomToCartRequest request); 
     Task<Room> CreateRoom(CreateRoomRequest request);
     Task<string> UpdateRoom(UpdateRoomRequest request);
     Task<string> DeleteRoom(long id);
