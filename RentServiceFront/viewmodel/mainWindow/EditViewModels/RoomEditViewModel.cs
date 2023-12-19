@@ -28,15 +28,16 @@ public class RoomEditViewModel : ViewModelBase
     private int _number;
     private int _price;
     private bool _telephone;
-    
+
     private ObservableCollection<AddressViewModel> _addresses;
     private ObservableCollection<RoomImageViewModel> _roomImages;
     private ObservableCollection<RoomTypeViewModel> _roomTypes;
     private ObservableCollection<RoomTypeViewModel> _thisRoomTypes;
-    
+
     private AddressViewModel _selectedAddress;
     private RoomTypeViewModel _selectedRoomType;
     public EventHandler<RoomEditViewModel> DeleteEvent;
+    private int _fine;
 
 
     public RoomEditViewModel(RoomUseCase roomUseCase, SearchUseCase searchUseCase)
@@ -52,7 +53,7 @@ public class RoomEditViewModel : ViewModelBase
         _thisRoomTypes = new ObservableCollection<RoomTypeViewModel>();
         _roomTypes = new ObservableCollection<RoomTypeViewModel>();
         _addresses = new ObservableCollection<AddressViewModel>();
-        
+
         _id = 0;
         _roomUseCase = roomUseCase;
         _searchUseCase = searchUseCase;
@@ -68,7 +69,7 @@ public class RoomEditViewModel : ViewModelBase
         _id = id;
         _building = buildingViewModel;
         _addressQuery = _building.Address;
-        _telephone = telephone;
+        Telephone = telephone;
         _area = area;
         _number = number;
         _floor = floor;
@@ -87,12 +88,13 @@ public class RoomEditViewModel : ViewModelBase
         foreach (RoomTypeViewModel roomType in _thisRoomTypes)
             roomType.DeleteTypeRequest += OnDeleteTypeRequest;
     }
-    
+
     private void SubscribeOnImageDeletion()
     {
         foreach (RoomImageViewModel roomImage in _roomImages)
             roomImage.DeleteRoomImageRequest += OnDeleteImageRequest;
     }
+
     public ICommand DeleteCommand { get; }
 
     public ObservableCollection<RoomTypeViewModel> ThisRoomTypes
@@ -172,6 +174,16 @@ public class RoomEditViewModel : ViewModelBase
         {
             _price = value;
             OnPropertyChange(nameof(Price));
+        }
+    }
+
+    public int Fine
+    {
+        get => _fine;
+        set
+        {
+            _fine = value;
+            OnPropertyChange(nameof(Fine));
         }
     }
 
@@ -315,7 +327,7 @@ public class RoomEditViewModel : ViewModelBase
 
             foreach (Address address in addresses)
                 Addresses.Add(new AddressViewModel(address.Value, address.AddressParts));
-            
+
             IsComboBoxOpen = !IsComboBoxOpen;
         }
     }
@@ -331,7 +343,7 @@ public class RoomEditViewModel : ViewModelBase
             {
                 Room room = await _roomUseCase.CreateRoom(new CreateRoomRequest(_building.Id, _telephone, _area,
                     _number,
-                    _floor, _price, _description, types, roomImages));
+                    _floor, _price, _fine, _description, types, roomImages));
 
                 _id = room.Id;
                 DialogText = "Room was successfully created";
@@ -340,7 +352,7 @@ public class RoomEditViewModel : ViewModelBase
             {
                 DialogText = await _roomUseCase.UpdateRoom(
                     new UpdateRoomRequest(_id, _building.Id, _telephone, _area, _number,
-                        _floor, _price, _description, types, roomImages));
+                        _floor, _price, _fine, _description, types, roomImages));
             }
 
             ShowDialogCommand.Execute(this);
@@ -366,7 +378,7 @@ public class RoomEditViewModel : ViewModelBase
     {
         if (_thisRoomTypes.Contains(SelectedRoomType))
             return;
-        
+
         SelectedRoomType.DeleteTypeRequest += OnDeleteTypeRequest;
         _thisRoomTypes.Add(SelectedRoomType);
     }
@@ -388,7 +400,7 @@ public class RoomEditViewModel : ViewModelBase
 
         ShowDialogCommand.Execute(null);
     }
-    
+
     private void OnDeleteTypeRequest(object? sender, RoomTypeViewModel vm)
     {
         vm.DeleteTypeRequest -= OnDeleteTypeRequest;

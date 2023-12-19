@@ -17,6 +17,10 @@ public class MigrationServiceUseCase
             migrationServiceRepository ?? throw new ArgumentException("Migration service can't be null");
     }
 
+    public async Task<List<Passport>> getMigrationServicePassports(long id)
+    {
+        return await _migrationServiceRepository.getMigrationServicePassports(id);
+    }
     public async Task<List<MigrationService>> getMigrationServices()
     {
         return await _migrationServiceRepository.getMigrationServices();

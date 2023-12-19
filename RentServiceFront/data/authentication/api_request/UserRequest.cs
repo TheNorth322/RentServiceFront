@@ -41,6 +41,16 @@ public class UserRequest : IUserRepository
         return await _api.getUserIndividualInfo(username);
     }
 
+    public async Task<List<UserRoom>> getUserRooms(string username)
+    {
+        return await _api.getUserRooms(username);
+    }
+
+    public async Task<string> deleteUserRoom(string username, long roomId)
+    {
+        return await _api.deleteUserRoom(username, roomId);
+    }
+
     public async Task<string> setPassport(string token, long passportId)
     {
         return await _api.setPassport(token, passportId);

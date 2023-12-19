@@ -6,20 +6,23 @@ namespace RentServiceFront.domain.model.entity;
 
 public class Passport
 {
-    public Passport(string firstName, string lastName, string surname, DateTime dateOfBirth, DateTime dateOfIssue,
-        MigrationService migrationService, string number, string series, Gender gender, string placeOfBirth)
+    public Passport(long id, string firstName, string lastName, string surname, DateTime dateOfBirth, DateTime dateOfIssue,
+        MigrationService issuedBy, string number, string series, Gender gender, Address placeOfBirth)
     {
+        Id = id;
         FirstName = firstName;
         LastName = lastName;
         Surname = surname;
         DateOfBirth = dateOfBirth;
         DateOfIssue = dateOfIssue;
-        MigrationService = migrationService;
+        IssuedBy = issuedBy;
         Number = number;
         Series = series;
         Gender = gender;
         PlaceOfBirth = placeOfBirth;
     }
+    
+    [JsonProperty("id")] public long Id { get; set; } 
     
     [JsonProperty("fistName")] public string FirstName { get; set; }
 
@@ -31,7 +34,7 @@ public class Passport
 
     [JsonProperty("dateOfIssue")] public DateTime DateOfIssue { get; set; }
 
-    [JsonProperty("issuedBy")] public MigrationService MigrationService { get; set; }
+    [JsonProperty("issuedBy")] public MigrationService IssuedBy { get; set; }
 
     [JsonProperty("number")] public string Number { get; set; }
 
@@ -39,5 +42,5 @@ public class Passport
 
     [JsonProperty("gender")] public Gender Gender { get; }
 
-    [JsonProperty("placeOfBirth")] public string PlaceOfBirth { get; set; }
+    [JsonProperty("placeOfBirth")] public Address PlaceOfBirth { get; set; }
 }

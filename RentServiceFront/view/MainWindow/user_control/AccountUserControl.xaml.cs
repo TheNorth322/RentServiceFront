@@ -10,9 +10,4 @@ public partial class AccountUserControl : UserControl
     {
         InitializeComponent();
     }
-
-    private void AccountUserControl_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        (this.DataContext as AccountViewModel)?.InitializeInfo();
-    }
 }

@@ -14,5 +14,9 @@ public interface IUserRepository
 
     Task<IndividualUser> getUserIndividualInfo(string username);
 
+    Task<List<UserRoom>> getUserRooms(string username);
+
+    Task<string> deleteUserRoom(string username, long roomId);
+    
     Task<string> setPassport(string token, long passportId);
 }

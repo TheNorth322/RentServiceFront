@@ -55,7 +55,7 @@
                 </TextBox>
 
                 <DatePicker
-                    Margin="0 25 0 0"
+                    Margin="0 12 0 0"
                     materialDesign:HintAssist.Hint="{StaticResource DateOfBirthHint}"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     SelectedDate="{Binding
@@ -65,7 +65,7 @@
                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
 
                 <DatePicker
-                    Margin="0 25 0 0"
+                    Margin="0 12 0 0"
                     materialDesign:HintAssist.Hint="{StaticResource DateOfIssueHint}"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     SelectedDate="{Binding
@@ -75,7 +75,7 @@
                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
 
                 <TextBox
-                    Margin="0 25 0 0"
+                    Margin="0 12 0 0"
                     materialDesign:HintAssist.HelperText="{StaticResource NumberFieldHelperText}"
                     materialDesign:HintAssist.Hint="{StaticResource NumberFieldHint}"
                     materialDesign:TextFieldAssist.HasClearButton="True">
@@ -91,7 +91,7 @@
                     </TextBox.Text>
                 </TextBox>
 
-                <ComboBox Margin="0 25 0 0"
+                <ComboBox Margin="0 12 0 0"
                           SelectedValue="{Binding Gender, Converter={StaticResource EnumToCollectionConverter}, ConverterParameter={x:Type enums:Gender}}"
                           ItemsSource="{Binding Source={enums1:EnumToItemsSource {x:Type enums:Gender}}}"
 

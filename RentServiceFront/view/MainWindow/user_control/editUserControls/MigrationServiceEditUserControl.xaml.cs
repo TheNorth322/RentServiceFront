@@ -17,4 +17,9 @@ public partial class MigrationServiceEditUserControl : UserControl
     {
         ((DataContext as MigrationServiceEditViewModel)!).LastKeyEventArgs = e;
     }
+
+    private async void MigrationServiceEditUserControl_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        await (this.DataContext as MigrationServiceEditViewModel)?.InitializePassports()!;
+    }
 }

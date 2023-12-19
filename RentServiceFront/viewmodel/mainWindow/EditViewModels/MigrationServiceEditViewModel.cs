@@ -25,10 +25,12 @@ public class MigrationServiceEditViewModel : ViewModelBase
     private KeyEventArgs _lastKeyEventArgs;
     public ICommand DeleteCommand { get; }
     public EventHandler<MigrationServiceEditViewModel> DeleteEvent;
+    private ObservableCollection<PassportTableItemViewModel> _passports;
 
     public MigrationServiceEditViewModel(MigrationServiceUseCase migrationServiceUseCase, SearchUseCase searchUseCase)
     {
         _addressParts = new List<AddressPart>();
+        _passports = new ObservableCollection<PassportTableItemViewModel>();
         _addresses = new ObservableCollection<AddressViewModel>();
         DeleteCommand = new RelayCommand<object>(DeleteExecute);
         AddressSearchCommand = new RelayCommand<KeyEventArgs>(AddressSearchExecute);
@@ -52,9 +54,32 @@ public class MigrationServiceEditViewModel : ViewModelBase
         _migrationServiceUseCase = migrationServiceUseCase;
         _searchUseCase = searchUseCase;
     }
+    
+    public async Task InitializePassports()
+    {
+        List<Passport> passports = await _migrationServiceUseCase.getMigrationServicePassports(_id);
+        foreach (Passport passport in passports)
+        {
+            string fullName =
+                $"{passport.FirstName} {passport.LastName} {((!String.IsNullOrEmpty(passport.Surname)) ? passport.Surname : "")}";
+            PassportTableItemViewModel vm = new PassportTableItemViewModel(passport.Id, fullName, passport.DateOfBirth,
+                passport.DateOfIssue, $"{passport.Number} {passport.Series}", passport.Gender,
+                passport.PlaceOfBirth.Value, passport.IssuedBy.Name);
+            _passports.Add(vm);
+        }
+    }
 
     public ICommand AddCommand { get; }
 
+    public ObservableCollection<PassportTableItemViewModel> Passports
+    {
+        get => _passports;
+        set
+        {
+            _passports = value;
+            OnPropertyChange(nameof(Passports));
+        }
+    }
     public bool IsComboBoxOpen
     {
         get => _isComboBoxOpen;
@@ -180,6 +205,7 @@ public class MigrationServiceEditViewModel : ViewModelBase
         {
             await _migrationServiceUseCase.deleteMigrationService(_id);
         }
+
         DeleteEvent?.Invoke(this, this);
     }
 }

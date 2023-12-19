@@ -9,7 +9,7 @@
              xmlns:mainWindow="clr-namespace:RentServiceFront.viewmodel.mainWindow"
              d:DataContext="{d:DesignInstance Type=mainWindow:EntityViewModel}"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="EntityInfoUserControl_OnLoaded">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,29 +18,36 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Expander
-            HorizontalAlignment="Stretch"
-            Header="{StaticResource EntityInfoText}">
-            <StackPanel Margin="10">
-                <TextBlock FontWeight="Bold" Text="{StaticResource NameLabel}" />
-                <TextBlock Text="{Binding Name}" />
+        <StackPanel Margin="10">
+            <TextBlock FontWeight="Bold" Text="{StaticResource UsernameLabel}" />
+            <TextBlock Text="{Binding Username}" />
 
-                <TextBlock FontWeight="Bold" Text="{StaticResource SupervisorFullNameLabel}" />
-                <TextBlock Text="{Binding SupervisorFullName}" />
+            <TextBlock FontWeight="Bold" Text="{StaticResource EmailLabel}" />
+            <TextBlock Text="{Binding Email}" />
 
-                <TextBlock FontWeight="Bold" Text="{StaticResource AddressLabel}" />
-                <TextBlock Text="{Binding Address}" />
+            <TextBlock FontWeight="Bold" Text="{StaticResource PhoneNumberLabel}" />
+            <TextBlock Text="{Binding PhoneNumber}" />
 
-                <TextBlock FontWeight="Bold" Text="{StaticResource BankNameLabel}" />
-                <TextBlock Text="{Binding BankName}" />
+            <TextBlock FontWeight="Bold" Text="{StaticResource RoleLabel}" />
+            <TextBlock Text="{Binding Role}" />
 
-                <TextBlock FontWeight="Bold" Text="{StaticResource CheckingAccountLabel}" />
-                <TextBlock Text="{Binding CheckingAccount}" />
+            <TextBlock FontWeight="Bold" Text="{StaticResource NameLabel}" />
+            <TextBlock Text="{Binding Name}" />
 
-                <TextBlock FontWeight="Bold" Text="{StaticResource ItnNumberLabel}" />
-                <TextBlock Text="{Binding ItnNumber}" />
+            <TextBlock FontWeight="Bold" Text="{StaticResource SupervisorFullNameLabel}" />
+            <TextBlock Text="{Binding SupervisorFullName}" />
 
-            </StackPanel>
-        </Expander>
+            <TextBlock FontWeight="Bold" Text="{StaticResource AddressLabel}" />
+            <TextBlock Text="{Binding Address}" />
+
+            <TextBlock FontWeight="Bold" Text="{StaticResource BankNameLabel}" />
+            <TextBlock Text="{Binding BankName}" />
+
+            <TextBlock FontWeight="Bold" Text="{StaticResource CheckingAccountLabel}" />
+            <TextBlock Text="{Binding CheckingAccount}" />
+
+            <TextBlock FontWeight="Bold" Text="{StaticResource ItnNumberLabel}" />
+            <TextBlock Text="{Binding ItnNumber}" />
+        </StackPanel>
     </Grid>
 </UserControl>

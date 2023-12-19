@@ -2,9 +2,9 @@
 
 namespace RentServiceFront.view.MainWindow.user_control;
 
-public partial class IndividualInfoUserControl : UserControl
+public partial class AgreementUserControl : UserControl
 {
-    public IndividualInfoUserControl()
+    public AgreementUserControl()
     {
         InitializeComponent();
     }

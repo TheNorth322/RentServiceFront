@@ -116,4 +116,7 @@
     <system:String x:Key="IsTelephoneFieldHint">Есть телефон?</system:String>
     <system:String x:Key="RoomImagesText">Изображения</system:String>
     <system:String x:Key="RoomFloorHintText">Этаж</system:String>
+    
+    <system:String x:Key="FineText">Штраф</system:String>
+    <system:String x:Key="CreateAgreementText">Заключить договор</system:String>
 </ResourceDictionary>

@@ -1,7 +1,9 @@
-﻿namespace RentServiceFront.domain.model.enums;
+﻿using System.ComponentModel;
+
+namespace RentServiceFront.domain.model.enums;
 
 public enum PaymentFrequency
 {
-    MONTHLY,
-    QUARTERLY
+    [Description("Ежемесячная")] MONTHLY,
+    [Description("Поквартальная")] QUARTERLY
 }

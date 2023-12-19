@@ -8,15 +8,15 @@ public class AgreementRoomViewModel : ViewModelBase
     private long _id;
     private string _address;  
     private string _purposeOfRent;
+    private int _rentAmount;
     private DateTime _startOfRent;
     private DateTime _endOfRent;
-    private int _rentAmount;
     
     public AgreementRoomViewModel(long id, string address, string purposeOfRent, DateTime startOfRent, DateTime endOfRent, int rentAmount)
     {
         _id = id;
-        _address = address;
         _purposeOfRent = purposeOfRent;
+        _address = address;
         _startOfRent = startOfRent;
         _endOfRent = endOfRent;
         _rentAmount = rentAmount;
@@ -69,5 +69,4 @@ public class AgreementRoomViewModel : ViewModelBase
             OnPropertyChange(nameof(RentAmount));
         }
     }
-    
 }

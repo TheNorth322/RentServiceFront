@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using RentServiceFront.domain.model.entity;
 using RentServiceFront.domain.model.enums;
 
@@ -14,11 +15,12 @@ public class AgreementViewModel : ViewModelBase
     private int _fine;
     private DateTime _startsFrom;
     private DateTime _lastsTo;
-    private List<AgreementRoomViewModel> _rooms;
+    private ObservableCollection<AgreementRoomViewModel> _rooms;
 
-    public AgreementViewModel(long registrationNumber, PaymentFrequency paymentFrequency, string additionalConditions, 
-        int fine, DateTime startsFrom, DateTime lastsTo, List<AgreementRoomViewModel> rooms)
+    public AgreementViewModel(long id, long registrationNumber, PaymentFrequency paymentFrequency, string additionalConditions, 
+        int fine, DateTime startsFrom, DateTime lastsTo, ObservableCollection<AgreementRoomViewModel> rooms)
     {
+        _id = id;
         _registrationNumber = registrationNumber;
         _paymentFrequency = paymentFrequency;
         _additionalConditions = additionalConditions;
@@ -88,7 +90,7 @@ public class AgreementViewModel : ViewModelBase
         }
     }
 
-    public List<AgreementRoomViewModel> Rooms
+    public ObservableCollection<AgreementRoomViewModel> Rooms
     {
         get => _rooms;
         set

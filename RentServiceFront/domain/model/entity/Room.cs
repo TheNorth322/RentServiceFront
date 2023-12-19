@@ -34,6 +34,9 @@ public class Room
     [JsonProperty("price")]
     public int Price { get; set; }
     
+    [JsonProperty("fine")]
+    public int Fine { get; set; }
+    
     [JsonProperty("number")]
     public int Number { get; set; }
     

@@ -38,6 +38,16 @@ public class UserUseCase
         return await _userRepository.getUserIndividualInfo(username);
     }
 
+    public async Task<List<UserRoom>> getUserRooms(string username)
+    {
+        return await _userRepository.getUserRooms(username);
+    }
+
+    public async Task<string> deleteUserRoom(string username, long roomId)
+    {
+        return await _userRepository.deleteUserRoom(username, roomId);
+    } 
+    
     public async Task<string> setPassport(string token, long passportId)
     {
         return await _userRepository.setPassport(token, passportId);

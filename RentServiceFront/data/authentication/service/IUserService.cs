@@ -20,7 +20,12 @@ public interface IUserService
 
     [Get("/user/{username}/individual")]
     Task<IndividualUser> getUserIndividualInfo(string username);
-
+    
+    [Get("/user/{username}/rooms")]  
+    Task<List<UserRoom>> getUserRooms(string username);
+    
+    [Delete("/user/{username}/rooms/delete")]
+    Task<string> deleteUserRoom(string username, long roomId);
     [Post("/user/set/passport")]
     Task<string> setPassport([Query] string token, [Query] long passportId);
 }

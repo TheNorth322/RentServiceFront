@@ -25,6 +25,9 @@
         <DataTemplate DataType="{x:Type mainWindow:RoomListViewModel}">
             <userControl1:RoomListUserControl />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type mainWindow:CartViewModel}">
+            <userControl1:CartUserControl />
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <StackPanel>

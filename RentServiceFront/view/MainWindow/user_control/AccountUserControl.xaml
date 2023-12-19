@@ -12,13 +12,19 @@
              xmlns:mainWindow="clr-namespace:RentServiceFront.viewmodel.mainWindow"
              d:DataContext="{d:DesignInstance Type=mainWindow:AccountViewModel}"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300" Loaded="AccountUserControl_OnLoaded">
+             d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type mainWindow:EntityViewModel}">
             <userControl:EntityInfoUserControl />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type mainWindow:IndividualViewModel}">
-            <userControl:IndividualInfoUserControl />
+        <DataTemplate DataType="{x:Type viewmodels:UserViewModel}">
+            <userControl:UserInfoUserControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type mainWindow:PassportMenuViewModel}">
+            <userControl:PassportMenuUserControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type mainWindow:AgreementMenuViewModel}">
+            <userControl:AgreementMenuUserControl />
         </DataTemplate>
         <viewmodels:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
         <Style x:Key="HorizontalDividerBorder" TargetType="{x:Type Border}">
@@ -29,96 +35,49 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Visible"
-                      Style="{DynamicResource MaterialDesignScrollViewer}"
-                      Height="{Binding RelativeSource={RelativeSource  FindAncestor, 
-                                                                      AncestorType={x:Type Window}}, Path=.ActualHeight}">
-            <StackPanel Margin="10">
-                <TextBlock FontWeight="Bold" Text="{StaticResource UsernameLabel}" />
-                <TextBlock Text="{Binding Username}" />
-
-                <TextBlock FontWeight="Bold" Text="{StaticResource EmailLabel}" />
-                <TextBlock Text="{Binding Email}" />
-
-                <TextBlock FontWeight="Bold" Text="{StaticResource PhoneNumberLabel}" />
-                <TextBlock Text="{Binding PhoneNumber}" />
-
-                <TextBlock FontWeight="Bold" Text="{StaticResource EmailVerifiedLabel}" />
-                <TextBlock Text="{Binding EmailVerified}" />
-
-                <TextBlock FontWeight="Bold" Text="{StaticResource RoleLabel}" />
-                <TextBlock Text="{Binding Role, Converter={StaticResource EnumDescriptionConverter}}" />
-
-
-                <Expander HorizontalAlignment="Stretch" Header="{StaticResource AgreementsText}" Margin="0 10 0 0">
-                    <ItemsControl ItemsSource="{Binding Agreements}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Expander Header="{Binding RegistrationNumber}">
-                                    <Grid Margin="10">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="3*"/>
-                                            <ColumnDefinition Width="7*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel>
-                                            <TextBlock FontWeight="Bold"
-                                                       Text="{StaticResource RegistrationNumberLabel}" />
-                                            <TextBlock Text="{Binding RegistrationNumber}" />
-
-                                            <TextBlock FontWeight="Bold" Text="{StaticResource PaymentFrequencyLabel}" />
-                                            <TextBlock Text="{Binding PaymentFrequency}" />
-
-                                            <TextBlock FontWeight="Bold"
-                                                       Text="{StaticResource AdditionalConditionsLabel}" />
-                                            <TextBlock Text="{Binding AdditionalConditions}" />
-
-                                            <TextBlock FontWeight="Bold" Text="{StaticResource FineLabel}" />
-                                            <TextBlock Text="{Binding Fine}" />
-
-                                            <TextBlock FontWeight="Bold" Text="{StaticResource StartsFromLabel}" />
-                                            <TextBlock Text="{Binding StartsFrom}" />
-
-                                            <TextBlock FontWeight="Bold" Text="{StaticResource LastsToLabel}" />
-                                            <TextBlock Text="{Binding LastsTo}" />
-                                        </StackPanel>
-
-                                        <ItemsControl Grid.Column="1" ItemsSource="{Binding Rooms}">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Expander Header="{Binding Address}">
-                                                        <StackPanel Margin="10">
-                                                            <TextBlock FontWeight="Bold"
-                                                                       Text="{StaticResource AddressLabel}" />
-                                                            <TextBlock Text="{Binding Address}" />
-
-                                                            <TextBlock FontWeight="Bold"
-                                                                       Text="{StaticResource PurposeOfRentLabel}" />
-                                                            <TextBlock Text="{Binding PurposeOfRent}" />
-
-                                                            <TextBlock FontWeight="Bold"
-                                                                       Text="{StaticResource StartOfRentLabel}" />
-                                                            <TextBlock Text="{Binding StartOfRent}" />
-
-                                                            <TextBlock FontWeight="Bold"
-                                                                       Text="{StaticResource EndOfRentLabel}" />
-                                                            <TextBlock Text="{Binding EndOfRent}" />
-
-                                                            <TextBlock FontWeight="Bold"
-                                                                       Text="{StaticResource RentAmountLabel}" />
-                                                            <TextBlock Text="{Binding RentAmount}" />
-                                                        </StackPanel>
-                                                    </Expander>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </Grid>
-                                </Expander>
+        <StackPanel>
+            <StackPanel
+                Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                       AncestorType={x:Type UserControl}}, Path=ActualWidth}">
+                <Grid
+                    Height="80"
+                    Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                   AncestorType={x:Type StackPanel}}, Path=ActualWidth}"
+                    Background="{DynamicResource MaterialDesignCardBackground}">
+                    <ListBox
+                        Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                       AncestorType={x:Type Grid}}, Path=ActualWidth}"
+                        HorizontalAlignment="Left"
+                        Height="80"
+                        ItemsSource="{Binding SampleItems}"
+                        SelectedItem="{Binding SelectedItem}"
+                        Style="{StaticResource MaterialDesign3.NavigationBarListBox}">
+                        <ListBox.ItemContainerStyle>
+                            <Style
+                                TargetType="ListBoxItem"
+                                BasedOn="{StaticResource MaterialDesign3.NavigationBarListBoxItem}">
+                                <Setter
+                                    Property="materialDesign:NavigationBarAssist.IsTextVisible"
+                                    Value="True" />
+                                <Setter
+                                    Property="materialDesign:NavigationBarAssist.SelectedIcon"
+                                    Value="{Binding SelectedIcon}" />
+                                <Setter
+                                    Property="materialDesign:NavigationBarAssist.UnselectedIcon"
+                                    Value="{Binding UnselectedIcon}" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.Resources>
+                            <DataTemplate
+                                DataType="{x:Type viewmodels:SampleItem}">
+                                <TextBlock
+                                    Text="{Binding Title}" />
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Expander>
-                <ContentControl Content="{Binding CurrentViewModel}" Margin="0 10 0 0" />
+                        </ListBox.Resources>
+                    </ListBox>
+                </Grid>
             </StackPanel>
-        </ScrollViewer>
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </StackPanel>
     </Grid>
 </UserControl>

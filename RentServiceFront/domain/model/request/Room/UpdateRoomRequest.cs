@@ -6,7 +6,7 @@ namespace RentServiceFront.domain.model.request.Room;
 
 public class UpdateRoomRequest
 {
-    public UpdateRoomRequest(long id, long buildingId, bool telephone, double area, int number, int floor, int price, string description, List<RoomType> types, List<RoomImage> roomImages)
+    public UpdateRoomRequest(long id, long buildingId, bool telephone, double area, int number, int floor, int price, int fine, string description, List<RoomType> types, List<RoomImage> roomImages)
     {
         Id = id;
         BuildingId = buildingId;
@@ -15,6 +15,7 @@ public class UpdateRoomRequest
         Number = number;
         Floor = floor;
         Price = price;
+        Fine = fine;
         Description = description;
         Types = types;
         RoomImages = roomImages;
@@ -27,6 +28,7 @@ public class UpdateRoomRequest
     [JsonProperty("number")] public int Number { get; set; }
     [JsonProperty("floor")] public int Floor { get; set; }
     [JsonProperty("price")] public int Price { get; set; }
+    [JsonProperty("fine")] public int Fine { get; set; }
     [JsonProperty("description")] public string Description { get; set; }
     [JsonProperty("types")] public List<RoomType> Types { get; set; }
     [JsonProperty("roomImages")] public List<RoomImage> RoomImages { get; set; }

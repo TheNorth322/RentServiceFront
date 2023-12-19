@@ -6,7 +6,7 @@ namespace RentServiceFront.domain.model.request.Room;
 
 public class CreateRoomRequest
 {
-    public CreateRoomRequest(long buildingId, bool telephone, double area, int number, int floor, int price, string description, List<RoomType> types,
+    public CreateRoomRequest(long buildingId, bool telephone, double area, int number, int floor, int price, int fine, string description, List<RoomType> types,
         List<RoomImage> roomImages)
     {
         BuildingId = buildingId;
@@ -15,6 +15,7 @@ public class CreateRoomRequest
         Number = number;
         Floor = floor;
         Price = price;
+        Fine = fine;
         Description = description;
         Types = types;
         RoomImages = roomImages;
@@ -28,6 +29,7 @@ public class CreateRoomRequest
     
     [JsonProperty("price")] public int Price { get; set; }
     
+    [JsonProperty("fine")] public int Fine { get; set; }
     [JsonProperty("description")] public string Description { get; set; }
     [JsonProperty("types")] public List<RoomType> Types { get; set; }
     [JsonProperty("roomImages")] public List<RoomImage> RoomImages { get; set; }

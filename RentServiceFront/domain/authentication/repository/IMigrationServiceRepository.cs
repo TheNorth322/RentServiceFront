@@ -9,7 +9,7 @@ public interface IMigrationServiceRepository
 {
     Task<List<MigrationService>> getMigrationServices();
     Task<MigrationService> createMigrationService(CreateMigrationServiceRequest request);
-
+    Task<List<Passport>> getMigrationServicePassports(long id);
     Task<string> updateMigrationService(UpdateMigrationServiceRequest request);
     
     Task<string> deleteMigrationService(long id);

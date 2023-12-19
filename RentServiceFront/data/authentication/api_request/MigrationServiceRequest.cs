@@ -32,6 +32,11 @@ public class MigrationServiceRequest : IMigrationServiceRepository
         return await _api.createMigrationService(request);
     }
 
+    public async Task<List<Passport>> getMigrationServicePassports(long id)
+    {
+        return await _api.getMigrationServicePassports(id);
+    }
+
     public async Task<string> updateMigrationService(UpdateMigrationServiceRequest request)
     {
         return await _api.updateMigrationService(request);

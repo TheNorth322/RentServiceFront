@@ -12,10 +12,14 @@ public interface IMigrationServiceService
     [Headers("Authorization: Bearer")]
     [Get("/migration_service/all")]
     Task<List<MigrationService>> getMigrationServices();
-    
+
     [Headers("Authorization: Bearer")]
     [Post("/migration_service/create")]
     Task<MigrationService> createMigrationService([Body] CreateMigrationServiceRequest request);
+
+    [Headers("Authorization: Bearer")]
+    [Get("/migration_service/passports")]
+    Task<List<Passport>> getMigrationServicePassports(long id);
 
     [Headers("Authorization: Bearer")]
     [Put("/migration_service/update")]
