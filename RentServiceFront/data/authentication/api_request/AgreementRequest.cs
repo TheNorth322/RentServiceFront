@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using RentServiceFront.data.client;
 using RentServiceFront.data.secure;
 using RentServiceFront.data.service;
@@ -23,5 +24,10 @@ public class AgreementRequest : IAgreementRepository
     public async Task<string> createAgreement(CreateAgreementRequest request)
     {
         return await _api.createAgreement(request);
+    }
+
+    public async Task<HttpResponseMessage> generateAgreementPdf(long id)
+    {
+        return await _api.generateAgreementPdf(id);
     }
 }

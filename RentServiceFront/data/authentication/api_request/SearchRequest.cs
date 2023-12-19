@@ -27,6 +27,16 @@ public class SearchRequest : ISearchRepository
         return await _api.getBuildingByAddress(address);
     }
 
+    public async Task<List<Room>> findAvailableRoomsInBuilding(long id)
+    {
+        return await _api.findAvailableRoomsInBuilding(id);
+    }
+
+    public async Task<List<IndividualUser>> findAllInidivdualsByPassportInMigrationService(long id)
+    {
+        return await _api.findAllInidivdualsByPassportInMigrationService(id);
+    }
+
     public async Task<List<MigrationService>> searchForMigrationServicesByName(string name)
     {
         return await _api.searchForMigrationServicesByName(name);

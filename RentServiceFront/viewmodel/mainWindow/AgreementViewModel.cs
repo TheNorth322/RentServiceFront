@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Microsoft.Win32;
+using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.domain.model.entity;
 using RentServiceFront.domain.model.enums;
 
@@ -16,10 +20,11 @@ public class AgreementViewModel : ViewModelBase
     private DateTime _startsFrom;
     private DateTime _lastsTo;
     private ObservableCollection<AgreementRoomViewModel> _rooms;
-
+    private AgreementUseCase _agreementUseCase;
     public AgreementViewModel(long id, long registrationNumber, PaymentFrequency paymentFrequency, string additionalConditions, 
-        int fine, DateTime startsFrom, DateTime lastsTo, ObservableCollection<AgreementRoomViewModel> rooms)
+        int fine, DateTime startsFrom, DateTime lastsTo, ObservableCollection<AgreementRoomViewModel> rooms, AgreementUseCase agreementUseCase)
     {
+        GeneratePDFCommand = new RelayCommand<object>(GeneratePDFExecute);
         _id = id;
         _registrationNumber = registrationNumber;
         _paymentFrequency = paymentFrequency;
@@ -28,6 +33,7 @@ public class AgreementViewModel : ViewModelBase
         _startsFrom = startsFrom;
         _lastsTo = lastsTo;
         _rooms = rooms;
+        _agreementUseCase = agreementUseCase;
     }
     
     public long RegistrationNumber
@@ -98,5 +104,24 @@ public class AgreementViewModel : ViewModelBase
             _rooms = value;
             OnPropertyChange(nameof(Rooms));
         }
+    }
+    public ICommand GeneratePDFCommand { get; }
+    
+    public async void GeneratePDFExecute(object param)
+    {
+        if (_id == 0) return; 
+        
+        var saveFileDialog = new SaveFileDialog
+        {
+            Filter = "PDF files (*.pdf)|*.pdf",
+            Title = "Сохранить PDF файл"
+        };
+
+        if (saveFileDialog.ShowDialog() == true)
+        {
+            var filePath = saveFileDialog.FileName;
+            DialogText = await _agreementUseCase.generateAgreementPdf(_id, filePath);
+        }
+        ShowDialogCommand.Execute(null);
     }
 }

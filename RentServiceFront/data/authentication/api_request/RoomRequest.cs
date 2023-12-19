@@ -27,6 +27,11 @@ public class RoomRequest : IRoomRepository
         return await _api.GetRooms();
     }
 
+    public async Task<List<AgreementRoom>> GetAgreementRoomsByAgreementId(long id)
+    {
+        return await _api.GetAgreementRoomsByAgreementId(id);
+    }
+
     public async Task<string> AddRoomToCart(AddRoomToCartRequest request)
     {
         return await _api.addRoomToCart(request);

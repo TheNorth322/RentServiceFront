@@ -16,6 +16,14 @@ public class SearchUseCase
         _searchRepository = searchRepository ?? throw new ArgumentException("Search repository can't be null");
     }
 
+    public async Task<List<IndividualUser>> findAllInidivdualsByPassportInMigrationService(long id)
+    {
+        return await _searchRepository.findAllInidivdualsByPassportInMigrationService(id);
+    }
+    public async Task<List<Room>> findAvailableRoomsInBuilding(long id)
+    {
+        return await _searchRepository.findAvailableRoomsInBuilding(id);
+    }
 
     public async Task<Building> getBuildingByAddress(Address address)
     {

@@ -12,7 +12,8 @@ public interface IRoomService
 {
     [Get("/room/all")] 
     Task<List<Room>> GetRooms();
-    
+    [Get("/room/agreement")] 
+    Task<List<AgreementRoom>> GetAgreementRoomsByAgreementId(long id);
     [Post("/room/addToCart")]
     Task<string> addRoomToCart([Body] AddRoomToCartRequest request); 
     

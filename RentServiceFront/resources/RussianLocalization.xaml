@@ -119,4 +119,6 @@
     
     <system:String x:Key="FineText">Штраф</system:String>
     <system:String x:Key="CreateAgreementText">Заключить договор</system:String>
+    
+    <system:String x:Key="GeneratePDFText">Получить PDF</system:String>
 </ResourceDictionary>

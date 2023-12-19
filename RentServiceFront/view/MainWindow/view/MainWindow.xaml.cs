@@ -81,7 +81,8 @@ public partial class MainWindow : Window
             accountSampelItems.Add(new SampleItem("Info", PackIconKind.Info, PackIconKind.Info,
                 new EntityViewModel(new UserUseCase(new UserRequest(_secureDataStorage)), _secureDataStorage)));
             accountSampelItems.Add(new SampleItem("Agreements", PackIconKind.Note, PackIconKind.Note,
-                new AgreementMenuViewModel(new UserUseCase(new UserRequest(_secureDataStorage)), _secureDataStorage)));
+                new AgreementMenuViewModel(new UserUseCase(new UserRequest(_secureDataStorage)),
+                    new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
         }
         else if (_secureDataStorage.Role == Role.INDIVIDUAL)
         {
@@ -92,7 +93,8 @@ public partial class MainWindow : Window
                     new SearchUseCase(new SearchRequest(_secureDataStorage)),
                     new PassportUseCase(new PassportRequest(_secureDataStorage)), _secureDataStorage)));
             accountSampelItems.Add(new SampleItem("Agreements", PackIconKind.Note, PackIconKind.Note,
-                new AgreementMenuViewModel(new UserUseCase(new UserRequest(_secureDataStorage)), _secureDataStorage)));
+                new AgreementMenuViewModel(new UserUseCase(new UserRequest(_secureDataStorage)),
+                    new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
         }
         else if (_secureDataStorage.Role == Role.ADMIN)
         {
