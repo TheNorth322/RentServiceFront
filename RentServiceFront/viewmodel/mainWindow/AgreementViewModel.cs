@@ -109,19 +109,28 @@ public class AgreementViewModel : ViewModelBase
     
     public async void GeneratePDFExecute(object param)
     {
-        if (_id == 0) return; 
-        
-        var saveFileDialog = new SaveFileDialog
+        try
         {
-            Filter = "PDF files (*.pdf)|*.pdf",
-            Title = "Сохранить PDF файл"
-        };
+            if (_id == 0) return;
 
-        if (saveFileDialog.ShowDialog() == true)
-        {
-            var filePath = saveFileDialog.FileName;
-            DialogText = await _agreementUseCase.generateAgreementPdf(_id, filePath);
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "PDF files (*.pdf)|*.pdf",
+                Title = "Сохранить PDF файл"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                var filePath = saveFileDialog.FileName;
+                DialogText = await _agreementUseCase.generateAgreementPdf(_id, filePath);
+            }
+
+            ShowDialogCommand.Execute(null);
         }
-        ShowDialogCommand.Execute(null);
+        catch (Exception e)
+        {
+            DialogText = "Something went wrong";
+            ShowDialogCommand.Execute(null); 
+        }
     }
 }

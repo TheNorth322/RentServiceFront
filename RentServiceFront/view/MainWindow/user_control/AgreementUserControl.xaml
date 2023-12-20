@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RentServiceFront.view.MainWindow.user_control"
              xmlns:mainWindow="clr-namespace:RentServiceFront.viewmodel.mainWindow"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DataContext="{d:DesignInstance Type=mainWindow:AgreementViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="900">
@@ -73,5 +74,12 @@
                     ToolTip="{StaticResource GeneratePDFText}"
                     Command="{Binding GeneratePDFCommand}" />
         </StackPanel>
+        <materialDesign:DialogHost IsOpen="{Binding IsDialogOpen}" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="40">
+                    <TextBlock Text="{Binding DialogText}" Margin="20" />
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </UserControl>

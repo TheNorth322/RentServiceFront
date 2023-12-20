@@ -76,7 +76,7 @@
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
             </ComboBox>
-            
+
             <ComboBox
                 Margin="0 10 0 0"
                 materialDesign:HintAssist.Hint="{StaticResource MigrationServiceLabel}"
@@ -89,7 +89,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            
+
             <StackPanel Margin="0 10 0 0" HorizontalAlignment="Center" Orientation="Horizontal">
                 <Button
                     Width="100"
@@ -105,5 +105,12 @@
                         Command="{Binding DeleteCommand}" />
             </StackPanel>
         </StackPanel>
+        <materialDesign:DialogHost IsOpen="{Binding IsDialogOpen}" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="40">
+                    <TextBlock Text="{Binding DialogText}" Margin="20" />
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </UserControl>

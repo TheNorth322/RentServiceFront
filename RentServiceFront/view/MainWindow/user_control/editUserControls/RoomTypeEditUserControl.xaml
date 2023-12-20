@@ -32,5 +32,12 @@
                         Command="{Binding DeleteCommand}" />
             </StackPanel>
         </StackPanel>
+        <materialDesign:DialogHost IsOpen="{Binding IsDialogOpen}" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="40">
+                    <TextBlock Text="{Binding DialogText}" Margin="20" />
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </UserControl>

@@ -85,6 +85,7 @@ public class BankEditViewModel : ViewModelBase
             {
                 Bank bank = await _bankUseCase.createBank(new CreateBankRequest(Name));
                 _id = bank.Id;
+                DialogText = "Bank successfully created";
             }
             else
             {

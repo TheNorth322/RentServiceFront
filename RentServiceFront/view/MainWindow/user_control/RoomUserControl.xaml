@@ -53,7 +53,7 @@
             <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
             <TextBlock Text="{Binding Area, StringFormat='Area: {0} sq.m.'}" />
             <TextBlock Text="{StaticResource RoomTypesText}" FontWeight="Bold" />
-            
+
             <WrapPanel Orientation="Horizontal">
                 <ItemsControl ItemsSource="{Binding Types}">
                     <ItemsControl.ItemsPanel>
@@ -68,7 +68,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </WrapPanel>
-            
+
         </StackPanel>
 
         <WrapPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
@@ -92,7 +92,7 @@
                     </Binding>
                 </DatePicker.SelectedDate>
             </DatePicker>
-            
+
             <DatePicker
                 Margin="0 20 0 0"
                 HorizontalAlignment="Stretch"
@@ -109,7 +109,7 @@
                     </Binding>
                 </DatePicker.SelectedDate>
             </DatePicker>
-            
+
             <TextBlock FontWeight="Bold" Text="{StaticResource PurposeOfRentLabel}" />
 
             <TextBox
@@ -123,15 +123,22 @@
                 Text="{Binding PurposeOfRent}"
                 TextWrapping="Wrap"
                 VerticalScrollBarVisibility="Auto" />
-            
+
             <Button
                 Margin="0 20 0 0"
                 HorizontalAlignment="Stretch"
                 Content="{StaticResource AddToCartText}"
                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                ToolTip="{StaticResource AddToCartText}" 
-                Command="{Binding AddToCartCommand}"/>
-            
+                ToolTip="{StaticResource AddToCartText}"
+                Command="{Binding AddToCartCommand}" />
+
         </StackPanel>
+        <materialDesign:DialogHost Grid.RowSpan="2" Grid.ColumnSpan="2" IsOpen="{Binding IsDialogOpen}" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="40">
+                    <TextBlock Text="{Binding DialogText}" Margin="20" />
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </UserControl>

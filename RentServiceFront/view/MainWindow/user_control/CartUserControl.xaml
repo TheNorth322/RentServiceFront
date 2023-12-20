@@ -19,7 +19,7 @@
             <ColumnDefinition Width="6*" />
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
-        
+
         <ItemsControl ItemsSource="{Binding UserRoomViewModels}" Margin=" 10 0 10 0">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
@@ -55,9 +55,9 @@
                                 ToolTip="{StaticResource DeleteText}"
                                 Command="{Binding DeleteRoomCommand}">
                             <materialDesign:PackIcon
-                                Width="12"
-                                Height="12"
-                                Kind="Cancel" />
+                                Width="18"
+                                Height="18"
+                                Kind="Delete" />
                         </Button>
                     </Grid>
                 </DataTemplate>
@@ -95,6 +95,13 @@
                 Command="{Binding CreateAgreementCommand}" />
 
         </StackPanel>
+        <materialDesign:DialogHost Grid.ColumnSpan="2" Grid.RowSpan="2" IsOpen="{Binding IsDialogOpen}" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="40">
+                    <TextBlock Text="{Binding DialogText}" Margin="20" />
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 
 

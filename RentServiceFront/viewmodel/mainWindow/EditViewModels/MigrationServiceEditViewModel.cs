@@ -186,6 +186,7 @@ public class MigrationServiceEditViewModel : ViewModelBase
                 MigrationService migrationService = await _migrationServiceUseCase.createMigrationService(
                     new CreateMigrationServiceRequest(Name, SelectedAddress.Name, SelectedAddress.AddressParts));
                 _id = migrationService.Id;
+                DialogText = "Migration service created successfully";
             }
             else
             {

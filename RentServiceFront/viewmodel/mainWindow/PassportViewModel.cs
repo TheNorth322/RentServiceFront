@@ -219,50 +219,60 @@ public class PassportViewModel : ViewModelBase
 
     private async void AddExecute(object? param)
     {
-        if (_id == 0)
+        try
         {
-            string[] fullNameParts = FullName.Split(" ");
-            string? surname = fullNameParts.Length == 2 ? null : fullNameParts[2];
-            string[] numberSericeParts = NumberSeries.Split(" ");
+            if (_id == 0)
+            {
+                string[] fullNameParts = FullName.Split(" ");
+                string? surname = fullNameParts.Length == 2 ? null : fullNameParts[2];
+                string[] numberSericeParts = NumberSeries.Split(" ");
 
-            await _passportUseCase.addPassport(new AddPassportRequest(
-                    _secureDataStorage.Username,
-                    fullNameParts[0],
-                    fullNameParts[1],
-                    surname,
-                    _dateOfBirth,
-                    _dateOfIssue,
-                    _selectedMigrationService.Id,
-                    numberSericeParts[0],
-                    numberSericeParts[1],
-                    new CreateAddressRequest(_selectedAddress.Name, _selectedAddress.AddressParts),
-                    _gender
-                )
-            );
-        }
-        else
+                Passport passport = await _passportUseCase.addPassport(new AddPassportRequest(
+                        _secureDataStorage.Username,
+                        fullNameParts[0],
+                        fullNameParts[1],
+                        surname,
+                        _dateOfBirth,
+                        _dateOfIssue,
+                        _selectedMigrationService.Id,
+                        numberSericeParts[0],
+                        numberSericeParts[1],
+                        new CreateAddressRequest(_selectedAddress.Name, _selectedAddress.AddressParts),
+                        _gender
+                    )
+                );
+                _id = passport.Id;
+                DialogText = "Passport was successfully created";
+            }
+            else
+            {
+                string[] fullNameParts = FullName.Split(" ");
+                string? surname = fullNameParts[2] ?? null;
+                string[] numberSericeParts = NumberSeries.Split(" ");
+
+                Passport passport = await _passportUseCase.updatePassport(new UpdatePassportRequest(
+                        _id,
+                        _secureDataStorage.Username,
+                        fullNameParts[0],
+                        fullNameParts[1],
+                        surname,
+                        _dateOfBirth,
+                        _dateOfIssue,
+                        _selectedMigrationService.Id,
+                        numberSericeParts[0],
+                        numberSericeParts[1],
+                        new CreateAddressRequest(_selectedAddress.Name, _selectedAddress.AddressParts),
+                        _gender
+                    )
+                );
+
+                DialogText = "Passport was successfully updated";
+            }
+            ShowDialogCommand.Execute(null);
+        } catch (Exception e)
         {
-            string[] fullNameParts = FullName.Split(" ");
-            string? surname = fullNameParts[2] ?? null;
-            string[] numberSericeParts = NumberSeries.Split(" ");
-
-            Passport passport = await _passportUseCase.updatePassport(new UpdatePassportRequest(
-                    _id,
-                    _secureDataStorage.Username,
-                    fullNameParts[0],
-                    fullNameParts[1],
-                    surname,
-                    _dateOfBirth,
-                    _dateOfIssue,
-                    _selectedMigrationService.Id,
-                    numberSericeParts[0],
-                    numberSericeParts[1],
-                    new CreateAddressRequest(_selectedAddress.Name, _selectedAddress.AddressParts),
-                    _gender
-                )
-            );
-
-            _id = passport.Id;
+            DialogText = "Something went wrong";
+            ShowDialogCommand.Execute(null);
         }
     }
 

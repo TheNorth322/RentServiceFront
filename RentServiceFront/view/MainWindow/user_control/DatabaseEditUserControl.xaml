@@ -74,5 +74,6 @@
             </StackPanel>
             <ContentControl Content="{Binding CurrentViewModel}" />
         </StackPanel>
+        
     </Grid>
 </UserControl>
