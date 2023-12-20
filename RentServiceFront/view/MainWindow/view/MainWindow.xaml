@@ -28,6 +28,9 @@
         <DataTemplate DataType="{x:Type mainWindow:CartViewModel}">
             <userControl1:CartUserControl />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type mainWindow:ReferenceViewModel}">
+            <userControl1:ReferenceUserControl />
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <StackPanel>

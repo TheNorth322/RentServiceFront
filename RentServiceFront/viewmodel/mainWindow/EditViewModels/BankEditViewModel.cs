@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using RentServiceFront.domain.authentication.use_case;
 using RentServiceFront.domain.model.entity;
@@ -15,18 +16,45 @@ public class BankEditViewModel : ViewModelBase
     private string _name;
 
     private readonly BankUseCase _bankUseCase;
-
+    private ObservableCollection<EntityListItemViewModel> _entityViewModels;
     public ICommand DeleteCommand { get; }
     public EventHandler<BankEditViewModel> DeleteEvent;
 
     public BankEditViewModel(BankUseCase bankUseCase)
     {
+        _entityViewModels = new ObservableCollection<EntityListItemViewModel>();
         DeleteCommand = new RelayCommand<object>(DeleteExecute);
-        AddCommand = new RelayCommand<object>(AddExecute);
+        AddCommand = new RelayCommand<object>(AddExecute, AddCanExecute);
 
         _id = 0;
         _name = "Unknown";
         _bankUseCase = bankUseCase;
+    }
+
+    public ObservableCollection<EntityListItemViewModel> Entities
+    {
+        get => _entityViewModels;
+        set
+        {
+            _entityViewModels = value;
+            OnPropertyChange(nameof(Entities));
+        }
+    }
+    public async void InitializeEntities()
+    {
+        List<EntityUser> entities = await _bankUseCase.getAllEntityUserInBank(_id);
+        foreach (EntityUser entity in entities)
+        {
+            string fullName =
+                $"{entity.SupervisorFirstName} {entity.SupervisorLastName} {(String.IsNullOrEmpty(entity.SupervisorSurname) ? "" : entity.SupervisorSurname)}";
+            _entityViewModels.Add(new EntityListItemViewModel(entity.Name, fullName, entity.Address.Value,
+                entity.Bank.Name, entity.CheckingAccount, entity.ItnNumber));
+        }
+    }
+
+    private bool AddCanExecute(object arg)
+    {
+        return !String.IsNullOrEmpty(Name);
     }
 
     public BankEditViewModel(long id, string name, BankUseCase bankUseCase) :
@@ -81,4 +109,4 @@ public class BankEditViewModel : ViewModelBase
 
         DeleteEvent?.Invoke(this, this);
     }
-    }
+}

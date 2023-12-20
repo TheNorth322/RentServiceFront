@@ -14,7 +14,7 @@ public interface IPassportService
 
     [Headers("Authorization: Bearer")]
     [Post("/passport/add")]
-    Task<IndividualUser> addPassport([Body] AddPassportRequest request);
+    Task<Passport> addPassport([Body] AddPassportRequest request);
 
     [Headers("Authorization: Bearer")]
     [Put("/passport/update")]

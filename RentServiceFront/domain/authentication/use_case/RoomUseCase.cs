@@ -16,18 +16,41 @@ public class RoomUseCase
         _roomRepository = roomRepository ?? throw new ArgumentException("Room repository can't be null");
     }
 
+    public async Task<List<Room>> GetAvailableRoomsInBuilding(long id)
+    {
+        return await _roomRepository.GetAvailableRoomsInBuilding(id);
+    }
+
+    public async Task<List<Room>> GetRoomInBuildingWithRentals()
+    {
+        return await _roomRepository.GetRoomInBuildingWithRentals();
+    }
+
+    public async Task<List<AgreementRoom>> GetAgreementRoomsByRoomId(long id)
+    {
+        return await _roomRepository.GetAgreementRoomsByRoomId(id);
+    }
+
+    public async Task<List<Room>> GetAvailableRooms()
+    {
+        return await _roomRepository.GetAvailableRooms();
+    }
+
     public async Task<List<AgreementRoom>> GetAgreementRoomsByAgreementId(long id)
     {
         return await _roomRepository.GetAgreementRoomsByAgreementId(id);
     }
+
     public async Task<string> AddRoomToCart(AddRoomToCartRequest request)
     {
         return await _roomRepository.AddRoomToCart(request);
     }
+
     public async Task<List<Room>> GetRooms()
     {
         return await _roomRepository.GetRooms();
     }
+
     public async Task<Room> CreateRoom(CreateRoomRequest request)
     {
         return await _roomRepository.CreateRoom(request);

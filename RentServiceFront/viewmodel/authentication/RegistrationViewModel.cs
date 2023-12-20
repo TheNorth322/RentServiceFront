@@ -16,18 +16,25 @@ public class RegistrationViewModel : ViewModelBase
     private string _phoneNumber;
     private Role _role;
     private AuthenticationUseCase _authenticationUseCase;
-    private ViewModelBase _previousVm;
+    public ViewModelBase _previousVm;
     public ICommand GoBackCommand { get; }
     public ICommand RegisterCommand { get; }
     private SecureDataStorage _secureDataStorage;
-    
-    public RegistrationViewModel(ViewModelBase previousVm, AuthenticationUseCase authenticationUseCase, SecureDataStorage secureDataStorage)
+
+    public RegistrationViewModel(ViewModelBase previousVm, AuthenticationUseCase authenticationUseCase,
+        SecureDataStorage secureDataStorage)
     {
         _previousVm = previousVm;
         GoBackCommand = new RelayCommand<object>(GoBackExecute);
-        RegisterCommand = new RelayCommand<object>(RegisterExecute);
+        RegisterCommand = new RelayCommand<object>(RegisterExecute, RegisterCanExecute);
         _authenticationUseCase = authenticationUseCase;
         _secureDataStorage = secureDataStorage;
+    }
+
+    private bool RegisterCanExecute(object arg)
+    {
+        return !String.IsNullOrEmpty(Username) && !String.IsNullOrEmpty(Email) && !String.IsNullOrEmpty(Password) &&
+               !String.IsNullOrEmpty(PhoneNumber);
     }
 
     public string Username

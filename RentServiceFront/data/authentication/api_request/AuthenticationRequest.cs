@@ -58,9 +58,9 @@ public class AuthenticationRequest : IAuthenticationRepository
         return response;
     }
 
-    public async Task<string> ForgotPassword(string email)
+    public async Task<string> ForgotPassword(string email, string password)
     {
-        string response = await _api.forgotPassword(email);
+        string response = await _api.forgotPassword(email, password);
         return response;
     }
 

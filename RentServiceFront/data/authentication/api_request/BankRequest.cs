@@ -27,6 +27,11 @@ public class BankRequest : IBankRepository
         return await _api.getBanks();
     }
 
+    public async Task<List<EntityUser>> getAllEntityUserInBank(long id)
+    {
+        return await _api.getAllEntityUserInBank(id);
+    }
+
     public async Task<Bank> createBank(CreateBankRequest request)
     {
         return await _api.createBank(request);

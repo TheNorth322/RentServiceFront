@@ -22,18 +22,18 @@ public interface IAuthenticationService
     [Post("/auth/refresh/")]
     Task<AuthenticationResponse> refreshJwt([Query] string token);
 
-    [Post("/forgot/password/")]
-    Task<string> forgotPassword([Query] string email);
+    [Post("/auth/forgot/password")]
+    Task<string> forgotPassword([Query] string email, [Query] string password);
 
-    [Post("/validate/password/token/")]
+    [Post("/auth/validate/password/token/")]
     Task<string> validatePasswordToken([Query] string token);
 
-    [Post("/reset/password/")]
+    [Post("/auth/reset/password/")]
     Task<string> resetPassword([Query] string password, [Query] string token);
 
-    [Post("/verify/email/")]
+    [Post("/auth/verify/email/")]
     Task<string> verifyEmail([Query] string email);
 
-    [Post("/validate/email/token")]
+    [Post("/auth/validate/email/token")]
     Task<string> validateEmailVerificationToken([Query] string token);
 }

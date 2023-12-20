@@ -20,7 +20,7 @@ public class PassportUseCase
         return await _passportRepository.getPassportById(id); 
     }
 
-    public async Task<IndividualUser> addPassport(AddPassportRequest request)
+    public async Task<Passport> addPassport(AddPassportRequest request)
     {
         return await _passportRepository.addPassport(request);
     }

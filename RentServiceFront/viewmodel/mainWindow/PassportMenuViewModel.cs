@@ -51,9 +51,10 @@ public class PassportMenuViewModel : ViewModelBase
         }
     }
 
-    private void AddPassportExecute(object parameter)
+    private async void AddPassportExecute(object parameter)
     {
         PassportViewModel vm = new PassportViewModel(0,"0",  _userUseCase, _searchUseCase, _passportUseCase, _secureDataStorage);
+        await vm.InitializeMigrationServices();
         vm.DeleteEvent += OnDeleteEvent;
         _passports.Add(vm);
         OnPropertyChange(nameof(Passports));
@@ -68,6 +69,8 @@ public class PassportMenuViewModel : ViewModelBase
         foreach (Passport passport in passports)
         {
             PassportViewModel vm = new PassportViewModel(passport.Id,$"{passport.Number} {passport.Series}", _userUseCase, _searchUseCase, _passportUseCase, _secureDataStorage);
+            await vm.InitializeMigrationServices();
+            await vm.InitializePassportInformation();
             vm.DeleteEvent += OnDeleteEvent;
             _passports.Add(vm);
         }

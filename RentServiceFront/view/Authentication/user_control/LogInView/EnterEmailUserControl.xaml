@@ -52,15 +52,21 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-
+                
+                <PasswordBox
+                    Margin="0 25 0 0"
+                    PasswordChanged="PasswordBox_OnPasswordChanged"
+                    materialDesign:HintAssist.HelperText="{StaticResource PasswordFieldHelperText}"
+                    materialDesign:HintAssist.Hint="{StaticResource PasswordFieldHint}"
+                    materialDesign:TextFieldAssist.HasClearButton="True" />
                 <DockPanel Margin="0 40 0 0">
                     <Button HorizontalAlignment="Right"
                             Width="100"
                             Content="{StaticResource VerifyEmailText}"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            ToolTip="{StaticResource VerifyEmailText}" 
-                            Command="{Binding ResetPasswordCommand}"/>
+                            ToolTip="{StaticResource VerifyEmailText}"
+                            Command="{Binding ResetPasswordCommand}" />
                 </DockPanel>
             </StackPanel>
         </Grid>

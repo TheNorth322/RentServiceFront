@@ -8,7 +8,7 @@ public interface IPassportRepository
 {
     Task<Passport> getPassportById(long id);
 
-    Task<IndividualUser> addPassport(AddPassportRequest request);
+    Task<Passport> addPassport(AddPassportRequest request);
 
     Task<Passport> updatePassport(UpdatePassportRequest request);
 

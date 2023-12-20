@@ -13,6 +13,10 @@ public interface IBankService
     Task<List<Bank>> getBanks();
 
     [Headers("Authorization: Bearer")]
+    [Get("/bank/entities")]
+    Task<List<EntityUser>> getAllEntityUserInBank(long id);
+
+    [Headers("Authorization: Bearer")]
     [Post("/bank/create")]
     Task<Bank> createBank([Body] CreateBankRequest request);
 

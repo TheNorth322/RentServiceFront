@@ -42,16 +42,26 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
         DateOfBirth = System.DateTime.Now;
         DateOfIssue = System.DateTime.Now;
         _addresses = new List<AddressViewModel>();
-        _selectedAddress = new AddressViewModel("", new List<AddressPart>());
         
         GoBackCommand = new RelayCommand<object>(GoBackExecute);
-        RegisterCommand = new RelayCommand<object>(RegisterExecute);
+        RegisterCommand = new RelayCommand<object>(RegisterExecute, RegisterCanExecute);
         AddressSearchCommand = new RelayCommand<object>(AddressSearchExecute);
         
         _migrationServices = new List<MigrationServiceViewModel>();
         _authenticationUseCase = authenticationUseCase;
         _searchUseCase = searchUseCase;
         _registrationViewModel = vm;
+    }
+
+    private bool RegisterCanExecute(object arg)
+    {
+        return !String.IsNullOrEmpty(Fullname) && !String.IsNullOrEmpty(NumberSeries) &&
+               !String.IsNullOrEmpty(AddressQuery) && _selectedMigrationService != null && _selectedAddress != null && ValidateFullName();
+    }
+
+    private bool ValidateFullName()
+    {
+        return Fullname.Split(" ").Length >= 2;
     }
 
     public async Task InitMigrationServices()

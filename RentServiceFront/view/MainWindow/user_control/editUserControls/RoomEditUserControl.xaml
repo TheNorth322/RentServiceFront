@@ -39,14 +39,14 @@
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     TextWrapping="Wrap"
                     Text="{Binding Price}" />
-                
+
                 <TextBox
                     Margin="0 10 0 0"
                     materialDesign:HintAssist.Hint="{StaticResource FineText}"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     TextWrapping="Wrap"
                     Text="{Binding Fine}" />
-                
+
                 <StackPanel Margin="0 10 0 0">
                     <TextBlock FontWeight="Bold" Text="{StaticResource DescriptionText}" />
                     <TextBox
@@ -206,8 +206,47 @@
                             ToolTip="{StaticResource DeleteText}"
                             Command="{Binding DeleteCommand}" />
                 </StackPanel>
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    Margin="0 10 0 0"
+                    HeadersVisibility="All"
+                    ItemsSource="{Binding AgreementRooms}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Binding="{Binding Address}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="{StaticResource AddressFieldHint}" />
+
+                        <DataGridTextColumn
+                            Binding="{Binding PurposeOfRent}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="{StaticResource PurposeOfRentLabel}" />
+
+                        <DataGridTextColumn
+                            Binding="{Binding RentAmount}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="{StaticResource RentAmountLabel}" />
+
+                        <DataGridTextColumn
+                            Binding="{Binding StartOfRent}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="{StaticResource StartOfRentLabel}" />
+
+                        <DataGridTextColumn
+                            Binding="{Binding EndOfRent}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="{StaticResource EndOfRentLabel}" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
         </ScrollViewer>
+
         <materialDesign:DialogHost IsOpen="{Binding IsDialogOpen}" CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
                 <StackPanel Margin="40">

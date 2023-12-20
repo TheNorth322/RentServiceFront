@@ -105,7 +105,7 @@ public class RoomListViewModel : ViewModelBase
     public async Task InitializeRooms()
     {
         _roomListItemViewModels.Clear();
-        List<Room> rooms = await _roomUseCase.GetRooms();
+        List<Room> rooms = await _roomUseCase.GetAvailableRooms();
         foreach (Room room in rooms)
         {
             RoomListItemViewModel roomListItemViewModel = new RoomListItemViewModel(room.Id, room.Building.Address.Value, room.Description, room.Floor, room.Number, room.Price, room.Area, _roomUseCase, _secureDataStorage, GetRoomTypesByRoom(room));

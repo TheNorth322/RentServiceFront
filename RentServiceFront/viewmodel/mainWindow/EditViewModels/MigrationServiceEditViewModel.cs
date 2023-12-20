@@ -34,12 +34,17 @@ public class MigrationServiceEditViewModel : ViewModelBase
         _addresses = new ObservableCollection<AddressViewModel>();
         DeleteCommand = new RelayCommand<object>(DeleteExecute);
         AddressSearchCommand = new RelayCommand<KeyEventArgs>(AddressSearchExecute);
-        AddCommand = new RelayCommand<object>(AddExecute);
+        AddCommand = new RelayCommand<object>(AddExecute, AddCanExecute);
 
         _id = 0;
         _name = "Unknown";
         _migrationServiceUseCase = migrationServiceUseCase;
         _searchUseCase = searchUseCase;
+    }
+
+    private bool AddCanExecute(object arg)
+    {
+        return !String.IsNullOrEmpty(Name) && !String.IsNullOrEmpty(Address) && _selectedAddress != null;
     }
 
     public MigrationServiceEditViewModel(long id, string name, string address, List<AddressPart> addressParts,

@@ -19,6 +19,5 @@ public partial class PassportUserControl : UserControl
 
     private async void PassportUserControl_OnLoaded(object sender, RoutedEventArgs e)
     {
-        await (DataContext as PassportViewModel).InitializePassportInformation();
     }
 }

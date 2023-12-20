@@ -75,7 +75,9 @@ public class LogInViewModel : ViewModelBase
 
     private bool LogInCanExecute(object parameter)
     {
-        return true;
+        
+      return !String.IsNullOrEmpty(Username) && !String.IsNullOrEmpty(Password);
+
     }
     
     public Action OnLoginSuccess { get; set; }  

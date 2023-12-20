@@ -37,11 +37,16 @@ public class RoomViewModel : ViewModelBase
         _id = id;
         _secureDataStorage = secureDataStorage;
         _roomUseCase = roomUseCase;
-        _startOfRent = System.DateTime.Now;
-        _endOfRent = System.DateTime.Now;
+        StartOfRent = System.DateTime.Now;
+        EndOfRent = System.DateTime.Now;
         _types = new ObservableCollection<RoomTypeViewModel>();
         _images = new ObservableCollection<RoomImageViewModel>();
-        AddToCartCommand = new RelayCommand<object>(AddToCartExecute);
+        AddToCartCommand = new RelayCommand<object>(AddToCartExecute, AddToCartCanExecute);
+    }
+
+    private bool AddToCartCanExecute(object arg)
+    {
+        return (_startOfRent < _endOfRent) && !String.IsNullOrEmpty(_purposeOfRent);
     }
 
     public string Address

@@ -54,8 +54,17 @@ public class PassportViewModel : ViewModelBase
         _secureDataStorage = secureDataStorage;
     }
 
+    public async Task InitializeMigrationServices()
+    {
+        _migrationServices.Clear();
+        List<MigrationService> migrationServices = await _searchUseCase.searchForMigrationServices();
+        foreach (MigrationService service in migrationServices)
+            _migrationServices.Add(new MigrationServiceViewModel(service.Id, service.Name));
+    }
+
     public async Task InitializePassportInformation()
     {
+        if (_id == 0) return;
         Passport passport = await _passportUseCase.getPassportById(_id);
         FullName =
             $"{passport.FirstName} {passport.LastName} {((!String.IsNullOrEmpty(passport.Surname)) ? passport.Surname : "")}";
@@ -213,7 +222,7 @@ public class PassportViewModel : ViewModelBase
         if (_id == 0)
         {
             string[] fullNameParts = FullName.Split(" ");
-            string? surname = fullNameParts[2] ?? null;
+            string? surname = fullNameParts.Length == 2 ? null : fullNameParts[2];
             string[] numberSericeParts = NumberSeries.Split(" ");
 
             await _passportUseCase.addPassport(new AddPassportRequest(
@@ -252,7 +261,7 @@ public class PassportViewModel : ViewModelBase
                     _gender
                 )
             );
-            
+
             _id = passport.Id;
         }
     }
@@ -267,7 +276,7 @@ public class PassportViewModel : ViewModelBase
         {
             await _passportUseCase.deletePassport(_secureDataStorage.Username, _id);
         }
-
+         
         DeleteEvent?.Invoke(this, this);
     }
 }

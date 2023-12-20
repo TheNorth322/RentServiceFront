@@ -35,13 +35,18 @@ public class BuildingEditViewModel : ViewModelBase
         _addresses = new ObservableCollection<AddressViewModel>();
         DeleteCommand = new RelayCommand<object>(DeleteExecute);
         AddressSearchCommand = new RelayCommand<KeyEventArgs>(AddressSearchExecute);
-        AddCommand = new RelayCommand<object>(AddExecute);
+        AddCommand = new RelayCommand<object>(AddExecute, AddCanExecute);
         _rooms = new ObservableCollection<BuildingRoomListItemViewModel>();
         
         _id = 0;
         _name = "Unknown";
         _buildingUseCase = buildingUseCase;
         _searchUseCase = searchUseCase;
+    }
+
+    private bool AddCanExecute(object arg)
+    {
+        return !String.IsNullOrEmpty(Name) && _floorCount != 0 && !String.IsNullOrEmpty(Telephone) && SelectedAddress != null;
     }
 
     public BuildingEditViewModel(long id, string name, int floorCount, string telephone, string address, List<AddressPart> addressParts,

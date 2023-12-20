@@ -9,6 +9,8 @@ public interface IBankRepository
 {
     Task<List<Bank>> getBanks();
 
+    Task<List<EntityUser>> getAllEntityUserInBank(long id);
+
     Task<Bank> createBank(CreateBankRequest request);
 
     Task<string> updateBank(UpdateBankRequest request);

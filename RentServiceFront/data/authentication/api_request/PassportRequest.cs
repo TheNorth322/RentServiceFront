@@ -26,7 +26,7 @@ public class PassportRequest : IPassportRepository
         return await _api.getPassportById(id);
     }
 
-    public async Task<IndividualUser> addPassport(AddPassportRequest request)
+    public async Task<Passport> addPassport(AddPassportRequest request)
     {
         return await _api.addPassport(request);
     }

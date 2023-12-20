@@ -101,24 +101,31 @@
     <system:String x:Key="StartOfRentLabel">Начало аренды: </system:String>
     <system:String x:Key="EndOfRentLabel">Окончание аренды: </system:String>
     <system:String x:Key="RentAmountLabel">Сумма аренды: </system:String>
-    
-    <system:String x:Key="MigrationServiceLabel">Миграционные сервиcы</system:String> 
-    <system:String x:Key="GoBackToLogin">Авторизоваться</system:String> 
-    <system:String x:Key="AddText">Добавить</system:String> 
-    <system:String x:Key="DeleteText">Удалить</system:String> 
-    <system:String x:Key="FloorCountFieldHint">Количество этажей</system:String> 
+
+    <system:String x:Key="MigrationServiceLabel">Миграционные сервиcы</system:String>
+    <system:String x:Key="GoBackToLogin">Авторизоваться</system:String>
+    <system:String x:Key="AddText">Добавить</system:String>
+    <system:String x:Key="DeleteText">Удалить</system:String>
+    <system:String x:Key="FloorCountFieldHint">Количество этажей</system:String>
     <system:String x:Key="TelephoneFieldHint">Телефон</system:String>
-   
+
     <system:String x:Key="RoomNumberHintText">Номер помещения</system:String>
     <system:String x:Key="FloorFieldHint">Этаж</system:String>
-    
+
     <system:String x:Key="ImageUrlText">URL картинки</system:String>
     <system:String x:Key="IsTelephoneFieldHint">Есть телефон?</system:String>
     <system:String x:Key="RoomImagesText">Изображения</system:String>
     <system:String x:Key="RoomFloorHintText">Этаж</system:String>
-    
+
     <system:String x:Key="FineText">Штраф</system:String>
     <system:String x:Key="CreateAgreementText">Заключить договор</system:String>
-    
+
     <system:String x:Key="GeneratePDFText">Получить PDF</system:String>
+    <system:String x:Key="Reference">Данное приложени предназначено для аренды помещений. Пользователь может добавить помещение в корзину и в ней оформить договор аренды. В меню аккаунта можно найти добавленные паспорта, договоры. Договор можно выгрузить в PDF.</system:String>
+    <system:String x:Key="FindAvailableRoomText">Данная кнопка предоставит доступные для аренды помещения</system:String>
+    <system:String x:Key="FindAvailableRoomsInBuildingText">Данная кнопка предоставит доступные для аренды помещения в конкретном здании</system:String>
+    <system:String x:Key="FindRentalRooms">Данная кнопка предоставит доступные для арендованных хотя бы раз помещений</system:String>
+    <system:String x:Key="BuildingText">Здание</system:String>
+
+
 </ResourceDictionary>

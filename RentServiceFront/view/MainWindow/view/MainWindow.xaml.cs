@@ -51,8 +51,8 @@ public partial class MainWindow : Window
         sampleItems.Add(new SampleItem("Cart", PackIconKind.Cart, PackIconKind.Cart,
             new CartViewModel(new AgreementUseCase(new AgreementRequest(_secureDataStorage)), _secureDataStorage,
                 new UserUseCase(new UserRequest(_secureDataStorage)))));
-        sampleItems.Add(new SampleItem("Settings", PackIconKind.Cog, PackIconKind.Cog,
-            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
+        sampleItems.Add(new SampleItem("Reference", PackIconKind.BookOpenBlankVariant, PackIconKind.BookOpenBlankVariant,
+            new ReferenceViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage, new BuildingUseCase(new BuildingRequest(_secureDataStorage)))));
 
         return sampleItems;
     }
@@ -116,8 +116,8 @@ public partial class MainWindow : Window
             new AccountViewModel(_secureDataStorage, InitializeAccountSampleItems())));
         sampleItems.Add(new SampleItem("Edit", PackIconKind.DatabaseEdit, PackIconKind.DatabaseEdit,
             new DatabaseEditViewModel(_secureDataStorage, editSampleItems)));
-        sampleItems.Add(new SampleItem("Settings", PackIconKind.Cog, PackIconKind.Cog,
-            new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
+        sampleItems.Add(new SampleItem("Reference", PackIconKind.BookOpenBlankVariant, PackIconKind.BookOpenBlankVariant,
+            new ReferenceViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage, new BuildingUseCase(new BuildingRequest(_secureDataStorage)))));
 
         return sampleItems;
     }

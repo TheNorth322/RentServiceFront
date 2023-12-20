@@ -41,9 +41,9 @@ public class AuthenticationUseCase
         return await _authenticationRepository.GetRefreshToken(token);
     }
 
-    public async Task<string> ForgotPassword(string email)
+    public async Task<string> ForgotPassword(string email, string password)
     {
-        return await _authenticationRepository.ForgotPassword(email);
+        return await _authenticationRepository.ForgotPassword(email, password);
     }
 
     public async Task<string> ValidatePasswordToken(string token)

@@ -20,5 +20,6 @@ public partial class RoomEditUserControl : UserControl
     private void RoomEditUserControl_OnLoaded(object sender, RoutedEventArgs e)
     {
         ((DataContext as RoomEditViewModel)!).InitializeTypes();
+        ((DataContext as RoomEditViewModel)!).InitializeAgreementRooms();
     }
 }

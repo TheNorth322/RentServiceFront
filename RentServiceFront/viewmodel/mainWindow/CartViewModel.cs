@@ -31,8 +31,13 @@ public class CartViewModel : ViewModelBase
         _userRoomViewModels = new ObservableCollection<UserRoomViewModel>();
         _secureDataStorage = secureDataStorage;
         _userUseCase = userUseCase;
-        CreateAgreementCommand = new RelayCommand<object>(CreateAgreementExecute);
+        CreateAgreementCommand = new RelayCommand<object>(CreateAgreementExecute, CreateAgreementCanExecute);
         _agreementUseCase = agreementUseCase;
+    }
+
+    private bool CreateAgreementCanExecute(object arg)
+    {
+        return !(_userRoomViewModels.Count == 0) && !String.IsNullOrEmpty(_additionalConditions);
     }
 
     public ObservableCollection<UserRoomViewModel> UserRoomViewModels

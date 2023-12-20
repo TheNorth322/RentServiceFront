@@ -33,6 +33,7 @@ public class RoomEditViewModel : ViewModelBase
     private ObservableCollection<RoomImageViewModel> _roomImages;
     private ObservableCollection<RoomTypeViewModel> _roomTypes;
     private ObservableCollection<RoomTypeViewModel> _thisRoomTypes;
+    private ObservableCollection<AgreementRoomViewModel> _agreementRooms;
 
     private AddressViewModel _selectedAddress;
     private RoomTypeViewModel _selectedRoomType;
@@ -43,12 +44,13 @@ public class RoomEditViewModel : ViewModelBase
     public RoomEditViewModel(RoomUseCase roomUseCase, SearchUseCase searchUseCase)
     {
         DeleteCommand = new RelayCommand<object>(DeleteExecute);
-        AddCommand = new RelayCommand<object>(AddExecute);
+        AddCommand = new RelayCommand<object>(AddExecute, AddCanExecute);
         AddTypeCommand = new RelayCommand<object>(AddTypeExecute);
         AddImageCommand = new RelayCommand<object>(AddImageExecute);
         AddressSearchCommand = new RelayCommand<object>(AddressSearchExecute);
         AddBuildingCommand = new RelayCommand<object>(AddBuildingExecute);
 
+        _agreementRooms = new ObservableCollection<AgreementRoomViewModel>();
         _roomImages = new ObservableCollection<RoomImageViewModel>();
         _thisRoomTypes = new ObservableCollection<RoomTypeViewModel>();
         _roomTypes = new ObservableCollection<RoomTypeViewModel>();
@@ -57,6 +59,12 @@ public class RoomEditViewModel : ViewModelBase
         _id = 0;
         _roomUseCase = roomUseCase;
         _searchUseCase = searchUseCase;
+    }
+
+    private bool AddCanExecute(object arg)
+    {
+        if (_building == null) return false;
+        return _number != 0 && Floor != 0 && Area != 0 && Price != 0 && Fine != 0 && !String.IsNullOrEmpty(Description) && RoomTypes.Count != 0;
     }
 
     public RoomEditViewModel(long id, BuildingViewModel buildingViewModel, bool telephone, double area, int number,
@@ -104,6 +112,16 @@ public class RoomEditViewModel : ViewModelBase
         {
             _thisRoomTypes = value;
             OnPropertyChange(nameof(ThisRoomTypes));
+        }
+    }
+
+    public ObservableCollection<AgreementRoomViewModel> AgreementRooms
+    {
+        get => _agreementRooms;
+        set
+        {
+            _agreementRooms = value;
+            OnPropertyChange(nameof(AgreementRooms));
         }
     }
 
@@ -299,6 +317,19 @@ public class RoomEditViewModel : ViewModelBase
         {
             RoomTypeViewModel vm = new RoomTypeViewModel(roomType.Id, roomType.Text);
             _roomTypes.Add(vm);
+        }
+    }
+
+    public async void InitializeAgreementRooms()
+    {
+        if (_id == 0) return;
+        _agreementRooms.Clear();
+        List<AgreementRoom> agreementRooms = await _roomUseCase.GetAgreementRoomsByRoomId(_id);
+        foreach (AgreementRoom agreementRoom in agreementRooms)
+        {
+            _agreementRooms.Add(new AgreementRoomViewModel(agreementRoom.Id, agreementRoom.Room.Building.Address.Value,
+                agreementRoom.PurposeOfRent, agreementRoom.StartOfRent, agreementRoom.EndOfRent,
+                agreementRoom.RentAmount));
         }
     }
 

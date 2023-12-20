@@ -20,12 +20,17 @@ public class RoomTypeEditViewModel : ViewModelBase
     public RoomTypeEditViewModel(RoomUseCase roomUseCase, SearchUseCase searchUseCase)
     {
         DeleteCommand = new RelayCommand<object>(DeleteExecute);
-        AddCommand = new RelayCommand<object>(AddExecute);
+        AddCommand = new RelayCommand<object>(AddExecute, AddCanExecute);
 
         _id = 0;
         _name = "Unknown";
         _roomUseCase = roomUseCase;
         _searchUseCase = searchUseCase;
+    }
+
+    private bool AddCanExecute(object arg)
+    {
+        return !String.IsNullOrEmpty(Name);
     }
 
     public RoomTypeEditViewModel(long id, string name, RoomUseCase roomUseCase, SearchUseCase searchUseCase) :

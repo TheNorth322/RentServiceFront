@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -30,6 +31,7 @@ public class EntityRegistrationViewModel : ViewModelBase
     private SearchUseCase _searchUseCase;
     private readonly SecureDataStorage _secureDataStorage;
     private readonly BankUseCase _bankUseCase;
+
     public ObservableCollection<AddressViewModel> Addresses
     {
         get => _addresses;
@@ -58,7 +60,8 @@ public class EntityRegistrationViewModel : ViewModelBase
             _banks = value;
             OnPropertyChange(nameof(Banks));
         }
-    } 
+    }
+
     public AddressViewModel SelectedAddress
     {
         get => _selectedAddress;
@@ -68,24 +71,38 @@ public class EntityRegistrationViewModel : ViewModelBase
             OnPropertyChange(nameof(SelectedAddress));
         }
     }
+
     public ICommand GoBackCommand { get; }
 
-    public EntityRegistrationViewModel(RegistrationViewModel vm, AuthenticationUseCase authenticationUseCase, SecureDataStorage secureDataStorage)
+    public EntityRegistrationViewModel(RegistrationViewModel vm, AuthenticationUseCase authenticationUseCase,
+        SecureDataStorage secureDataStorage)
     {
         GoBackCommand = new RelayCommand<object>(GoBackExecute);
         AddressSearchCommand = new RelayCommand<KeyEventArgs>(AddressSearchExecute);
-        RegisterCommand = new RelayCommand<object>(RegisterExecute);
-        
+        RegisterCommand = new RelayCommand<object>(RegisterExecute, RegisterCanExecute);
+
         _banks = new ObservableCollection<BankViewModel>();
         _addresses = new ObservableCollection<AddressViewModel>();
-        
+
         _authenticationUseCase = authenticationUseCase;
         _secureDataStorage = secureDataStorage;
         _searchUseCase = new SearchUseCase(new SearchRequest(_secureDataStorage));
         _bankUseCase = new BankUseCase(new BankRequest(_secureDataStorage));
         _registrationViewModel = vm;
     }
-    
+
+    private bool RegisterCanExecute(object arg)
+    {
+        return !String.IsNullOrEmpty(Name) && !String.IsNullOrEmpty(SupervisorFullname) &&
+               !String.IsNullOrEmpty(ItnNumber) && !String.IsNullOrEmpty(CheckingAccount) && SelectedBank != null &&
+               SelectedAddress != null && ValidateFullName();
+    }
+
+    private bool ValidateFullName()
+    {
+        return SupervisorFullname.Split(" ").Length >= 2;
+    }
+
     public string Name
     {
         get => _name;
@@ -200,9 +217,10 @@ public class EntityRegistrationViewModel : ViewModelBase
         string surname = (fullname.Length == 2) ? null : fullname[2];
 
         await _authenticationUseCase.RegisterEntityUser(new RegisterEntityRequest(registerRequest, Name, firstName,
-            lastName, surname, Address, SelectedBank.Id, CheckingAccount, ItnNumber));
+            lastName, surname, SelectedAddress.Name, SelectedAddress.AddressParts, SelectedBank.Id, CheckingAccount, ItnNumber));
+        RaiseViewModelRequested(_registrationViewModel._previousVm); 
     }
-    
+
     public async Task InitializeBanks()
     {
         Banks.Clear();

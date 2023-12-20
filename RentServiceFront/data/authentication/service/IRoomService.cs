@@ -10,19 +10,33 @@ namespace RentServiceFront.data.service;
 [Headers("Authorization: Bearer")]
 public interface IRoomService
 {
-    [Get("/room/all")] 
+    [Get("/room/all")]
     Task<List<Room>> GetRooms();
-    [Get("/room/agreement")] 
+
+    [Get("/room/available")]
+    Task<List<Room>> GetAvailableRooms();
+
+    [Get("/room/available/in/building")]
+    Task<List<Room>> GetAvailableRoomsInBuilding(long id);
+
+    [Get("/room/rentals/in/building")]
+    Task<List<Room>> GetRoomInBuildingWithRentals();
+
+    [Get("/room/agreement")]
     Task<List<AgreementRoom>> GetAgreementRoomsByAgreementId(long id);
+
+    [Get("/room/agreementRooms")]
+    Task<List<AgreementRoom>> GetAgreementRoomsByRoomId(long id);
+
     [Post("/room/addToCart")]
-    Task<string> addRoomToCart([Body] AddRoomToCartRequest request); 
-    
+    Task<string> addRoomToCart([Body] AddRoomToCartRequest request);
+
     [Post("/room/create")]
     Task<Room> createRoom([Body] CreateRoomRequest request);
-    
+
     [Put("/room/update")]
     Task<string> updateRoom([Body] UpdateRoomRequest request);
-    
+
     [Delete("/room/delete")]
     Task<string> deleteRoom([Query] long id);
 

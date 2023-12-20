@@ -15,6 +15,10 @@ public class BankUseCase
         _bankRepository = bankRepository;
     }
 
+    public async Task<List<EntityUser>> getAllEntityUserInBank(long id)
+    {
+        return await _bankRepository.getAllEntityUserInBank(id);
+    }
     public async Task<List<Bank>> getBanks()
     {
         return await _bankRepository.getBanks();

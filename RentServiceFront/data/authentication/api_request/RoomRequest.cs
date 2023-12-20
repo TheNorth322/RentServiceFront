@@ -27,9 +27,29 @@ public class RoomRequest : IRoomRepository
         return await _api.GetRooms();
     }
 
+    public async Task<List<Room>> GetAvailableRooms()
+    {
+        return await _api.GetAvailableRooms();
+    }
+
     public async Task<List<AgreementRoom>> GetAgreementRoomsByAgreementId(long id)
     {
         return await _api.GetAgreementRoomsByAgreementId(id);
+    }
+
+    public async Task<List<AgreementRoom>> GetAgreementRoomsByRoomId(long id)
+    {
+        return await _api.GetAgreementRoomsByRoomId(id);
+    }
+
+    public async Task<List<Room>> GetAvailableRoomsInBuilding(long id)
+    {
+        return await _api.GetAvailableRoomsInBuilding(id);
+    }
+
+    public async Task<List<Room>> GetRoomInBuildingWithRentals()
+    {
+        return await _api.GetRoomInBuildingWithRentals();
     }
 
     public async Task<string> AddRoomToCart(AddRoomToCartRequest request)

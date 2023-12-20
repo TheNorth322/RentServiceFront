@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="RentServiceFront.view.MainWindow.user_control.ReferenceUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RentServiceFront.view.MainWindow.user_control"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mainWindow="clr-namespace:RentServiceFront.viewmodel.mainWindow"
+             d:DataContext="{d:DesignInstance Type=mainWindow:ReferenceViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="ReferenceUserControl_OnLoaded">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="9*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" TextWrapping="Wrap"
+                   Text="{StaticResource Reference}" />
+
+        <StackPanel Grid.Row="1" Margin="5">
+            <TextBlock TextWrapping="Wrap" Text="{StaticResource FindAvailableRoomText}" />
+            <Button
+                Margin="0 10 0 0"
+                HorizontalAlignment="Center"
+                Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                ToolTip="{StaticResource SearchText}"
+                Command="{Binding GetAvailableRoomsCommand}">
+                <materialDesign:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="Magnify" />
+            </Button>
+            <ItemsControl ItemsSource="{Binding AvailableRooms}" Margin=" 10 0 10 0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="9*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="10">
+                                <TextBlock Text="{Binding Address}" FontWeight="Bold" />
+                                <TextBlock Text="{Binding Number, StringFormat='Number: {0}'}" />
+                                <TextBlock Text="{Binding Floor, StringFormat='Floor: {0}'}" />
+                                <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
+            <TextBlock TextWrapping="Wrap" Text="{StaticResource FindAvailableRoomsInBuildingText}" />
+            <ComboBox
+                Margin="0 10 0 0"
+                materialDesign:HintAssist.Hint="{StaticResource BuildingText}"
+                ItemsSource="{Binding Buildings}"
+                SelectedItem="{Binding SelectedBuildingViewModel}"
+                Style="{StaticResource MaterialDesignComboBox}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding  Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button
+                Margin="0 10 0 0"
+                HorizontalAlignment="Center"
+                Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                ToolTip="{StaticResource SearchText}"
+                Command="{Binding GetAvailableRoomsInBuildingCommand}">
+                <materialDesign:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="Magnify" />
+            </Button>
+
+
+            <ItemsControl ItemsSource="{Binding AvailableRoomsInBuilding}" Margin=" 10 0 10 0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="9*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="10">
+                                <TextBlock Text="{Binding Address}" FontWeight="Bold" />
+                                <TextBlock Text="{Binding Number, StringFormat='Number: {0}'}" />
+                                <TextBlock Text="{Binding Floor, StringFormat='Floor: {0}'}" />
+                                <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="2" Margin="5">
+            <TextBlock TextWrapping="Wrap" Text="{StaticResource FindRentalRooms}" />
+            <Button
+                Margin="0 10 0 0"
+                HorizontalAlignment="Center"
+                Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                ToolTip="{StaticResource SearchText}"
+                Command="{Binding GetOccupiedRoomsCommand}">
+                <materialDesign:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="Magnify" />
+            </Button>
+            <ItemsControl ItemsSource="{Binding RentalRoomsInBuildings}" Margin=" 10 0 10 0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="9*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="10">
+                                <TextBlock Text="{Binding Address}" FontWeight="Bold" />
+                                <TextBlock Text="{Binding Number, StringFormat='Number: {0}'}" />
+                                <TextBlock Text="{Binding Floor, StringFormat='Floor: {0}'}" />
+                                <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</UserControl>
