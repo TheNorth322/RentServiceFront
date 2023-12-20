@@ -44,14 +44,14 @@ public partial class MainWindow : Window
     {
         List<SampleItem> sampleItems = new List<SampleItem>();
 
-        sampleItems.Add(new SampleItem("Home", PackIconKind.Home, PackIconKind.Home,
+        sampleItems.Add(new SampleItem("Главная", PackIconKind.Home, PackIconKind.Home,
             new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
-        sampleItems.Add(new SampleItem("Account", PackIconKind.Account, PackIconKind.Account,
+        sampleItems.Add(new SampleItem("Аккаунт", PackIconKind.Account, PackIconKind.Account,
             new AccountViewModel(_secureDataStorage, InitializeAccountSampleItems())));
-        sampleItems.Add(new SampleItem("Cart", PackIconKind.Cart, PackIconKind.Cart,
+        sampleItems.Add(new SampleItem("Корзина", PackIconKind.Cart, PackIconKind.Cart,
             new CartViewModel(new AgreementUseCase(new AgreementRequest(_secureDataStorage)), _secureDataStorage,
                 new UserUseCase(new UserRequest(_secureDataStorage)))));
-        sampleItems.Add(new SampleItem("Reference", PackIconKind.BookOpenBlankVariant, PackIconKind.BookOpenBlankVariant,
+        sampleItems.Add(new SampleItem("Справка", PackIconKind.BookOpenBlankVariant, PackIconKind.BookOpenBlankVariant,
             new ReferenceViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage, new BuildingUseCase(new BuildingRequest(_secureDataStorage)))));
 
         return sampleItems;
@@ -60,15 +60,15 @@ public partial class MainWindow : Window
     private List<SampleItem> InitializeEditSampleItems()
     {
         List<SampleItem> editSampelItems = new List<SampleItem>();
-        editSampelItems.Add(new SampleItem("Banks", PackIconKind.Bank, PackIconKind.Bank,
+        editSampelItems.Add(new SampleItem("Банки", PackIconKind.Bank, PackIconKind.Bank,
             new BanksMenuViewModel(_secureDataStorage)));
-        editSampelItems.Add(new SampleItem("Migration Services", PackIconKind.Passport, PackIconKind.Passport,
+        editSampelItems.Add(new SampleItem("Миграционные отделы", PackIconKind.Passport, PackIconKind.Passport,
             new MigrationServicesMenuViewModel(_secureDataStorage)));
-        editSampelItems.Add(new SampleItem("Room types", PackIconKind.StoreCog, PackIconKind.StoreCog,
+        editSampelItems.Add(new SampleItem("Типы комнат", PackIconKind.StoreCog, PackIconKind.StoreCog,
             new RoomTypesMenuViewModel(_secureDataStorage)));
-        editSampelItems.Add(new SampleItem("Buildings", PackIconKind.OfficeBuilding, PackIconKind.OfficeBuilding,
+        editSampelItems.Add(new SampleItem("Здания", PackIconKind.OfficeBuilding, PackIconKind.OfficeBuilding,
             new BuildingsMenuViewModel(_secureDataStorage)));
-        editSampelItems.Add(new SampleItem("Rooms", PackIconKind.Warehouse, PackIconKind.Warehouse,
+        editSampelItems.Add(new SampleItem("Помещения", PackIconKind.Warehouse, PackIconKind.Warehouse,
             new RoomsMenuViewModel(_secureDataStorage)));
         return editSampelItems;
     }
@@ -78,27 +78,27 @@ public partial class MainWindow : Window
         List<SampleItem> accountSampelItems = new List<SampleItem>();
         if (_secureDataStorage.Role == Role.ENTITY)
         {
-            accountSampelItems.Add(new SampleItem("Info", PackIconKind.Info, PackIconKind.Info,
+            accountSampelItems.Add(new SampleItem("Информация", PackIconKind.Info, PackIconKind.Info,
                 new EntityViewModel(new UserUseCase(new UserRequest(_secureDataStorage)), _secureDataStorage)));
-            accountSampelItems.Add(new SampleItem("Agreements", PackIconKind.Note, PackIconKind.Note,
+            accountSampelItems.Add(new SampleItem("Договоры", PackIconKind.Note, PackIconKind.Note,
                 new AgreementMenuViewModel(new UserUseCase(new UserRequest(_secureDataStorage)),
                     new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
         }
         else if (_secureDataStorage.Role == Role.INDIVIDUAL)
         {
-            accountSampelItems.Add(new SampleItem("Info", PackIconKind.Info, PackIconKind.Info,
+            accountSampelItems.Add(new SampleItem("Информация", PackIconKind.Info, PackIconKind.Info,
                 new UserViewModel(new UserUseCase(new UserRequest(_secureDataStorage)), _secureDataStorage)));
-            accountSampelItems.Add(new SampleItem("Passports", PackIconKind.Passport, PackIconKind.Passport,
+            accountSampelItems.Add(new SampleItem("Паспорта", PackIconKind.Passport, PackIconKind.Passport,
                 new PassportMenuViewModel(new UserUseCase(new UserRequest(_secureDataStorage)),
                     new SearchUseCase(new SearchRequest(_secureDataStorage)),
                     new PassportUseCase(new PassportRequest(_secureDataStorage)), _secureDataStorage)));
-            accountSampelItems.Add(new SampleItem("Agreements", PackIconKind.Note, PackIconKind.Note,
+            accountSampelItems.Add(new SampleItem("Договоры", PackIconKind.Note, PackIconKind.Note,
                 new AgreementMenuViewModel(new UserUseCase(new UserRequest(_secureDataStorage)),
                     new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
         }
         else if (_secureDataStorage.Role == Role.ADMIN)
         {
-            accountSampelItems.Add(new SampleItem("Info", PackIconKind.Info, PackIconKind.Info,
+            accountSampelItems.Add(new SampleItem("Информация", PackIconKind.Info, PackIconKind.Info,
                 new UserViewModel(new UserUseCase(new UserRequest(_secureDataStorage)), _secureDataStorage)));
         }
 
@@ -110,13 +110,13 @@ public partial class MainWindow : Window
         List<SampleItem> sampleItems = new List<SampleItem>();
         List<SampleItem> editSampleItems = InitializeEditSampleItems();
 
-        sampleItems.Add(new SampleItem("Home", PackIconKind.Home, PackIconKind.Home,
+        sampleItems.Add(new SampleItem("Главная", PackIconKind.Home, PackIconKind.Home,
             new RoomListViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage)));
-        sampleItems.Add(new SampleItem("Account", PackIconKind.Account, PackIconKind.Account,
+        sampleItems.Add(new SampleItem("Аккаунт", PackIconKind.Account, PackIconKind.Account,
             new AccountViewModel(_secureDataStorage, InitializeAccountSampleItems())));
-        sampleItems.Add(new SampleItem("Edit", PackIconKind.DatabaseEdit, PackIconKind.DatabaseEdit,
+        sampleItems.Add(new SampleItem("Редактирование", PackIconKind.DatabaseEdit, PackIconKind.DatabaseEdit,
             new DatabaseEditViewModel(_secureDataStorage, editSampleItems)));
-        sampleItems.Add(new SampleItem("Reference", PackIconKind.BookOpenBlankVariant, PackIconKind.BookOpenBlankVariant,
+        sampleItems.Add(new SampleItem("Справка", PackIconKind.BookOpenBlankVariant, PackIconKind.BookOpenBlankVariant,
             new ReferenceViewModel(new RoomUseCase(new RoomRequest(_secureDataStorage)), _secureDataStorage, new BuildingUseCase(new BuildingRequest(_secureDataStorage)))));
 
         return sampleItems;

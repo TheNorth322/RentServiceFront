@@ -74,7 +74,7 @@ public class BanksMenuViewModel : ViewModelBase
         vm.DeleteEvent -= OnDeleteEvent;
         if (Banks.Remove(vm))
         {
-            DialogText = "Migration service deleted successfully";
+            DialogText = "Банк был успешно удален";
             ShowDialogCommand.Execute(null);
         }
     }

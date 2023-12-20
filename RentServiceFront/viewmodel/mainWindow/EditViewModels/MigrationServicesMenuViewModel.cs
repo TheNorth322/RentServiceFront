@@ -79,7 +79,7 @@ public class MigrationServicesMenuViewModel : ViewModelBase
         vm.DeleteEvent -= OnDeleteEvent;
         if (MigrationServices.Remove(vm))
         {
-            DialogText = "Migration service deleted successfully";
+            DialogText = "Миграционный отдел был успешно удален";
             ShowDialogCommand.Execute(null);
         }
     }

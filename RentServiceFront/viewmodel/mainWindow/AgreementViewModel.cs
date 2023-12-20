@@ -124,12 +124,12 @@ public class AgreementViewModel : ViewModelBase
                 var filePath = saveFileDialog.FileName;
                 DialogText = await _agreementUseCase.generateAgreementPdf(_id, filePath);
             }
-
+            
             ShowDialogCommand.Execute(null);
         }
         catch (Exception e)
         {
-            DialogText = "Something went wrong";
+            DialogText = "Не удалось сформировать документ.";
             ShowDialogCommand.Execute(null); 
         }
     }

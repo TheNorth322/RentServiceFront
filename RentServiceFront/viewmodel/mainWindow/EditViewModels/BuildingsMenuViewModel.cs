@@ -77,7 +77,7 @@ public class BuildingsMenuViewModel : ViewModelBase
         vm.DeleteEvent -= OnDeleteEvent;
         if (Buildings.Remove(vm))
         {
-            DialogText = "Migration service deleted successfully";
+            DialogText = "Здание было успешно удалено";
             ShowDialogCommand.Execute(null);
         }
     }

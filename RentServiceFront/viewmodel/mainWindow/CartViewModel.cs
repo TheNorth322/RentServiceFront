@@ -112,12 +112,14 @@ public class CartViewModel : ViewModelBase
     {
         try
         {
-            DialogText = await _agreementUseCase.createAgreement(new CreateAgreementRequest(_secureDataStorage.Username,
+            await _agreementUseCase.createAgreement(new CreateAgreementRequest(_secureDataStorage.Username,
                 _paymentFrequency, _additionalConditions));
+            DialogText = "Договор был успешно оформлен";
+            _userRoomViewModels.Clear();
         }
         catch (Exception e)
         {
-            DialogText = "Something went wrong";
+            DialogText = "Не удалось оформить договор.";
         }
 
         ShowDialogCommand.Execute(null);

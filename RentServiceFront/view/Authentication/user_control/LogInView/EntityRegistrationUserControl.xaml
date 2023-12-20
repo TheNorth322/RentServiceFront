@@ -136,10 +136,15 @@
                             Content="{StaticResource AddEntityText}"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            ToolTip="{StaticResource AddEntityText}" 
-                            Command="{Binding RegisterCommand}"/>
+                            ToolTip="{StaticResource AddEntityText}"
+                            Command="{Binding RegisterCommand}" />
                 </DockPanel>
             </StackPanel>
         </Grid>
+        <materialDesign:DialogHost IsOpen="{Binding IsDialogOpen}" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <TextBlock Text="{Binding DialogText}" Margin="20" />
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </UserControl>

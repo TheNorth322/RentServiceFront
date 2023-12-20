@@ -210,15 +210,24 @@ public class EntityRegistrationViewModel : ViewModelBase
 
     private async void RegisterExecute(object parameter)
     {
-        RegisterRequest registerRequest = _registrationViewModel.CreateRegisterRequest();
-        string[] fullname = _supervisorFullname.Split(" ");
-        string firstName = fullname[0];
-        string lastName = fullname[1];
-        string surname = (fullname.Length == 2) ? null : fullname[2];
+        try
+        {
+            RegisterRequest registerRequest = _registrationViewModel.CreateRegisterRequest();
+            string[] fullname = _supervisorFullname.Split(" ");
+            string firstName = fullname[0];
+            string lastName = fullname[1];
+            string surname = (fullname.Length == 2) ? null : fullname[2];
 
-        await _authenticationUseCase.RegisterEntityUser(new RegisterEntityRequest(registerRequest, Name, firstName,
-            lastName, surname, SelectedAddress.Name, SelectedAddress.AddressParts, SelectedBank.Id, CheckingAccount, ItnNumber));
-        RaiseViewModelRequested(_registrationViewModel._previousVm); 
+            await _authenticationUseCase.RegisterEntityUser(new RegisterEntityRequest(registerRequest, Name, firstName,
+                lastName, surname, SelectedAddress.Name, SelectedAddress.AddressParts, SelectedBank.Id, CheckingAccount,
+                ItnNumber));
+            RaiseViewModelRequested(_registrationViewModel._previousVm);
+        }
+        catch (Exception e)
+        {
+            DialogText = "Не удалось зарегистрироваться. Обратитесь в поддержку.";
+            ShowDialogCommand.Execute(null);
+        }
     }
 
     public async Task InitializeBanks()

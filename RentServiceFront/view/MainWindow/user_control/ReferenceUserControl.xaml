@@ -46,9 +46,9 @@
 
                             <StackPanel Grid.Column="0" Margin="10">
                                 <TextBlock Text="{Binding Address}" FontWeight="Bold" />
-                                <TextBlock Text="{Binding Number, StringFormat='Number: {0}'}" />
-                                <TextBlock Text="{Binding Floor, StringFormat='Floor: {0}'}" />
-                                <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
+                                <TextBlock Text="{Binding Number, StringFormat='Номер: {0}'}" />
+                                <TextBlock Text="{Binding Floor, StringFormat='Этаж: {0}'}" />
+                                <TextBlock Text="{Binding Price, StringFormat='Цена: {0}'}" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
@@ -94,9 +94,9 @@
 
                             <StackPanel Grid.Column="0" Margin="10">
                                 <TextBlock Text="{Binding Address}" FontWeight="Bold" />
-                                <TextBlock Text="{Binding Number, StringFormat='Number: {0}'}" />
-                                <TextBlock Text="{Binding Floor, StringFormat='Floor: {0}'}" />
-                                <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
+                                <TextBlock Text="{Binding Number, StringFormat='Номер: {0}'}" />
+                                <TextBlock Text="{Binding Floor, StringFormat='Этаж: {0}'}" />
+                                <TextBlock Text="{Binding Price, StringFormat='Цена: {0}'}" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
@@ -128,9 +128,9 @@
 
                             <StackPanel Grid.Column="0" Margin="10">
                                 <TextBlock Text="{Binding Address}" FontWeight="Bold" />
-                                <TextBlock Text="{Binding Number, StringFormat='Number: {0}'}" />
-                                <TextBlock Text="{Binding Floor, StringFormat='Floor: {0}'}" />
-                                <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" />
+                                <TextBlock Text="{Binding Number, StringFormat='Номер: {0}'}" />
+                                <TextBlock Text="{Binding Floor, StringFormat='Этаж: {0}'}" />
+                                <TextBlock Text="{Binding Price, StringFormat='Цена: {0}'}" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

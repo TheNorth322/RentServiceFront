@@ -186,21 +186,22 @@ public class MigrationServiceEditViewModel : ViewModelBase
                 MigrationService migrationService = await _migrationServiceUseCase.createMigrationService(
                     new CreateMigrationServiceRequest(Name, SelectedAddress.Name, SelectedAddress.AddressParts));
                 _id = migrationService.Id;
-                DialogText = "Migration service created successfully";
+                DialogText = "Миграционный отдел был успешно добавлен";
             }
             else
             {
-                DialogText = await _migrationServiceUseCase.updateMigrationService(
+                await _migrationServiceUseCase.updateMigrationService(
                     new UpdateMigrationServiceRequest(_id, Name,
                         (SelectedAddress != null) ? SelectedAddress.Name : _address,
                         (SelectedAddress != null) ? SelectedAddress.AddressParts : _addressParts));
+                DialogText = "Миграционный отдел был успешно обновлен";
             }
 
             ShowDialogCommand.Execute(this);
         }
         catch (Exception e)
         {
-            DialogText = "Something went wrong";
+            DialogText = "Миграционный отдел не был добавлен";
             ShowDialogCommand.Execute(this);
         }
     }

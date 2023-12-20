@@ -73,7 +73,7 @@ public class RoomTypeEditViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            DialogText = "Something went wrong";
+            DialogText = "Не удалось добавить тип.";
             ShowDialogCommand.Execute(this);
         }
     }

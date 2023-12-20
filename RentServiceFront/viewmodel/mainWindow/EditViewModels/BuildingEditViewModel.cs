@@ -220,19 +220,20 @@ public class BuildingEditViewModel : ViewModelBase
             {
                 Building building = await _buildingUseCase.createBuilding(new CreateBuildingRequest(Name, SelectedAddress.Name, SelectedAddress.AddressParts, FloorCount, Telephone));
                 _id = building.Id;
-                DialogText = "Building was successfully created";
+                DialogText = "Здание было успешно добавлено";
             }
             else
             {
-                DialogText = await _buildingUseCase.updateBuilding(
+                await _buildingUseCase.updateBuilding(
                     new UpdateBuildingRequest(_id, Name, Address, _addressParts, FloorCount, Telephone));
+                DialogText = "Здание было успешно обновлено";
             }
 
             ShowDialogCommand.Execute(this);
         }
         catch (Exception e)
         {
-            DialogText = "Something went wrong";
+            DialogText = "Здание не было добавлено";
             ShowDialogCommand.Execute(this);
         }
     }

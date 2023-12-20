@@ -262,11 +262,11 @@ public class IndividualUserRegistrationViewModel : ViewModelBase
             await _authenticationUseCase.RegisterIndividualUser(
                 new RegisterIndividualRequest(registerRequest, addPassportRequest));
 
-            DialogText = "Registration completed";
+            DialogText = "Регистрация завершена";
         }
         catch (Exception e)
         {
-            DialogText = e.Message;
+            DialogText = "Не удалось зарегистрироваться. Обратитесь в поддержку.";
         }
 
         ShowDialogCommand.Execute(this);

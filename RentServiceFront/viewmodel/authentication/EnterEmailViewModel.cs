@@ -59,7 +59,7 @@ public class EnterEmailViewModel : ViewModelBase
       }
       catch (Exception e)
       {
-         DialogText = "Something went wrong";
+         DialogText = "Не удалось сбросить пароль. Обратитесь в службу поддержки.";
          ShowDialogCommand.Execute(null);
       }
    }

@@ -85,18 +85,19 @@ public class BankEditViewModel : ViewModelBase
             {
                 Bank bank = await _bankUseCase.createBank(new CreateBankRequest(Name));
                 _id = bank.Id;
-                DialogText = "Bank successfully created";
+                DialogText = "Банк успешно добавлен";
             }
             else
             {
-                DialogText = await _bankUseCase.updateBank(new UpdateBankRequest(_id, Name));
+                await _bankUseCase.updateBank(new UpdateBankRequest(_id, Name));
+                DialogText = "Банк был успешно обновлен";
             }
 
             ShowDialogCommand.Execute(this);
         }
         catch (Exception e)
         {
-            DialogText = "Something went wrong";
+            DialogText = "Банк не был добавлен";
             ShowDialogCommand.Execute(this);
         }
     }

@@ -68,7 +68,7 @@ public class LogInViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            DialogText = "Something went wrong"; 
+            DialogText = "Не удалось авторизоваться. Обратитесь в поддержку."; 
             OnShowDialog(this);   
         }
     }

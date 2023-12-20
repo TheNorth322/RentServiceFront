@@ -92,7 +92,7 @@ public class RoomsMenuViewModel : ViewModelBase
         vm.DeleteEvent -= OnDeleteEvent;
         if (_rooms.Remove(vm))
         {
-            DialogText = "Room was deleted successfully";
+            DialogText = "Комната была успешно удалена";
             ShowDialogCommand.Execute(null);
         }
     }

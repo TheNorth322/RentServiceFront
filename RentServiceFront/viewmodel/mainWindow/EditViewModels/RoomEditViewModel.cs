@@ -377,20 +377,21 @@ public class RoomEditViewModel : ViewModelBase
                     _floor, _price, _fine, _description, types, roomImages));
 
                 _id = room.Id;
-                DialogText = "Room was successfully created";
+                DialogText = "Помещение было успешно добавлено";
             }
             else
             {
-                DialogText = await _roomUseCase.UpdateRoom(
+                await _roomUseCase.UpdateRoom(
                     new UpdateRoomRequest(_id, _building.Id, _telephone, _area, _number,
                         _floor, _price, _fine, _description, types, roomImages));
+                DialogText = "Помещение было успешно обновлено";
             }
 
             ShowDialogCommand.Execute(this);
         }
         catch (Exception e)
         {
-            DialogText = "Something went wrong";
+            DialogText = "Помещение не было добавлено";
             ShowDialogCommand.Execute(this);
         }
     }
@@ -422,11 +423,11 @@ public class RoomEditViewModel : ViewModelBase
                 await _searchUseCase.getBuildingByAddress(new Address(SelectedAddress.Name,
                     SelectedAddress.AddressParts));
             _building = new BuildingViewModel(building.Id, building.Address.Value, building.Name);
-            DialogText = "Building was added successfully";
+            DialogText = "Здание успешно добавлена";
         }
         catch (Exception e)
         {
-            DialogText = "Something went wrong";
+            DialogText = "Здание не было добавлена";
         }
 
         ShowDialogCommand.Execute(null);

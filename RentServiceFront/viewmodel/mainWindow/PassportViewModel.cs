@@ -242,7 +242,7 @@ public class PassportViewModel : ViewModelBase
                     )
                 );
                 _id = passport.Id;
-                DialogText = "Passport was successfully created";
+                DialogText = "Паспорт был успешно добавлен.";
             }
             else
             {
@@ -266,12 +266,12 @@ public class PassportViewModel : ViewModelBase
                     )
                 );
 
-                DialogText = "Passport was successfully updated";
+                DialogText = "Паспорт был успешно обновлен.";
             }
             ShowDialogCommand.Execute(null);
         } catch (Exception e)
         {
-            DialogText = "Something went wrong";
+            DialogText = "Не удалось добавить паспорт. Обратитесь в поддержку.";
             ShowDialogCommand.Execute(null);
         }
     }
