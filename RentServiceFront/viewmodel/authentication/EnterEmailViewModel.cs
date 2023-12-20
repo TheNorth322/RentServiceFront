@@ -52,7 +52,15 @@ public class EnterEmailViewModel : ViewModelBase
    
    private async void ResetPasswordExecute(object parameter)
    {
-      await _authenticationUseCase.ForgotPassword(Email, _password);
-      RaiseViewModelRequested(_previousVm);     
+      try
+      {
+         await _authenticationUseCase.ForgotPassword(Email, _password);
+         RaiseViewModelRequested(_previousVm);
+      }
+      catch (Exception e)
+      {
+         DialogText = "Something went wrong";
+         ShowDialogCommand.Execute(null);
+      }
    }
 }
